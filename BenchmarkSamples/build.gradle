@@ -6,7 +6,7 @@ buildscript {
         google()
         jcenter()
         maven {
-            url '/usr/local/google/home/dustinlam/google/androidx-master-dev/out/host/gradle/frameworks/support/build/support_repo'
+            url './android-performance/temporary_repo'
         }
     }
     dependencies {
@@ -23,7 +23,7 @@ allprojects {
         google()
         jcenter()
         maven {
-            url '/usr/local/google/home/dustinlam/google/androidx-master-dev/out/host/gradle/frameworks/support/build/support_repo'
+            url './android-performance/temporary_repo'
         }
     }
 }
