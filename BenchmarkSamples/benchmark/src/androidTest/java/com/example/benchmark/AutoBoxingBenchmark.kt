@@ -31,7 +31,7 @@ class AutoBoxingBenchmark {
     val benchmarkRule = BenchmarkRule()
 
     @Test
-    fun integerArtCacheAllocBenchmark() {
+    fun integerArtCacheAlloc() {
         var i = Integer(1000)
         benchmarkRule.measure {
             if (i < 100) {
@@ -43,7 +43,7 @@ class AutoBoxingBenchmark {
     }
 
     @Test
-    fun integerAllocBenchmark() {
+    fun integerAlloc() {
         var i = Integer(1000)
         benchmarkRule.measure {
             if (i < 1100) {

@@ -16,11 +16,12 @@
 
 package com.example.benchmark
 
-import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.benchmark.BenchmarkRule
 import androidx.test.InstrumentationRegistry
 import androidx.test.filters.LargeTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,27 +38,29 @@ class BitmapBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    private val context: Context = InstrumentationRegistry.getTargetContext()
+    private val context = InstrumentationRegistry.getTargetContext()
+    private lateinit var bitmap: Bitmap
 
-    @Test
-    fun bitmapGetPixelBenchmark() {
+    @Before
+    fun setUp() {
         val inputStream = context.assets.open(JETPACK)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-        val pixels = IntArray(100) { it }
-        benchmarkRule.measure {
-            pixels.map { bitmap.getPixel(it, 0) }
-        }
+        bitmap = BitmapFactory.decodeStream(inputStream)
         inputStream.close()
     }
 
     @Test
+    fun bitmapGetPixelBenchmark() {
+        val pixels = IntArray(100) { it }
+        benchmarkRule.measure {
+            pixels.map { bitmap.getPixel(it, 0) }
+        }
+    }
+
+    @Test
     fun bitmapGetPixelsBenchmark() {
-        val inputStream = context.assets.open(JETPACK)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
         val pixels = IntArray(100) { it }
         benchmarkRule.measure {
             bitmap.getPixels(pixels, 0, 100, 0, 0, 100, 1)
         }
-        inputStream.close()
     }
 }
