@@ -1,1 +1,1 @@
-include ':benchmark'
+include ':library-benchmark'
