@@ -1,0 +1,46 @@
+apply plugin: 'com.android.test'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        testApplicationId "com.example.benchmark.app.test"
+        minSdkVersion 14
+        targetSdkVersion 28
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        missingDimensionStrategy 'defaultDimension', 'flavor1'
+    }
+    targetProjectPath ':app'
+
+
+    /**
+     * The below `buildTypes` and `variantFilter` declarations are needed to allow a com.android.test module
+     * to run against a non-debuggable buildType of the :app module.
+     *
+     * We have plans to simplify this in the future.
+     */
+    buildTypes {
+        benchmark {
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+    }
+    variantFilter { variant ->
+        if (variant.buildType.name.equals('debug')) {
+            variant.setIgnore(true);
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.benchmark:benchmark:1.0.0-alpha01-SNAPSHOT01"
+    implementation 'junit:junit:4.12'
+    implementation 'androidx.test:runner:1.1.1'
+}
