@@ -5,6 +5,7 @@
 .DS_Store
 build/
 /captures
+benchmark-repository
 
 # JNI Native build artifacts
 **/.externalNativeBuild
