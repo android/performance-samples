@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.example.benchmark.app"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        benchmark {
+            // Setting debuggable false in this benchmark buildtype enables benchmarks to run against an apk with
+            // debuggable=false. Benchmarks could use release instead, but the custom buildType allows us to disable
+            // minification and use debug signing.
+            debuggable false
+            // To enable minification / R8 optimizations in code being benchmarked, see the library-benchmark structure.
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+}

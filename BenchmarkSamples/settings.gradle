@@ -1,1 +1,1 @@
-include ':library-benchmark'
+include ':library-benchmark', ':app', ':app-benchmark'
