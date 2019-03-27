@@ -5,12 +5,10 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven {
-            url './android-performance/temporary_repo'
-        }
+        maven { url '../benchmark-repository' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0-alpha06'
+        classpath "com.android.tools.build:gradle:3.4.0-rc02"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.benchmark:benchmark-gradle-plugin:1.0.0-alpha01"
         // NOTE: Do not place your application dependencies here; they belong
@@ -22,9 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url './android-performance/temporary_repo'
-        }
+        maven { url '../../benchmark-repository' }
     }
 }
 
