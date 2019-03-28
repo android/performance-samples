@@ -5,13 +5,18 @@ Benchmark samples using the shiny new Jetpack Benchmark library.
 
 To run: `./gradlew benchmark:cC`
 
-## BenchmarkSample
+## [BenchmarkSample](BenchmarkSample)
 
-Sample showing how to use the Benchmark library to benchmark library modules.
+This sample shows how to use the Benchmark library to benchmark code and UI from
+library modules.
 
 ### Reporting Issues
 
-You can report an [Issue with a sample](https://github.com/googlesamples/android-performance/issues) using this repository. If you find an issue with the Benchmark library, report it using the [Android Benchmark Issue Tracker](https://issuetracker.google.com/issues/new?component=585351&template=1235073)
+You can report an [Issue with a
+sample](https://github.com/googlesamples/android-performance/issues) using this
+repository. If you find an issue with the Benchmark library, report it using the
+[Android Benchmark Issue
+Tracker](https://issuetracker.google.com/issues/new?component=585351&template=1235073)
 
 License
 -------
