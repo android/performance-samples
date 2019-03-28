@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'androidx.benchmark'
 
 android {
     compileSdkVersion 28
