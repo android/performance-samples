@@ -48,12 +48,12 @@ class RecyclerViewBenchmark {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-
     @Before
     fun setup() {
         activityRule.scenario.onActivity {
             // Initialize the Adapter with fake data.
             // (Submit null first so both are synchronous for simplicity)
+            // ItemViews will be inflated and ready by the next onActivity callback
             it.adapter.submitList(null)
             it.adapter.submitList(List(100000) { "List Item $it" })
         }
@@ -71,7 +71,9 @@ class RecyclerViewBenchmark {
     @Test
     fun simpleScroll() {
         activityRule.scenario.onActivity {
-            assertTrue("RecyclerView expected to have children", it.recyclerView.childCount > 0)
+            // If RecyclerView has children, the items are attached, bound, and gone through layout. Ready to benchmark.
+            assertTrue("RecyclerView expected to have children",
+                it.recyclerView.childCount > 0)
 
             benchmarkRule.measure {
                 // Scroll RecyclerView by one item

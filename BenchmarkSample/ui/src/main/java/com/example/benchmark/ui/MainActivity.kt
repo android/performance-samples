@@ -46,7 +46,6 @@ class SampleAdapter : ListAdapter<String, Holder>(StringDiffCallback) {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        System.out.println("binding viewholder $position");
         holder.bind(getItem(position))
     }
 }
