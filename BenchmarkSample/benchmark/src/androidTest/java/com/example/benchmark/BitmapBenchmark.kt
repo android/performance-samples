@@ -19,6 +19,7 @@ package com.example.benchmark
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.benchmark.BenchmarkRule
+import androidx.benchmark.measureRepeated
 import androidx.test.InstrumentationRegistry
 import androidx.test.filters.LargeTest
 import org.junit.Before
@@ -51,7 +52,7 @@ class BitmapBenchmark {
     @Test
     fun bitmapGetPixelBenchmark() {
         val pixels = IntArray(100) { it }
-        benchmarkRule.measure {
+        benchmarkRule.measureRepeated {
             pixels.map { bitmap.getPixel(it, 0) }
         }
     }
@@ -59,7 +60,7 @@ class BitmapBenchmark {
     @Test
     fun bitmapGetPixelsBenchmark() {
         val pixels = IntArray(100) { it }
-        benchmarkRule.measure {
+        benchmarkRule.measureRepeated {
             bitmap.getPixels(pixels, 0, 100, 0, 0, 100, 1)
         }
     }

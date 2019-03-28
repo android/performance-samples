@@ -17,6 +17,7 @@
 package com.example.benchmark
 
 import androidx.benchmark.BenchmarkRule
+import androidx.benchmark.measureRepeated
 import androidx.test.filters.LargeTest
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +34,7 @@ class AutoBoxingBenchmark {
     @Test
     fun integerArtCacheAlloc() {
         var i = Integer(1000)
-        benchmarkRule.measure {
+        benchmarkRule.measureRepeated {
             if (i < 100) {
                 i = Integer(i.toInt() + 1)
             } else {
@@ -45,7 +46,7 @@ class AutoBoxingBenchmark {
     @Test
     fun integerAlloc() {
         var i = Integer(1000)
-        benchmarkRule.measure {
+        benchmarkRule.measureRepeated {
             if (i < 1100) {
                 i = Integer(i.toInt() + 1)
             } else {

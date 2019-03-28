@@ -3,6 +3,7 @@ package com.example.benchmark
 import android.view.View
 import android.view.ViewGroup
 import androidx.benchmark.BenchmarkRule
+import androidx.benchmark.measureRepeated
 import androidx.lifecycle.Lifecycle
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -75,7 +76,7 @@ class RecyclerViewBenchmark {
             assertTrue("RecyclerView expected to have children",
                 it.recyclerView.childCount > 0)
 
-            benchmarkRule.measure {
+            benchmarkRule.measureRepeated {
                 // Scroll RecyclerView by one item
                 // this will synchronously execute: attach / detach(old item) / bind / layout
                 it.recyclerView.scrollBy(0, it.recyclerView.getLastChild().height)
