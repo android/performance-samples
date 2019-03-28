@@ -7,11 +7,7 @@ To run: `./gradlew benchmark:cC`
 
 ## BenchmarkSample
 
-Primary sample showing how to use the Benchmark library to benchmark library modules.
-
-## BenchmarkAppSample
-
-Work in progress sample, showing how to benchmark with a `com.android.test` module.
+Sample showing how to use the Benchmark library to benchmark library modules.
 
 ### Reporting Issues
 
