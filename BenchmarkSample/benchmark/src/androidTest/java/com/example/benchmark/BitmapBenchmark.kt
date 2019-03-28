@@ -19,8 +19,9 @@ package com.example.benchmark
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.benchmark.BenchmarkRule
-import androidx.test.InstrumentationRegistry
+import androidx.benchmark.measureRepeated
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -38,7 +39,7 @@ class BitmapBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    private val context = InstrumentationRegistry.getTargetContext()
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private lateinit var bitmap: Bitmap
 
     @Before
@@ -51,7 +52,7 @@ class BitmapBenchmark {
     @Test
     fun bitmapGetPixelBenchmark() {
         val pixels = IntArray(100) { it }
-        benchmarkRule.measure {
+        benchmarkRule.measureRepeated {
             pixels.map { bitmap.getPixel(it, 0) }
         }
     }
@@ -59,7 +60,7 @@ class BitmapBenchmark {
     @Test
     fun bitmapGetPixelsBenchmark() {
         val pixels = IntArray(100) { it }
-        benchmarkRule.measure {
+        benchmarkRule.measureRepeated {
             bitmap.getPixels(pixels, 0, 100, 0, 0, 100, 1)
         }
     }
