@@ -28,13 +28,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+private const val JETPACK = "images/jetpack.png"
+
 @LargeTest
 @RunWith(JUnit4::class)
 class BitmapBenchmark {
-
-    companion object {
-        const val JETPACK = "images/jetpack.png"
-    }
 
     @get:Rule
     val benchmarkRule = BenchmarkRule()
@@ -49,6 +47,10 @@ class BitmapBenchmark {
         inputStream.close()
     }
 
+    /**
+     * Measure the cost of many relatively cheaper JNI calls to fetch a row of pixels, one pixel at
+     * a time.
+     */
     @Test
     fun bitmapGetPixelBenchmark() {
         val pixels = IntArray(100) { it }
@@ -57,6 +59,9 @@ class BitmapBenchmark {
         }
     }
 
+    /**
+     * Measure the cost of a single expensive JNI call to fetch a row of 100 pixels.
+     */
     @Test
     fun bitmapGetPixelsBenchmark() {
         val pixels = IntArray(100) { it }

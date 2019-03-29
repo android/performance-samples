@@ -31,6 +31,9 @@ class AutoBoxingBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
+    /**
+     * Measure the cost of allocating a boxed integer that takes advantage of ART's cache.
+     */
     @Test
     fun integerArtCacheAlloc() {
         var i = Integer(1000)
@@ -43,6 +46,9 @@ class AutoBoxingBenchmark {
         }
     }
 
+    /**
+     * Measure the cost of allocating a boxed integer that falls outside the range of ART's cache.
+     */
     @Test
     fun integerAlloc() {
         var i = Integer(1000)
