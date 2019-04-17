@@ -7,6 +7,7 @@ import androidx.benchmark.measureRepeated
 import androidx.lifecycle.Lifecycle
 import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.example.benchmark.ui.MainActivity
 import org.junit.After
@@ -15,7 +16,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
 /**
  * RecyclerView benchmark - scrolls a RecyclerView, and measures the time taken to reveal each item
@@ -40,7 +40,7 @@ import org.junit.runners.JUnit4
  * - RenderThread and GPU Rendering work
  */
 @LargeTest
-@RunWith(JUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class RecyclerViewBenchmark {
 
     @get:Rule
@@ -73,8 +73,7 @@ class RecyclerViewBenchmark {
     fun simpleScroll() {
         activityRule.scenario.onActivity {
             // If RecyclerView has children, the items are attached, bound, and gone through layout. Ready to benchmark.
-            assertTrue("RecyclerView expected to have children",
-                it.recyclerView.childCount > 0)
+            assertTrue("RecyclerView expected to have children", it.recyclerView.childCount > 0)
 
             benchmarkRule.measureRepeated {
                 // Scroll RecyclerView by one item
