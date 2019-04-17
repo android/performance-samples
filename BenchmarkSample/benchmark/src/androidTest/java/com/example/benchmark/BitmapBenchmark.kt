@@ -20,18 +20,18 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.benchmark.BenchmarkRule
 import androidx.benchmark.measureRepeated
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
 private const val JETPACK = "images/jetpack.png"
 
 @LargeTest
-@RunWith(JUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class BitmapBenchmark {
 
     @get:Rule
