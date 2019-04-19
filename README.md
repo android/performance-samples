@@ -18,7 +18,7 @@ repository. If you find an issue with the Benchmark library, report it using the
 [Android Benchmark Issue
 Tracker](https://issuetracker.google.com/issues/new?component=585351&template=1235073)
 
-Additional Resources
+### Additional Resources
 -------
 [PagingWithNetworkSample](https://github.com/googlesamples/android-architecture-components/tree/master/PagingWithNetworkSample) - Example of benchmarking an androidx.paging backed RecyclerView
 
