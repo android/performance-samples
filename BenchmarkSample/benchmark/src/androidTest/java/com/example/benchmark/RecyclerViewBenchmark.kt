@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.benchmark.BenchmarkRule
 import androidx.benchmark.measureRepeated
 import androidx.lifecycle.Lifecycle
-import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -68,7 +67,6 @@ class RecyclerViewBenchmark {
     /**
      * Measure the cost of scrolling RecyclerView by one ViewHolder.
      */
-    @UiThreadTest
     @Test
     fun simpleScroll() {
         activityRule.scenario.onActivity {
