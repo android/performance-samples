@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply plugin: 'androidx.benchmark'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.benchmark.AndroidBenchmarkRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            version '3.10.2'
+            path "cpp/CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestImplementation "androidx.benchmark:benchmark:1.0.0-alpha01"
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+}

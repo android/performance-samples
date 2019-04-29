@@ -1,14 +1,21 @@
 Android Performance
 ===================================
 
-Benchmark samples using the shiny new Jetpack Benchmark library.
+Benchmark samples using the shiny new [Jetpack Benchmark library](d.android.com/benchmark).
 
-To run: `./gradlew benchmark:cC`
+To run either sample: `./gradlew benchmark:cC`
 
 ## [BenchmarkSample](BenchmarkSample)
 
 This sample shows how to use the Benchmark library to benchmark code and UI from
 library modules.
+
+## [BenchmarkNdkSample (Prototype!)](BenchmarkNdkSample)
+
+This prototype sample shows how to use the Benchmark library together with the
+NDK, and [google/benchmark](https://github.com/google/benchmark) to benchmark
+C++ code, while getting the Android-specific performance stability, and Studio
+integration from the Jetpack Benchmark library.
 
 ### Reporting Issues
 
