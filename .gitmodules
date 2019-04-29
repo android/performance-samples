@@ -1,0 +1,3 @@
+[submodule "BenchmarkNdkSample/benchmark/cpp/third_party/googlebenchmark"]
+	path = BenchmarkNdkSample/benchmark/cpp/third_party/googlebenchmark
+	url = https://github.com/google/benchmark.git
