@@ -52,17 +52,19 @@ public class GoogleBenchmarkRunner extends Runner {
         System.loadLibrary("ndkbenchmark");
         mDescription = Description.createSuiteDescription(testClass);
         // The nInitialize native method will populate the description based on
-        // GTest test data.
+        // google benchmark reported benchmarks.
         nInitialize(testClass.getName(), mDescription);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            // Force-grant WRITE_EXTERNAL_STORAGE, used by the Jetpack Benchmark library.
+        if (Build.VERSION.SDK_INT >= 23) {
+            // Force-grant READ/WRITE_EXTERNAL_STORAGE, used by the Jetpack Benchmark library.
             // The library stores benchmark results in external storage, and these results are
             // copied by the gradle plugin to `benchmark/build/benchmark_reports/...`
             // (Since we can't use a typical GrantPermissionRule with this custom Runner)
+            String grantPrefix = "pm grant " + ApplicationProvider.getApplicationContext().getPackageName() + " ";
             InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand(
-                    "pm grant " + ApplicationProvider.getApplicationContext().getPackageName()
-                            + " " + Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    grantPrefix + Manifest.permission.READ_EXTERNAL_STORAGE);
+            InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand(
+                    grantPrefix + Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
 
