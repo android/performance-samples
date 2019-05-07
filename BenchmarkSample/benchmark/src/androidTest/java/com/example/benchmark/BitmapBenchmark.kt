@@ -16,13 +16,14 @@
 
 package com.example.benchmark
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.benchmark.BenchmarkRule
 import androidx.benchmark.measureRepeated
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +38,7 @@ class BitmapBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val context = ApplicationProvider.getApplicationContext<Context>()
     private lateinit var bitmap: Bitmap
 
     @Before

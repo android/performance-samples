@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.benchmark.BenchmarkRule
 import androidx.benchmark.measureRepeated
 import androidx.lifecycle.Lifecycle
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.example.benchmark.ui.MainActivity
@@ -45,12 +45,12 @@ class RecyclerViewBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    private lateinit var activityScenario: ActivityScenario<MainActivity>
 
     @Before
     fun setup() {
-        activityRule.scenario.onActivity {
+        activityScenario = ActivityScenario.launch(MainActivity::class.java)
+        activityScenario.onActivity {
             // Initialize the Adapter with fake data.
             // (Submit null first so both are synchronous for simplicity)
             // ItemViews will be inflated and ready by the next onActivity callback
@@ -61,7 +61,7 @@ class RecyclerViewBenchmark {
 
     @After
     fun teardown() {
-        activityRule.scenario.moveToState(Lifecycle.State.DESTROYED)
+        activityScenario.moveToState(Lifecycle.State.DESTROYED)
     }
 
     /**
@@ -69,7 +69,7 @@ class RecyclerViewBenchmark {
      */
     @Test
     fun simpleScroll() {
-        activityRule.scenario.onActivity {
+        activityScenario.onActivity {
             // If RecyclerView has children, the items are attached, bound, and gone through layout. Ready to benchmark.
             assertTrue("RecyclerView expected to have children", it.recyclerView.childCount > 0)
 
