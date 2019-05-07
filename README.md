@@ -3,6 +3,8 @@ Android Performance
 
 Benchmark samples using the shiny new [Jetpack Benchmark library](d.android.com/benchmark).
 
+Don't forget to checkout submodules: `git submodule update --init --recursive`
+
 To run either sample: `./gradlew benchmark:cC`
 
 ## [BenchmarkSample](BenchmarkSample)
