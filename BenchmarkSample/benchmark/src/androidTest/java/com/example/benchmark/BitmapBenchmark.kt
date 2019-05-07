@@ -38,7 +38,7 @@ class BitmapBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    private val context = ApplicationProvider.getApplicationContext<Context>().applicationContext
+    private val context = ApplicationProvider.getApplicationContext<Context>()
     private lateinit var bitmap: Bitmap
 
     @Before
