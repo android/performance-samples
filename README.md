@@ -1,7 +1,7 @@
 Android Performance
 ===================================
 
-Benchmark samples using the shiny new [Jetpack Benchmark library](d.android.com/benchmark).
+Benchmark samples using the shiny new [Jetpack Benchmark library](https://d.android.com/benchmark).
 
 ### Important Notes
 
