@@ -28,7 +28,7 @@ dependencies {
 
     androidTestImplementation project(":ui")
     androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation "androidx.benchmark:benchmark:1.0.0-alpha01"
+    androidTestImplementation "androidx.benchmark:benchmark:1.0.0-alpha02"
 
     androidTestImplementation 'junit:junit:4.12'
 
