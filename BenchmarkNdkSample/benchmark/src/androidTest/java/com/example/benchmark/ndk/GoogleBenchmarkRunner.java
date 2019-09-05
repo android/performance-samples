@@ -86,8 +86,10 @@ public class GoogleBenchmarkRunner extends Runner {
         BenchmarkState.reportData(
                 "",
                 benchmarkName,
+                /* totalRunTimeNs */ nanos,
                 Collections.singletonList(nanos),
                 /* warmupIterations */0,
+                /* thermalThrottleSleepSeconds */ 0,
                 /* repeatIterations */1);
     }
 
