@@ -10,7 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.benchmark.AndroidBenchmarkRunner"
+        testInstrumentationRunner "androidx.benchmark.junit4.AndroidBenchmarkRunner"
     }
 
     buildTypes {
@@ -32,9 +32,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    androidTestImplementation "androidx.benchmark:benchmark:1.0.0-alpha02"
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:1.0.0-alpha05"
     androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 }
