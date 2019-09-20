@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright 2017 Google Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:src="@drawable/singapore"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/header"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/dummy"
+        app:layout_constraintLeft_toLeftOf="@+id/container"
+        app:layout_constraintTop_toTopOf="@+id/container"
+        app:layout_constraintRight_toRightOf="@+id/container"
+        app:layout_constraintBottom_toBottomOf="@+id/favorite"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:src="@drawable/ic_star"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/favorite"
+        android:background="@drawable/info_background"
+        android:padding="5dp"
+        android:contentDescription="@string/dummy"
+        app:layout_constraintTop_toTopOf="@+id/container"
+        app:layout_constraintRight_toRightOf="@+id/container"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/container"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:text="@string/singapore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="@+id/container"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/camera_value"
+        android:ems="10"
+        android:id="@+id/cameraType"
+        app:layout_constraintLeft_toLeftOf="@+id/settings"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="@+id/settings" />
+
+    <TextView
+        android:text="@string/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cameraLabel"
+        android:labelFor="@+id/cameraType"
+        app:layout_constraintLeft_toLeftOf="@+id/container"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cameraType" />
+
+    <TextView
+        android:text="@string/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingsLabel"
+        android:labelFor="@+id/settings"
+        app:layout_constraintLeft_toLeftOf="@+id/container"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/settings" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/camera_settings"
+        android:ems="10"
+        android:id="@+id/settings"
+        app:layout_constraintLeft_toRightOf="@+id/settingsLabel"
+        android:layout_marginStart="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/cameraType"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="@+id/description" />
+
+    <Button
+        android:text="@string/upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload"
+        app:layout_constraintRight_toRightOf="@+id/container"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/container"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:text="@string/discard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/discard"
+        android:elevation="0dp"
+        app:layout_constraintRight_toLeftOf="@+id/upload"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/upload" />
+
+    <TextView
+        android:text="@string/singapore_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/description"
+        android:fadingEdge="vertical"
+        android:ellipsize="end"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@+id/container"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/settings"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toRightOf="@+id/container"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/discard"
+        android:layout_marginBottom="8dp" />
+</android.support.constraint.ConstraintLayout>
