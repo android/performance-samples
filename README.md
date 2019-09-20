@@ -22,6 +22,11 @@ NDK, and [google/benchmark](https://github.com/google/benchmark) to benchmark
 C++ code, while getting the Android-specific performance stability, and Studio
 integration from the Jetpack Benchmark library.
 
+## [ConstraintLayout performance comparison](ConstraintLayoutPerformance)
+
+This sample compares how different ViewGroups
+(ConstraintLayout vs traditional layouts) affect the UI performance.
+
 ### Reporting Issues
 
 You can report an [Issue with a
