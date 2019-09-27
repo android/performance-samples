@@ -12,5 +12,5 @@ benchmark-repository
 **/.cxx
 
 # Ignores output from the ConstraintLayout performance comparison sample.
-**/example_trace_testRunCalculationTraditionalLayouts.html
-**/example_trace_testRunCalculationConstraintLayout.html
+**/*RunCalculationTraditionalLayouts.html
+**/*RunCalculationConstraintLayout.html
