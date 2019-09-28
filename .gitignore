@@ -10,3 +10,7 @@ benchmark-repository
 # JNI Native build artifacts
 **/.externalNativeBuild
 **/.cxx
+
+# Ignores output from the ConstraintLayout performance comparison sample.
+**/*RunCalculationTraditionalLayouts.html
+**/*RunCalculationConstraintLayout.html
