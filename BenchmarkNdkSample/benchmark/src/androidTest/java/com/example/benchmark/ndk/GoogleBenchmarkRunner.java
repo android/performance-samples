@@ -18,6 +18,7 @@ package com.example.benchmark.ndk;
 import android.Manifest;
 import android.os.Build;
 
+import androidx.annotation.experimental.UseExperimental;
 import androidx.benchmark.BenchmarkState;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -79,6 +80,7 @@ public class GoogleBenchmarkRunner extends Runner {
     }
 
     @SuppressWarnings("unused") // called by native
+    @UseExperimental(markerClass = BenchmarkState.Companion.ExperimentalExternalReport.class)
     public static void reportRun(String benchmarkName, long nanos) {
         // Report the observed measurement to Jetpack Benchmark.
         // Note that because google/benchmark doesn't report how much warmup, or how many iterations
