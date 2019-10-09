@@ -32,7 +32,7 @@ dependencies {
 
     androidTestImplementation project(":ui")
     androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation "androidx.benchmark:benchmark-junit4:1.0.0-alpha05"
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:1.0.0-beta01"
 
     androidTestImplementation 'junit:junit:4.12'
 
