@@ -3,20 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'androidx.benchmark'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.benchmark.junit4.AndroidBenchmarkRunner"
+        targetSdkVersion 29
     }
 
     buildTypes {
         debug {
-            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
         }
@@ -32,7 +27,7 @@ dependencies {
 
     androidTestImplementation project(":ui")
     androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation "androidx.benchmark:benchmark-junit4:1.0.0-beta01"
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmark_version"
 
     androidTestImplementation 'junit:junit:4.12'
 
