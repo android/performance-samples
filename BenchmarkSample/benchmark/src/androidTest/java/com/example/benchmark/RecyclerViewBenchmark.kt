@@ -4,12 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
-import androidx.lifecycle.Lifecycle
-import androidx.test.core.app.ActivityScenario
+import androidx.test.annotation.UiThreadTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.rule.ActivityTestRule
 import com.example.benchmark.ui.MainActivity
-import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -19,16 +18,19 @@ import org.junit.runner.RunWith
 /**
  * RecyclerView benchmark - scrolls a RecyclerView, and measures the time taken to reveal each item
  *
- * You can use this general approach to benchmark the performance of RecyclerView. Some things to be aware of:
+ * You can use this general approach to benchmark the performance of RecyclerView. Some things to be
+ * aware of:
  *
- * - Benchmark one ItemView type at a time. If you have for example section headers, or other types of item variation,
- *      it's recommended to use fake adapter data with just a single type of item at a time.
- * - If you want to benchmark TextView performance, use randomized text. Reusing words between items (such as in this
- *      simple test) will artificially perform better due to unrealistic caching.
- * - You won't see the effects of RecyclerView prefetching, or Async text layout with this simple approach. We'll be
- *      adding more complex RecyclerView examples as time goes on.
+ * - Benchmark one ItemView type at a time. If you have for example section headers, or other types
+ *      of item variation, it's recommended to use fake adapter data with just a single type of item
+ *      at a time.
+ * - If you want to benchmark TextView performance, use randomized text. Reusing words between items
+ *      (such as in this simple test) will artificially perform better than real world usage, due to
+ *      unrealistic layout cache hit rates.
+ * - You won't see the effects of RecyclerView prefetching, or Async text layout with this simple
+ *      approach. We'll add more complex RecyclerView examples as time goes on.
  *
- * Note that this benchmark measures the sum of multiple potentially expensive stages of displaying an item:
+ * This benchmark measures the sum of multiple potentially expensive stages of displaying an item:
  * - Attaching an ItemView to RecyclerView
  * - Detaching an ItemView (scrolling out of viewport) from RecyclerView
  * - onBindViewHolder
@@ -45,39 +47,32 @@ class RecyclerViewBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    private lateinit var activityScenario: ActivityScenario<MainActivity>
+    @get:Rule
+    val activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Before
     fun setup() {
-        activityScenario = ActivityScenario.launch(MainActivity::class.java)
-        activityScenario.onActivity {
+        activityRule.runOnUiThread {
             // Initialize the Adapter with fake data.
             // (Submit null first so both are synchronous for simplicity)
             // ItemViews will be inflated and ready by the next onActivity callback
-            it.adapter.submitList(null)
-            it.adapter.submitList(List(100000) { "List Item $it" })
+            activityRule.activity.adapter.submitList(null)
+            activityRule.activity.adapter.submitList(List(100000) { "List Item $it" })
         }
     }
 
-    @After
-    fun teardown() {
-        activityScenario.moveToState(Lifecycle.State.DESTROYED)
-    }
-
-    /**
-     * Measure the cost of scrolling RecyclerView by one ViewHolder.
-     */
+    @UiThreadTest
     @Test
     fun simpleScroll() {
-        activityScenario.onActivity {
-            // If RecyclerView has children, the items are attached, bound, and gone through layout. Ready to benchmark.
-            assertTrue("RecyclerView expected to have children", it.recyclerView.childCount > 0)
+        val recyclerView = activityRule.activity.recyclerView
+        assertTrue("RecyclerView expected to have children", recyclerView.childCount > 0)
 
-            benchmarkRule.measureRepeated {
-                // Scroll RecyclerView by one item
-                // this will synchronously execute: attach / detach(old item) / bind / layout
-                it.recyclerView.scrollBy(0, it.recyclerView.getLastChild().height)
-            }
+        // RecyclerView has children, itsitems are attached, bound, and have gone through layout.
+        // Ready to benchmark.
+        benchmarkRule.measureRepeated {
+            // Scroll RecyclerView by one item
+            // this will synchronously execute: attach / detach(old item) / bind / layout
+            recyclerView.scrollBy(0, recyclerView.getLastChild().height)
         }
     }
 }
