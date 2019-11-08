@@ -2,6 +2,8 @@ package com.example.benchmark
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.FrameLayout.LayoutParams.MATCH_PARENT
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.annotation.UiThreadTest
@@ -9,6 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.example.benchmark.ui.MainActivity
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -43,6 +46,12 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class RecyclerViewBenchmark {
+    class LazyComputedList<T>(
+        override val size: Int = Int.MAX_VALUE,
+        private inline val compute: (Int) -> T
+    ) : AbstractList<T>() {
+        override fun get(index: Int): T = compute(index)
+    }
 
     @get:Rule
     val benchmarkRule = BenchmarkRule()
@@ -53,22 +62,38 @@ class RecyclerViewBenchmark {
     @Before
     fun setup() {
         activityRule.runOnUiThread {
+            val activity = activityRule.activity
+
+            // Set the RecyclerView to have a height of 1 pixel.
+            // This ensures that only one item can be displayed at once.
+            activity.recyclerView.layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, 1)
+
             // Initialize the Adapter with fake data.
             // (Submit null first so both are synchronous for simplicity)
-            // ItemViews will be inflated and ready by the next onActivity callback
-            activityRule.activity.adapter.submitList(null)
-            activityRule.activity.adapter.submitList(List(100000) { "List Item $it" })
+            // 1st ViewHolder will be inflated and displayed by the next onActivity callback
+            activity.adapter.submitList(null)
+            activity.adapter.submitList(LazyComputedList { buildRandomParagraph() })
+        }
+    }
+
+    @Test
+    fun buildParagraph() {
+        benchmarkRule.measureRepeated {
+            // measure cost of generating paragraph - this is overhead in the primary scroll()
+            // benchmark, but is a very small fraction of the amount of work there.
+            buildRandomParagraph()
         }
     }
 
     @UiThreadTest
     @Test
-    fun simpleScroll() {
+    fun scroll() {
         val recyclerView = activityRule.activity.recyclerView
         assertTrue("RecyclerView expected to have children", recyclerView.childCount > 0)
+        assertEquals("RecyclerView must have height = 1", 1, recyclerView.height)
 
-        // RecyclerView has children, itsitems are attached, bound, and have gone through layout.
-        // Ready to benchmark.
+        // RecyclerView has children, its items are attached, bound, and have gone through layout.
+        // Ready to benchmark!
         benchmarkRule.measureRepeated {
             // Scroll RecyclerView by one item
             // this will synchronously execute: attach / detach(old item) / bind / layout
