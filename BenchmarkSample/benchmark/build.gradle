@@ -10,10 +10,14 @@ android {
         targetSdkVersion 29
     }
 
+    testBuildType = "release"
+
     buildTypes {
-        debug {
+        release {
+            isDefault = true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
