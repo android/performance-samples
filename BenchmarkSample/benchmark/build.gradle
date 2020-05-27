@@ -9,13 +9,12 @@ android {
         minSdkVersion 14
         targetSdkVersion 29
 
-        // Change this to enable profiling, can be one of:
+        // Set this argument to capture profiling information, instead of measuring performance.
+        // Can be one of:
         //   * None
         //   * Sampled
         //   * Method
-        //   * ConnectedSampled
-        //   * ConnectedAllocation
-        // See available options and full descriptions at: d.android.com/benchmark#profiling
+        // See full descriptions of available options at: d.android.com/benchmark#profiling
         testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
     }
 

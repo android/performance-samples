@@ -9,16 +9,6 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
-        // Change this to enable profiling, can be one of:
-        //   * None
-        //   * Sampled
-        //   * Method
-        //   * ConnectedSampled
-        //   * ConnectedAllocation
-        // See available options and full descriptions at: d.android.com/benchmark#profiling
-        testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
-
     }
 
     testBuildType = "release"
