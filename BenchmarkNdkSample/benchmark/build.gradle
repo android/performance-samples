@@ -2,22 +2,23 @@ apply plugin: 'com.android.library'
 apply plugin: 'androidx.benchmark'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.benchmark.junit4.AndroidBenchmarkRunner"
     }
 
+    testBuildType = "release"
+
     buildTypes {
-        debug {
-            debuggable false
+        release {
+            isDefault = true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 

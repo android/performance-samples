@@ -8,6 +8,14 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
+
+        // Set this argument to capture profiling information, instead of measuring performance.
+        // Can be one of:
+        //   * None
+        //   * Sampled
+        //   * Method
+        // See full descriptions of available options at: d.android.com/benchmark#profiling
+        testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
     }
 
     testBuildType = "release"
