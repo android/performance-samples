@@ -12,7 +12,7 @@ ConstraintLayout and using traditional layouts (RelativeLayout and LinearLayout)
 both of them result in the same appearance but how the UI components are built is 
 different.
 
-![LayoutCodelab-UI](/art/layout-codelab.png)
+![LayoutCodelab-UI](/ConstraintLayoutPerformance/art/layout-codelab.png)
 
 While running the measure/layout passes, the performance of UI is measured 
 by using [Systrace](https://developer.android.com/studio/profile/systrace-commandline.html) and 
@@ -44,7 +44,7 @@ Measurement result example
 ---------------
 Here is the example measurement result.
 
-![Comparison example](/art/constraint-performance-comparison-example.png)
+![Comparison example](/ConstraintLayoutPerformance/art/constraint-performance-comparison-example.png)
 unit: ms, Time taken in measure and layout phases average of 100 frames
 
 Measurement environment
