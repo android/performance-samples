@@ -33,6 +33,6 @@ dependencies {
 }
 
 // Define a Task Dependency for CI so when the macrobenchmark module is built, we build the app as well.
-tasks.getByPath(':macrobenchmark:assemble').dependsOn(tasks.getByPath(':app:assembleRelease'))
+tasks.getByPath(':macrobenchmark:assembleAndroidTest').dependsOn(tasks.getByPath(':app:assembleRelease'))
 // Define a task dependency so the app is installed before we run macro benchmarks.
 tasks.getByPath(':macrobenchmark:connectedCheck').dependsOn(tasks.getByPath(':app:installRelease'))
