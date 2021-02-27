@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Macrobenchmarktarget">
         <!--
-        Activities need to be exported so the Macro Benchmarks can discover them
+        Activities need to be exported so the Macrobenchmarks can discover them
         under the new package visibility changes for Android 11.
         -->
         <activity

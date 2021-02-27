@@ -1,0 +1,116 @@
+{
+  "context": {
+    "build": {
+      "brand": "google",
+      "device": "redfin",
+      "fingerprint": "google/redfin/redfin:S/SP1A.210202.002/7117294:userdebug/dev-keys",
+      "model": "Pixel 5",
+      "version": {
+        "sdk": 30
+      }
+    },
+    "cpuCoreCount": 8,
+    "cpuLocked": false,
+    "cpuMaxFreqHz": 2400000000,
+    "memTotalBytes": 7818850304,
+    "sustainedPerformanceModeEnabled": false
+  },
+  "benchmarks": [
+    {
+      "name": "start",
+      "params": {},
+      "className": "com.example.macrobenchmark.FrameTimingBenchmark",
+      "totalRunTimeNs": 320055806102,
+      "metrics": {
+        "frameTime50thPercentileMs": {
+          "minimum": 5,
+          "maximum": 5,
+          "median": 5,
+          "runs": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "frameTime90thPercentileMs": {
+          "minimum": 5,
+          "maximum": 5,
+          "median": 5,
+          "runs": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "frameTime95thPercentileMs": {
+          "minimum": 5,
+          "maximum": 6,
+          "median": 5,
+          "runs": [
+            6,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ]
+        },
+        "frameTime99thPercentileMs": {
+          "minimum": 7,
+          "maximum": 9,
+          "median": 8,
+          "runs": [
+            9,
+            9,
+            7,
+            7,
+            7,
+            8,
+            9,
+            8,
+            7,
+            7
+          ]
+        },
+        "totalFrameCount": {
+          "minimum": 566,
+          "maximum": 730,
+          "median": 596,
+          "runs": [
+            597,
+            567,
+            596,
+            597,
+            595,
+            593,
+            566,
+            599,
+            567,
+            730
+          ]
+        }
+      },
+      "warmupIterations": 0,
+      "repeatIterations": 10,
+      "thermalThrottleSleepSeconds": 0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "context": {
+    "build": {
+      "brand": "google",
+      "device": "redfin",
+      "fingerprint": "google/redfin/redfin:S/SP1A.210202.002/7117294:userdebug/dev-keys",
+      "model": "Pixel 5",
+      "version": {
+        "sdk": 30
+      }
+    },
+    "cpuCoreCount": 8,
+    "cpuLocked": false,
+    "cpuMaxFreqHz": 2400000000,
+    "memTotalBytes": 7818850304,
+    "sustainedPerformanceModeEnabled": false
+  },
+  "benchmarks": [
+    {
+      "name": "startup[mode=COLD]",
+      "params": {
+        "mode": "COLD"
+      },
+      "className": "com.example.macrobenchmark.TrivialStartupBenchmark",
+      "totalRunTimeNs": 27999341747,
+      "metrics": {
+        "startupMs": {
+          "minimum": 195,
+          "maximum": 210,
+          "median": 196,
+          "runs": [
+            210,
+            196,
+            195
+          ]
+        }
+      },
+      "warmupIterations": 0,
+      "repeatIterations": 3,
+      "thermalThrottleSleepSeconds": 0
+    }
+  ]
+}
