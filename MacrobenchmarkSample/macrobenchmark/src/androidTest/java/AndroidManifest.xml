@@ -17,12 +17,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.macrobenchmark.test">
-
-    <!--
-        Legacy external storage + storage permission used so CI can write outputs to e.g. /sdcard/.
-    -->
-    <application android:requestLegacyExternalStorage="true" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
