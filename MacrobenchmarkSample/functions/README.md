@@ -18,5 +18,5 @@ Example:
 
 ```
 PACKAGE_NAME="androidx.benchmark.macrobenchmarks.test"
-DEVICE_CONFIGURATIONS=["x1q-29-en-portrait"]
+DEVICE_CONFIGURATIONS=["x1q-29-en-portrait, flame-29-en-portrait"]
 ```

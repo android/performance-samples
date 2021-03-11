@@ -48,5 +48,5 @@ jobs:
             --device model=flame,version=29,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
-            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
+            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download \
             --timeout 30m
