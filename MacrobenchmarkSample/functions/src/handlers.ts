@@ -65,6 +65,7 @@ export const firebaseTestLabHttpsHandler = async (request: express.Request, resp
   const packageName = F.config()[PACKAGE_NAME];
   if (!packageName) {
     log('No package name specified. Look at `README.md` for more information.');
+    response.status(400).send('Need `packageName`.');
     return;
   }
 
