@@ -1,8 +1,6 @@
 name: Runs Macro Benchmarks on Firebase Test Lab
 
 on:
-  pull_request_target:
-    types: ['labeled']
   push:
     branches: [ macrobenchmark ]
   workflow_dispatch:
