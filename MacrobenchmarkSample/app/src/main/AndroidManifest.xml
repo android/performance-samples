@@ -50,6 +50,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BitmapActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.BITMAP_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <!-- enable profiling by macrobenchmark -->
         <!--suppress AndroidElementNotAllowed -->
         <profileable android:shell="true" />

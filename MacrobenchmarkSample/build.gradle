@@ -36,7 +36,7 @@ allprojects {
         jcenter()
         // snapshot repository for androidx - not necessary once alpha is public
         maven {
-            url uri('https://androidx.dev/snapshots/builds/7205390/artifacts/repository')
+            url uri('https://androidx.dev/snapshots/builds/7215907/artifacts/repository')
         }
     }
 }
