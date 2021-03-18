@@ -1,14 +1,14 @@
 import { MetricServiceClient } from "@google-cloud/monitoring";
 import { google } from "@google-cloud/monitoring/build/protos/protos";
 import { log } from "./logger";
-import { Benchmark, BenchmarkContext, Metrics } from "./schema";
+import { Benchmarks, Benchmark, BenchmarkContext, Metrics } from "./schema";
 
 /**
  * Uploads Metrics to Google Cloud Monitoring.
  */
 export const uploadMetrics = async (
   client: MetricServiceClient,
-  benchmark: Benchmark,
+  container: Benchmarks,
   timeInSeconds: number = Date.now() / 1000) => {
 
   const projectId = process.env.GCLOUD_PROJECT || process.env.GOOGLE_CLOUD_PROJECT;
@@ -16,34 +16,44 @@ export const uploadMetrics = async (
     throw Error('Unknown project id.');
   }
 
-  const metrics = benchmark.metrics;
-  type MetricTypes = keyof typeof metrics;
-  const knownMetricTypes: MetricTypes[] = [
-    'startupMs',
-    'frameTime50thPercentileMs',
-    'frameTime90thPercentileMs',
-    'frameTime95thPercentileMs',
-    'frameTime99thPercentileMs',
-    'totalFrameCount',
-  ];
-
+  const benchmarks = container.benchmarks;
   const timeSeries: google.monitoring.v3.ITimeSeries[] = [];
-  for (let i = 0; i < knownMetricTypes.length; i += 1) {
-    const metricType = knownMetricTypes[i];
-    const metric = metrics[metricType];
-    if (metric) {
-      timeSeries.push(
-        ...createTimeSeries(
-          projectId,
-          metricType,
-          benchmark,
-          metric,
-          timeInSeconds
-        )
-      );
+
+  if (benchmarks && benchmarks.length > 0) {
+    log('Total number of benchmarks ', benchmarks.length);
+    // Accumulate time series data
+    for (let i = 0; i < benchmarks.length; i += 1) {
+      const benchmark = benchmarks[i];
+      const metrics = benchmark.metrics;
+      type MetricTypes = keyof typeof metrics;
+      const knownMetricTypes: MetricTypes[] = [
+        'startupMs',
+        'frameTime50thPercentileMs',
+        'frameTime90thPercentileMs',
+        'frameTime95thPercentileMs',
+        'frameTime99thPercentileMs',
+        'totalFrameCount',
+      ];
+      for (let j = 0; j < knownMetricTypes.length; j += 1) {
+        const metricType = knownMetricTypes[j];
+        const metric = metrics[metricType];
+        if (metric) {
+          timeSeries.push(
+            ...createTimeSeries(
+              projectId,
+              metricType,
+              container.context,
+              benchmark,
+              metric,
+              timeInSeconds
+            )
+          );
+        }
+      }
     }
   }
 
+  // Upload Time Series
   log(`Total Time Series: ${timeSeries.length}`);
   const requests: google.monitoring.v3.ICreateTimeSeriesRequest[] = timeSeries.map(series => {
     return {
@@ -57,7 +67,7 @@ export const uploadMetrics = async (
   const uploads = requests.map(request => {
     return client.createTimeSeries(request)
       .catch(error => {
-        log(`Error creating metrics for ${request.name}`);
+        log(`Error creating metrics for ${request.name}`, error);
       });
   });
   return Promise.all(uploads);
@@ -66,6 +76,7 @@ export const uploadMetrics = async (
 const createTimeSeries = (
   projectId: string,
   metricName: string,
+  benchmarkContext: BenchmarkContext,
   benchmark: Benchmark,
   metrics: Metrics,
   timeInSeconds: number): google.monitoring.v3.ITimeSeries[] => {
@@ -81,11 +92,11 @@ const createTimeSeries = (
         labels: {
           name: benchmark.name,
           className: benchmark.className,
-          brand: benchmark.context.build.brand,
-          device: benchmark.context.build.device,
-          fingerprint: benchmark.context.build.fingerprint,
-          model: benchmark.context.build.model,
-          sdkVersion: `${benchmark.context.build.version.sdk}`
+          brand: benchmarkContext.build.brand,
+          device: benchmarkContext.build.device,
+          fingerprint: benchmarkContext.build.fingerprint,
+          model: benchmarkContext.build.model,
+          sdkVersion: `${benchmarkContext.build.version.sdk}`
         }
       },
       resource: {
