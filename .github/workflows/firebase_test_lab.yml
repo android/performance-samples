@@ -43,8 +43,8 @@ jobs:
             --type instrumentation \
             --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/release/app-release.apk \
             --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/androidTest/debug/macrobenchmark-debug-androidTest.apk \
-            --device model=flame,version=29,locale=en,orientation=portrait \
+            --device model=flame,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
-            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download \
+            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
             --timeout 30m
