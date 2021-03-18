@@ -29,10 +29,9 @@ export type Metrics = {
 };
 
 /**
- * The Macrobenchmark Result.
+ * The Benchmark.
  */
 export type Benchmark = {
-  'context': BenchmarkContext
   'name': string;
   'params': object;
   'className': string;
@@ -50,4 +49,12 @@ export type Benchmark = {
   'warmupIterations': number;
   'repeatIterations': number;
   'thermalThrottleSleepSeconds': number;
+};
+
+/**
+ * The Benchmarks result.
+ */
+ export type Benchmarks = {
+  'context': BenchmarkContext
+  'benchmarks': Array<Benchmark>
 };

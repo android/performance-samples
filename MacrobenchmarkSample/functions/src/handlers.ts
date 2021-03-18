@@ -1,20 +1,22 @@
 import { EventContext } from "firebase-functions";
-import * as F from "firebase-functions";
 import { TestMatrix } from "firebase-functions/lib/providers/testLab";
 import { Storage } from "@google-cloud/storage";
 import { log } from "./logger";
-import { Benchmark } from "./schema";
+import { Benchmarks } from "./schema";
 import { MetricServiceClient } from "@google-cloud/monitoring";
 import { uploadMetrics } from "./monitoring";
 import * as express from 'express';
 
+// The Namespace
+const BENCHMARK = "benchmark";
+
 // The key under which package name is saved.
 // This is an environment variable.
-const PACKAGE_NAME = 'PACKAGE_NAME';
+const PACKAGE_NAME = 'package_name';
 
 // The key under which well known device configurations are saved.
 // This is an environment variable.
-const DEVICE_CONFIGURATIONS = 'DEVICE_CONFIGURATIONS';
+const DEVICE_CONFIGURATIONS = 'device_configurations';
 
 
 export const firebaseTestLabHandler = async function (matrix: TestMatrix, context: EventContext) {
@@ -29,13 +31,13 @@ export const firebaseTestLabHandler = async function (matrix: TestMatrix, contex
       return;
     }
 
-    const packageName = F.config()[PACKAGE_NAME];
+    const packageName = environmentConfig(PACKAGE_NAME);
     if (!packageName) {
       log('No package name specified. Look at `README.md` for more information.');
       return;
     }
 
-    const deviceConfigurations = F.config()[DEVICE_CONFIGURATIONS];
+    const deviceConfigurations = environmentConfig(DEVICE_CONFIGURATIONS);
     if (!deviceConfigurations) {
       log('No device configurations specified. Look at `README.md` for more information.');
       return;
@@ -53,7 +55,7 @@ export const firebaseTestLabHandler = async function (matrix: TestMatrix, contex
 };
 
 export const firebaseTestLabHttpsHandler = async (request: express.Request, response: express.Response) => {
-  log(`Request payload ${request.body}`);
+  log(`Request payload ${JSON.stringify(request.body)}`);
 
   const gcsPath = request.body['gcsPath'];
   if (!gcsPath) {
@@ -62,14 +64,14 @@ export const firebaseTestLabHttpsHandler = async (request: express.Request, resp
     return;
   }
 
-  const packageName = F.config()[PACKAGE_NAME];
+  const packageName = environmentConfig(PACKAGE_NAME);
   if (!packageName) {
     log('No package name specified. Look at `README.md` for more information.');
     response.status(400).send('Need `packageName`.');
     return;
   }
 
-  const deviceConfigurations = F.config()[DEVICE_CONFIGURATIONS];
+  const deviceConfigurations = environmentConfig(DEVICE_CONFIGURATIONS);
   if (!deviceConfigurations) {
     log('No device configurations specified. Look at `README.md` for more information.');
     response.status(400).send('Need `device configurations`.');
@@ -105,7 +107,7 @@ const _handleRequest = async (gcsPath: string, packageName: string, knownConfigu
     // Known device configuration.
     const configuration = knownConfigurations[i];
     try {
-      const benchmark: Benchmark = await readBenchmark(
+      const benchmarks: Benchmarks = await readBenchmark(
         storage,
         bucket,
         objectPath,
@@ -114,7 +116,8 @@ const _handleRequest = async (gcsPath: string, packageName: string, knownConfigu
       );
 
       // Upload Metrics
-      await uploadMetrics(monitoring, benchmark);
+      await uploadMetrics(monitoring, benchmarks);
+      log('All done.');
     } catch (error) {
       log(`Error Processing Benchmark Data for ${configuration}.`, error);
     }
@@ -126,12 +129,17 @@ const readBenchmark = async (
   bucket: string,
   baseObjectPath: string,
   packageName: string,
-  configuration: string): Promise<Benchmark> => {
+  configuration: string): Promise<Benchmarks> => {
 
   const path = `${baseObjectPath}/${configuration}/artifacts/${packageName}-benchmarkData.json`;
   log(`Looking for gs://${bucket}/${path}`);
   const objectFile = storage.bucket(bucket).file(path);
-  const objectExists = await objectFile.exists();
+  let objectExists = false;
+  try {
+    [objectExists] = await objectFile.exists();
+  } catch (ignore) {
+    // Do nothing.
+  }
   if (!objectExists) {
     const message = `Unable to find object with path gs://${bucket}/${path}`;
     log(message);
@@ -143,7 +151,7 @@ const readBenchmark = async (
   const [rawBuffer] = await objectFile.download();
   const contents = rawBuffer.toString('utf-8');
   log(`Downloaded contents for path: ${path}`);
-  return JSON.parse(contents) as Benchmark;
+  return JSON.parse(contents) as Benchmarks;
 };
 
 const googleStorage = () => {
@@ -155,6 +163,15 @@ const googleStorage = () => {
 
 const googleMonitoring = (): MetricServiceClient => {
   return new MetricServiceClient();
+};
+
+const environmentConfig = (key: string): string | undefined => {
+  const env = process.env;
+  const value = env[key];
+  if (value != null) {
+    log('process.env', key, value);
+  }
+  return env[key];
 };
 
 const parseDeviceConfigurations = (configuration: any): Array<string> | null => {

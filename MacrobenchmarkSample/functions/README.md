@@ -16,7 +16,9 @@ firebase deploy --only functions
 
 Example:
 
+```bash
+# Example: Setup Environment Variables.
+package_name="com.example.macrobenchmark.test"
+device_configurations='["flame-30-en-portrait"]'
 ```
-PACKAGE_NAME="androidx.benchmark.macrobenchmarks.test"
-DEVICE_CONFIGURATIONS=["x1q-29-en-portrait, flame-29-en-portrait"]
-```
+
