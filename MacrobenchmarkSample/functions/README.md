@@ -21,4 +21,3 @@ Example:
 package_name="com.example.macrobenchmark.test"
 device_configurations='["flame-30-en-portrait"]'
 ```
-
