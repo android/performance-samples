@@ -50,6 +50,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ActivityLauncherActivity"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="com.example.macrobenchmark.target.ACTIVITY_LAUNCHER_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- non-exported activities -->
+        <activity android:name=".NonExportedRecyclerActivity" />
+
         <!-- enable profiling by macrobenchmark -->
         <!--suppress AndroidElementNotAllowed -->
         <profileable android:shell="true" />
