@@ -2,7 +2,7 @@ name: Runs Macro Benchmarks on Firebase Test Lab
 
 on:
   push:
-    branches: [ macrobenchmark ]
+    branches: [ macrobenchmark, main ]
   workflow_dispatch:
 
 jobs:
