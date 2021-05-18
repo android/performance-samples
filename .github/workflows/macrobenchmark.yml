@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, 'labeled']
   push:
-    branches: [ macrobenchmark, macrobenchmark-public ]
+    branches: [ macrobenchmark, main ]
   workflow_dispatch:
 
 jobs:
