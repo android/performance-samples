@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.test'
     id 'kotlin-android'
 }
 
@@ -21,18 +21,32 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildTypes {
+        // declare a build type (release) to match the target app's build type
+        release {
+            debuggable = true
+            signingConfig = debug.signingConfig
+        }
+    }
+
+    targetProjectPath = ":app"
+    properties["android.experimental.self-instrumenting"] = true
+}
+
+androidComponents {
+    beforeVariants(selector().all()) {
+        // enable only the release buildType, since we only want to measure
+        // release build performance
+        enable = buildType == 'release'
+    }
 }
 
 dependencies {
     //noinspection GradleDependency
-    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation 'androidx.benchmark:benchmark-macro-junit4:1.1.0-SNAPSHOT'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.test.ext:junit:1.1.2'
+    implementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    implementation 'androidx.benchmark:benchmark-macro-junit4:1.1.0-alpha02'
 }
-
-// Define a Task Dependency for CI so when the macrobenchmark module is built, we build the app as well.
-tasks.getByPath(':macrobenchmark:assembleAndroidTest').dependsOn(tasks.getByPath(':app:assembleRelease'))
-// Define a task dependency so the app is installed before we run macrobenchmarks.
-tasks.getByPath(':macrobenchmark:connectedCheck').dependsOn(tasks.getByPath(':app:installRelease'))
