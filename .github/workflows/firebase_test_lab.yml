@@ -25,7 +25,7 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.path }}
         with:
-          arguments: :macrobenchmark:assembleAndroidTest
+          arguments: build
           build-root-directory: ${{ github.workspace }}/MacrobenchmarkSample
           gradle-executable: ${{ github.workspace }}/MacrobenchmarkSample/gradlew
           wrapper-directory: ${{ github.workspace }}/MacrobenchmarkSample/gradle/wrapper
@@ -42,7 +42,7 @@ jobs:
           gcloud firebase test android run \
             --type instrumentation \
             --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/release/app-release.apk \
-            --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/androidTest/debug/macrobenchmark-debug-androidTest.apk \
+            --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/release/macrobenchmark-release.apk \
             --device model=flame,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
