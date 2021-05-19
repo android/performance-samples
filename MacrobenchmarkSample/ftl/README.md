@@ -83,7 +83,7 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.path }}
         with:
-          arguments: :macrobenchmark:assemble
+          arguments: build
           build-root-directory: ${{ github.workspace }}/...
           gradle-executable: ${{ github.workspace }}/.../gradlew
           wrapper-directory: ${{ github.workspace }}/.../gradle/wrapper
@@ -100,7 +100,7 @@ jobs:
           gcloud firebase test android run \
             --type instrumentation \
             --app ${{ github.workspace }}/.../release/app-release.apk \
-            --test ${{ github.workspace }}/.../macrobenchmark-debug-androidTest.apk \
+            --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
             --device model=flame,version=29,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
@@ -122,7 +122,7 @@ This part of the workflow defines the events that trigger a Macrobenchmark run. 
 
 #### Building Macrobenchmark Tests
 
-Here we define the jobs that are required to produce the artifacts necessary to kick off a Macrobenchmark run. We need to checkout the source, set up `JDK` and `Gradle` before we can build the Macrobenchmark test APK. Once everything is set up we can run `./gradlew :macrobenchmark:assemble`. 
+Here we define the jobs that are required to produce the artifacts necessary to kick off a Macrobenchmark run. We need to checkout the source, set up `JDK` and `Gradle` before we can build the Macrobenchmark test APK. Once everything is set up we can run `./gradlew build`.
 
 ```yaml
 - name: Checkout
@@ -141,7 +141,7 @@ Here we define the jobs that are required to produce the artifacts necessary to 
   env:
     JAVA_HOME: ${{ steps.setup-java.outputs.path }}
   with:
-    arguments: :macrobenchmark:assemble
+    arguments: build
     build-root-directory: ${{ github.workspace }}/...
     gradle-executable: ${{ github.workspace }}/.../gradlew
     wrapper-directory: ${{ github.workspace }}/.../gradle/wrapper
@@ -168,7 +168,7 @@ We can now kick execute tests using Firebase Test Lab with the following job:
     gcloud firebase test android run \
       --type instrumentation \
       --app ${{ github.workspace }}/.../release/app-release.apk \
-      --test ${{ github.workspace }}/.../macrobenchmark-debug-androidTest.apk \
+      --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
       --device model=flame,version=29,locale=en,orientation=portrait \
       --directories-to-pull /sdcard/Download \
       --results-bucket gs://macrobenchmark-results \
