@@ -2,21 +2,21 @@
 
 This sample project shows how to use the Jetpack Macrobenchmark library.
 
-See the [Macrobenchmark guide](https://android.googlesource.com/platform/frameworks/support/+/androidx-main/benchmark/docs/macrobenchmark.md) for more information on the library.
+See the [Macrobenchmark guide](https://developer.android.com/studio/profile/macrobenchmark-intro) for more information on the library.
 
 ### Samples
 
 The sample project includes the following:
 
-* [TrivialStartupBenchmark](https://github.com/android/performance-samples/blob/macrobenchmark/MacrobenchmarkSample/macrobenchmark/src/androidTest/java/com/example/macrobenchmark/TrivialStartupBenchmark.kt) measures the application startup time for a trivial `Activity` with a single `TextView`.
+* [TrivialStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/TrivialStartupBenchmark.kt) measures the application startup time for a trivial `Activity` with a single `TextView`.
 
-* [SmallListStartupBenchmark](https://github.com/android/performance-samples/blob/macrobenchmark/MacrobenchmarkSample/macrobenchmark/src/androidTest/java/com/example/macrobenchmark/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView`.
+* [SmallListStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView`.
 
-* [FrameTimingBenchmark](https://github.com/android/performance-samples/blob/macrobenchmark/MacrobenchmarkSample/macrobenchmark/src/androidTest/java/com/example/macrobenchmark/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView`, measuring frame timing / jank.
+* [FrameTimingBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView`, measuring frame timing / jank.
 
 ### Running
 
-Open the `MacrobenchmarkSample` project in Android Studio 4.1 or later, and run benchmarks as you usually would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R)
+Open the `MacrobenchmarkSample` project in Android Studio Arctic Fox, Beta 1 or later, and run benchmarks as you usually would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R)
 
 License
 -------
