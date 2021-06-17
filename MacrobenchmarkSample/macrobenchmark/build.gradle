@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdkVersion 29
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,14 +29,14 @@ android {
     }
 
     targetProjectPath = ":app"
-    properties["android.experimental.self-instrumenting"] = true
+    experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 
 androidComponents {
     beforeVariants(selector().all()) {
         // enable only the release buildType, since we only want to measure
         // release build performance
-        enable = buildType == 'release'
+        enabled = buildType == 'release'
     }
 }
 
@@ -48,5 +46,5 @@ dependencies {
     implementation 'androidx.test.ext:junit:1.1.2'
     implementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    implementation 'androidx.benchmark:benchmark-macro-junit4:1.1.0-alpha02'
+    implementation 'androidx.benchmark:benchmark-macro-junit4:1.1.0-alpha03'
 }
