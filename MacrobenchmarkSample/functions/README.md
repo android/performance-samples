@@ -18,6 +18,6 @@ Example:
 
 ```bash
 # Example: Setup Environment Variables.
-package_name="com.example.macrobenchmark.test"
+package_name="com.example.macrobenchmark.target"
 device_configurations='["flame-30-en-portrait"]'
 ```
