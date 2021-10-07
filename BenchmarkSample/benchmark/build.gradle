@@ -15,7 +15,8 @@ android {
         //   * Sampled
         //   * Method
         // See full descriptions of available options at: d.android.com/benchmark#profiling
-        testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
+        // TODO for benchmark 1.1.0-alpha02 and higher, when no benchmarking profiling needed, remove from gradle
+        // testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
     }
 
     testBuildType = "release"
