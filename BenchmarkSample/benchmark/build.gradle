@@ -15,7 +15,7 @@ android {
         //   * StackSampling
         //   * MethodTracing
         // See full descriptions of available options at: d.android.com/benchmark#profiling
-         testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'StackSampling'
+        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = 'StackSampling'
     }
 
     testBuildType = "release"
