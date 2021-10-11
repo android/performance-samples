@@ -12,11 +12,10 @@ android {
         // Set this argument to capture profiling information, instead of measuring performance.
         // Can be one of:
         //   * None
-        //   * Sampled
-        //   * Method
+        //   * StackSampling
+        //   * MethodTracing
         // See full descriptions of available options at: d.android.com/benchmark#profiling
-        // TODO for benchmark 1.1.0-alpha02 and higher, when no benchmarking profiling needed, remove from gradle
-        // testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'none'
+         testInstrumentationRunnerArgument 'androidx.benchmark.profiling.mode', 'StackSampling'
     }
 
     testBuildType = "release"
