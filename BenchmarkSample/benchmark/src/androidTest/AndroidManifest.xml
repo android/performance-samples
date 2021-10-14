@@ -22,5 +22,9 @@
     <application
         android:debuggable="false"
         android:requestLegacyExternalStorage="true"
-        tools:replace="android:debuggable"/>
+        tools:replace="android:debuggable">
+
+        <profileable android:shell="true" />
+
+    </application>
 </manifest>
