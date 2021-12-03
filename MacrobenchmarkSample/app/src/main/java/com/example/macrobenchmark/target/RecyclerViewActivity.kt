@@ -19,21 +19,22 @@ package com.example.macrobenchmark.target
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.macrobenchmark.target.databinding.ActivityRecyclerViewBinding
 
 open class RecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = "RecyclerView Sample"
-        setContentView(R.layout.activity_recycler_view)
-        val recycler = findViewById<RecyclerView>(R.id.recycler)
+        val binding = ActivityRecyclerViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         // This argument allows the Macrobenchmark tests control the content being tested.
         // In your app, you could use this approach to navigate to a consistent UI.
         // e.g. Here the UI is being populated with a well known number of list items.
         val itemCount = intent.getIntExtra(EXTRA_ITEM_COUNT, 1000)
         val adapter = EntryAdapter(entries(itemCount))
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = adapter
+        binding.recycler.layoutManager = LinearLayoutManager(this)
+        binding.recycler.adapter = adapter
     }
 
     private fun entries(size: Int) = List(size) {

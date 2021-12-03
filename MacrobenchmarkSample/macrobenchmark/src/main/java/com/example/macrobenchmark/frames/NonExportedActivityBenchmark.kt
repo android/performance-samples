@@ -16,7 +16,6 @@
 
 package com.example.macrobenchmark.frames
 
-import android.content.Intent
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -52,7 +51,7 @@ class NonExportedActivityBenchmark {
             iterations = 3,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
-                startActivityAndWait(Intent("$TARGET_PACKAGE.ACTIVITY_LAUNCHER_ACTIVITY"))
+                startActivityAndWait()
 
                 // click a button to launch the target activity.
                 // While we use resourceId here to find the button, you could also use

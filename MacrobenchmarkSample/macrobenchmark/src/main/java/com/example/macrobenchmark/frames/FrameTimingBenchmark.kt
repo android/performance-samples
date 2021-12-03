@@ -17,8 +17,8 @@
 package com.example.macrobenchmark.frames
 
 import android.content.Intent
-import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
+import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -42,8 +42,9 @@ class FrameTimingBenchmark {
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
-            compilationMode = CompilationMode.None,
-            iterations = 10,
+            // compilationMode = CompilationMode.None,
+            startupMode = StartupMode.WARM, // restarts activity each iteration
+            iterations = 5,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
                 val intent = Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY")
@@ -54,10 +55,7 @@ class FrameTimingBenchmark {
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)
-            for (i in 1..10) {
-                recycler.scroll(Direction.DOWN, 2f)
-                device.waitForIdle()
-            }
+            repeat(10) { recycler.scroll(Direction.DOWN, 2f) }
         }
     }
 }
