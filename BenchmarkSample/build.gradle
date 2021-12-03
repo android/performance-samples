@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.5.31'
-    ext.benchmark_version = '1.1.0-alpha09'
+    ext.benchmark_version = '1.1.0-alpha12'
 
     repositories {
         google()
@@ -16,7 +16,6 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
 allprojects {
     repositories {
         google()
