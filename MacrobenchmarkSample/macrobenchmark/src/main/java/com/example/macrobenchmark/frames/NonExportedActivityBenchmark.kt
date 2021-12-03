@@ -14,93 +14,64 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark
+package com.example.macrobenchmark.frames
 
 import android.content.Intent
-import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
+import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.filters.SdkSuppress
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
+import com.example.macrobenchmark.TARGET_PACKAGE
+import com.example.macrobenchmark.waitUntilActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeUnit
+
 
 @LargeTest
-@SdkSuppress(minSdkVersion = 29)
 @RunWith(AndroidJUnit4::class)
 class NonExportedActivityBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+    /**
+     * Showcase how to access non exported activity by navigating into it from default one.
+     */
     @Test
     fun scroll() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val device = UiDevice.getInstance(instrumentation)
         benchmarkRule.measureRepeated(
-            packageName = PACKAGE_NAME,
+            packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
-            compilationMode = CompilationMode.None,
+            // compilationMode = CompilationMode.None,
+            startupMode = StartupMode.WARM, // Ensures that a new activity is created every single time
             iterations = 3,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent()
-                intent.action = ACTION
-                // Ensures that a new activity is created every single time
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivityAndWait(intent)
+                startActivityAndWait(Intent("$TARGET_PACKAGE.ACTIVITY_LAUNCHER_ACTIVITY"))
+
                 // click a button to launch the target activity.
                 // While we use resourceId here to find the button, you could also use
                 // accessibility info or button text content.
                 val launchRecyclerActivity = device.findObject(
-                    By.res(PACKAGE_NAME, LAUNCH_RESOURCE_ID)
+                    By.res(TARGET_PACKAGE, "launchRecyclerActivity")
                 )
                 launchRecyclerActivity.click()
-                device.waitUntilActivity(RECYCLER_ACTIVITY_CLASS)
+                device.waitUntilActivity("$TARGET_PACKAGE.NonExportedRecyclerActivity")
             }
         ) {
-            val recycler = device.findObject(
-                By.res(
-                    PACKAGE_NAME,
-                    RECYCLER_RESOURCE_ID
-                )
-            )
+            val recycler = device.findObject(By.res(TARGET_PACKAGE, "recycler"))
+
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)
-            for (i in 1..10) {
-                recycler.scroll(Direction.DOWN, 2f)
-                device.waitForIdle()
-            }
-        }
-    }
 
-    companion object {
-        private const val PACKAGE_NAME = "com.example.macrobenchmark.target"
-        private const val RECYCLER_ACTIVITY_CLASS = "$PACKAGE_NAME.NonExportedRecyclerActivity"
-        private const val ACTION = "$PACKAGE_NAME.ACTIVITY_LAUNCHER_ACTIVITY"
-        private const val LAUNCH_RESOURCE_ID = "launchRecyclerActivity"
-        private const val RECYCLER_RESOURCE_ID = "recycler"
-
-        /**
-         * Waits until an [android.app.Activity] with the given `className` is visible.
-         */
-        fun UiDevice.waitUntilActivity(className: String) {
-            wait(
-                Until.hasObject(
-                    By.clazz(className)
-                ),
-                TimeUnit.SECONDS.toMillis(10)
-            )
+            // Fling the recycler several times
+            repeat(3) { recycler.fling(Direction.DOWN) }
         }
     }
 }

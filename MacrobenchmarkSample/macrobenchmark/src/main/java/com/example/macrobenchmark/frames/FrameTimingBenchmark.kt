@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark
+package com.example.macrobenchmark.frames
 
 import android.content.Intent
 import androidx.benchmark.macro.CompilationMode
@@ -22,17 +22,14 @@ import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.filters.SdkSuppress
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.UiDevice
+import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
-@SdkSuppress(minSdkVersion = 29)
 @RunWith(AndroidJUnit4::class)
 class FrameTimingBenchmark {
     @get:Rule
@@ -40,10 +37,8 @@ class FrameTimingBenchmark {
 
     @Test
     fun start() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val device = UiDevice.getInstance(instrumentation)
         benchmarkRule.measureRepeated(
-            packageName = PACKAGE_NAME,
+            packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
@@ -51,12 +46,11 @@ class FrameTimingBenchmark {
             iterations = 10,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent()
-                intent.action = ACTION
+                val intent = Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY")
                 startActivityAndWait(intent)
             }
         ) {
-            val recycler = device.findObject(By.res(PACKAGE_NAME, RESOURCE_ID))
+            val recycler = device.findObject(By.res(TARGET_PACKAGE, "recycler"))
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)
@@ -65,11 +59,5 @@ class FrameTimingBenchmark {
                 device.waitForIdle()
             }
         }
-    }
-
-    companion object {
-        private const val PACKAGE_NAME = "com.example.macrobenchmark.target"
-        private const val ACTION = "com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY"
-        private const val RESOURCE_ID = "recycler"
     }
 }
