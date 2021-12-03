@@ -16,7 +16,9 @@
 
 package com.example.macrobenchmark
 
+import android.content.Intent
 import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
 import org.junit.Rule
@@ -26,25 +28,33 @@ import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-class SmallListStartupBenchmark(private val startupMode: StartupMode) {
+class SmallListStartupBenchmark(
+    private val startupMode: StartupMode
+) {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    fun startup() = benchmarkRule.measureStartup(
-        profileCompiled = true,
-        startupMode = startupMode
+    fun startup() = benchmarkRule.measureRepeated(
+        packageName = TARGET_PACKAGE,
+        metrics = listOf(StartupTimingMetric()),
+        iterations = 3,
+        startupMode = startupMode,
     ) {
-        action = "com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY"
-        putExtra("ITEM_COUNT", 5)
+        val intent = Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY")
+        intent.putExtra("ITEM_COUNT", 5)
+
+        startActivityAndWait(intent)
     }
 
     companion object {
         @Parameterized.Parameters(name = "mode={0}")
         @JvmStatic
         fun parameters(): List<Array<Any>> {
-            return listOf(StartupMode.COLD, StartupMode.WARM)
-                .map { arrayOf(it) }
+            return listOf(
+                StartupMode.COLD,
+                StartupMode.WARM
+            ).map { arrayOf(it) }
         }
     }
 }
