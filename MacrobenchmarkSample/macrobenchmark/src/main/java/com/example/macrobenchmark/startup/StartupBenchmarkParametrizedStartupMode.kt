@@ -28,7 +28,7 @@ import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-class TrivialStartupBenchmark(
+class StartupBenchmarkParametrizedStartupMode(
     private val startupMode: StartupMode
 ) {
     @get:Rule
