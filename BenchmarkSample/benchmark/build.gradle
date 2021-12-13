@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'androidx.benchmark'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 31
 
         // Set this argument to capture profiling information, instead of measuring performance.
         // Can be one of:
@@ -15,7 +15,7 @@ android {
         //   * StackSampling
         //   * MethodTracing
         // See full descriptions of available options at: d.android.com/benchmark#profiling
-        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = 'StackSampling'
+        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = 'None'
     }
 
     testBuildType = "release"
