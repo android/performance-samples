@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+// [START benchmark_apply_plugin]
 apply plugin: 'androidx.benchmark'
+// [END benchmark_apply_plugin]
 
 android {
     compileSdkVersion 31
@@ -34,6 +36,7 @@ android {
     }
 }
 
+// [START benchmark_dependency]
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -53,3 +56,4 @@ dependencies {
     androidTestImplementation 'androidx.cardview:cardview:1.0.0'
     androidTestImplementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
+// [END benchmark_dependency]
