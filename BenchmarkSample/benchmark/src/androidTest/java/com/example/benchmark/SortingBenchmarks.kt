@@ -5,7 +5,7 @@ import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.benchmark.ui.SortingAlgorithms
 import com.example.benchmark.ui.isSorted
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
