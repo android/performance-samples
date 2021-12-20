@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.6.0'
-    ext.benchmark_version = '1.1.0-alpha12'
+    ext.benchmark_version = '1.1.0-alpha13'
 
     repositories {
         google()
