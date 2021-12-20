@@ -17,6 +17,7 @@
 package com.example.macrobenchmark.frames
 
 import android.content.Intent
+import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -42,7 +43,7 @@ class FrameTimingBenchmark {
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
-            // compilationMode = CompilationMode.None,
+            compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
             iterations = 5,
             setupBlock = {
