@@ -40,9 +40,11 @@ class NonExportedActivityBenchmark {
     /**
      * Showcase how to access non exported activity by navigating into it from default one.
      */
+    // [START macrobenchmark_navigate_within_app]
     @Test
-    fun scroll() {
+    fun scrollList() {
         benchmarkRule.measureRepeated(
+            // [START_EXCLUDE]
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
@@ -50,6 +52,7 @@ class NonExportedActivityBenchmark {
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // Ensures that a new activity is created every single time
             iterations = 3,
+            // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
                 startActivityAndWait()
@@ -74,4 +77,6 @@ class NonExportedActivityBenchmark {
             repeat(3) { recycler.fling(Direction.DOWN) }
         }
     }
+    // [END macrobenchmark_navigate_within_app]
+
 }

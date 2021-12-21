@@ -3,7 +3,9 @@ plugins {
     id 'kotlin-android'
 }
 
+// [START macrobenchmark_setup_android]
 android {
+    // [START_EXCLUDE]
     compileSdkVersion 31
     defaultConfig {
         minSdkVersion 23
@@ -19,6 +21,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // [END_EXCLUDE]
+    // Note that your module name may have different name
+    targetProjectPath = ":app"
+    // Enable the benchmark to run separately from the app process
+    experimentalProperties["android.experimental.self-instrumenting"] = true
 
     buildTypes {
         // declare a build type (release) to match the target app's build type
@@ -27,24 +34,26 @@ android {
             signingConfig = debug.signingConfig
         }
     }
-
-    targetProjectPath = ":app"
-    experimentalProperties["android.experimental.self-instrumenting"] = true
 }
+// [END macrobenchmark_setup]
 
+// [START macrobenchmark_setup_variant]
 androidComponents {
     beforeVariants(selector().all()) {
-        // enable only the release buildType, since we only want to measure
-        // release build performance
+        // enable only the benchmark buildType, since we only want to measure close to release performance
         enabled = buildType == 'benchmark'
     }
 }
+// [END macrobenchmark_setup_variant]
 
+// [START macrobenchmark_setup_dependencies]
 dependencies {
-    //noinspection GradleDependency
+    // [START_EXCLUDE]
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.test.ext:junit:1.1.3'
     implementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    // [END_EXCLUDE]
     implementation "androidx.benchmark:benchmark-macro-junit4:$benchmark_version"
 }
+// [END macrobenchmark_setup_dependencies]

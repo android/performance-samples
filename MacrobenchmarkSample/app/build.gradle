@@ -34,6 +34,7 @@ android {
         viewBinding true
     }
 
+    // [START macrobenchmark_setup_app_build_type]
     buildTypes {
         benchmark {
             minifyEnabled true
@@ -42,6 +43,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    // [END macrobenchmark_setup_app_build_type]
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

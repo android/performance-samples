@@ -52,10 +52,13 @@
         <!-- non-exported activities -->
         <activity android:name=".NonExportedRecyclerActivity" />
 
+        <!-- [START macrobenchmark_setup_profileable] -->
         <!-- enable profiling by macrobenchmark -->
         <profileable
             android:shell="true"
             tools:targetApi="q" />
+        <!-- [END macrobenchmark_setup_profileable] -->
+
     </application>
 
 </manifest>

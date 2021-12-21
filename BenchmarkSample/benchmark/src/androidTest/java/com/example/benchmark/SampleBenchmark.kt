@@ -16,33 +16,25 @@
 
 package com.example.benchmark
 
-import android.view.LayoutInflater
-import android.widget.FrameLayout
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
-import com.example.benchmark.ui.R
+import com.example.benchmark.ui.doSomeWork
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-// [START simple_benchmark]
+// [START sample_benchmark]
 @RunWith(AndroidJUnit4::class)
-class ViewInflateBenchmark {
-
+class SampleBenchmark {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
     @Test
-    fun benchmarkViewInflate() {
-        val context = InstrumentationRegistry.getInstrumentation().context
-        val inflater = LayoutInflater.from(context)
-        val root = FrameLayout(context)
-
+    fun benchmarkSomeWork() {
         benchmarkRule.measureRepeated {
-            val inflated = inflater.inflate(R.layout.item_card, root, false)
+            doSomeWork()
         }
     }
 }
-// [END simple_benchmark]
+// [END sample_benchmark]
