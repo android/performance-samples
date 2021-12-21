@@ -58,13 +58,13 @@ class NonExportedActivityBenchmark {
                 // While we use resourceId here to find the button, you could also use
                 // accessibility info or button text content.
                 val launchRecyclerActivity = device.findObject(
-                    By.res(TARGET_PACKAGE, "launchRecyclerActivity")
+                    By.res(packageName, "launchRecyclerActivity")
                 )
                 launchRecyclerActivity.click()
-                device.waitUntilActivity("$TARGET_PACKAGE.NonExportedRecyclerActivity")
+                device.waitUntilActivity("$packageName.NonExportedRecyclerActivity")
             }
         ) {
-            val recycler = device.findObject(By.res(TARGET_PACKAGE, "recycler"))
+            val recycler = device.findObject(By.res(packageName, "recycler"))
 
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.

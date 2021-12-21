@@ -37,7 +37,7 @@ class FrameTimingBenchmark {
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    fun start() {
+    fun scrollList() {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
@@ -48,11 +48,11 @@ class FrameTimingBenchmark {
             iterations = 5,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY")
+                val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
                 startActivityAndWait(intent)
             }
         ) {
-            val recycler = device.findObject(By.res(TARGET_PACKAGE, "recycler"))
+            val recycler = device.findObject(By.res(packageName, "recycler"))
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)

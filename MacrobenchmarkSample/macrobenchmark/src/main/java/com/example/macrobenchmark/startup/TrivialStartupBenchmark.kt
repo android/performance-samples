@@ -16,22 +16,20 @@
 
 package com.example.macrobenchmark.startup
 
-import android.content.Intent
-import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.BaselineProfileMode
+import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 
 @LargeTest
-@RunWith(Parameterized::class)
-class SmallListStartupBenchmark(
-    private val startupMode: StartupMode
-) {
+@RunWith(AndroidJUnit4::class)
+class TrivialStartupBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
@@ -40,22 +38,8 @@ class SmallListStartupBenchmark(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
         iterations = 3,
-        startupMode = startupMode,
     ) {
-        val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
-        intent.putExtra("ITEM_COUNT", 5)
-
-        startActivityAndWait(intent)
-    }
-
-    companion object {
-        @Parameterized.Parameters(name = "mode={0}")
-        @JvmStatic
-        fun parameters(): List<Array<Any>> {
-            return listOf(
-                StartupMode.COLD,
-                StartupMode.WARM
-            ).map { arrayOf(it) }
-        }
+        // starts default launch activity
+        startActivityAndWait()
     }
 }
