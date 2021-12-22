@@ -43,7 +43,7 @@ jobs:
             --type instrumentation \
             --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/release/app-release.apk \
             --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/release/macrobenchmark-release.apk \
-            --device model=flame,version=30,locale=en,orientation=portrait \
+            --device model=redfin,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
             --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \

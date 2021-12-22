@@ -169,7 +169,7 @@ We can now kick execute tests using Firebase Test Lab with the following job:
       --type instrumentation \
       --app ${{ github.workspace }}/.../release/app-release.apk \
       --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
-      --device model=flame,version=29,locale=en,orientation=portrait \
+      --device model=redfin,version=30,locale=en,orientation=portrait \
       --directories-to-pull /sdcard/Download \
       --results-bucket gs://macrobenchmark-results \
       --environment-variables additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
