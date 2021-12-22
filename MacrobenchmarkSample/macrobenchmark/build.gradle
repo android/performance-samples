@@ -35,7 +35,7 @@ android {
         }
     }
 }
-// [END macrobenchmark_setup]
+// [END macrobenchmark_setup_android]
 
 // [START macrobenchmark_setup_variant]
 androidComponents {
