@@ -28,7 +28,7 @@ android {
     experimentalProperties["android.experimental.self-instrumenting"] = true
 
     buildTypes {
-        // declare a build type (release) to match the target app's build type
+        // declare a build type to match the target app's build type
         benchmark {
             debuggable = true
             signingConfig = debug.signingConfig
