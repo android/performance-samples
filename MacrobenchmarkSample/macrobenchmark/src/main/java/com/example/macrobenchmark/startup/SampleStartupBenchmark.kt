@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 // [START macrobenchmark_startup]
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class TrivialStartupBenchmark {
+class SampleStartupBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 

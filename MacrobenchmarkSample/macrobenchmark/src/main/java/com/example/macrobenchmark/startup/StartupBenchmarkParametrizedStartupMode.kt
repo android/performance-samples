@@ -53,12 +53,10 @@ class StartupBenchmarkParametrizedStartupMode(
     companion object {
         @Parameterized.Parameters(name = "mode={0}")
         @JvmStatic
-        fun parameters(): List<Array<Any>> {
-            return listOf(
-                StartupMode.COLD,
-                StartupMode.WARM,
-                StartupMode.HOT
-            ).map { arrayOf(it) }
-        }
+        fun parameters(): List<Array<Any>> = listOf(
+            StartupMode.COLD,
+            StartupMode.WARM,
+            StartupMode.HOT
+        ).map { arrayOf(it) }
     }
 }

@@ -17,7 +17,7 @@ import kotlin.Unit;
 
 // [START macrobenchmark_startup_java]
 @RunWith(AndroidJUnit4.class)
-public class TrivialStartupBenchmarkJava {
+public class SampleStartupBenchmarkJava {
     @Rule
     public MacrobenchmarkRule benchmarkRule = new MacrobenchmarkRule();
 
