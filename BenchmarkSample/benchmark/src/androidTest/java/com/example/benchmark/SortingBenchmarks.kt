@@ -9,7 +9,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.random.Random.Default.nextInt
+import kotlin.random.Random
 
 
 @RunWith(AndroidJUnit4::class)
@@ -18,37 +18,42 @@ class SortingBenchmarks {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
+    // using random with the same seed, so that it generates the same data
+    private val random = Random(0)
+
     // [START benchmark_with_timing_disabled]
     @Test
     fun benchmark_quickSort() {
+        var listToSort: IntArray = intArrayOf()
+
         benchmarkRule.measureRepeated {
             // create a random array to sort without measuring because we care only about the algorithm itself
-            val listToSort = runWithTimingDisabled {
-                IntArray(10_000) { nextInt() }
-            }
+            listToSort = runWithTimingDisabled { IntArray(10_000) { random.nextInt() } }
 
-            // sort the array and measure how long it takes
+            // sort the array in place and measure how long it takes
             SortingAlgorithms.quickSort(listToSort)
-
-            // verify the array is sorted
-            runWithTimingDisabled { assertTrue(listToSort.isSorted) }
         }
+
+        // verify the last iteration sorted the array properly
+        // not verifying every iteration as it adds unnecessary time overhead to the test
+        assertTrue(listToSort.isSorted)
     }
     // [END benchmark_with_timing_disabled]
 
     @Test
     fun benchmark_bubbleSort() {
+        var listToSort: IntArray = intArrayOf()
+
         benchmarkRule.measureRepeated {
             // create a random array to sort without measuring because we care only about the algorithm itself
-            val listToSort = runWithTimingDisabled {
-                IntArray(10_000) { nextInt() }
-            }
+            listToSort = runWithTimingDisabled { IntArray(10_000) { random.nextInt() } }
 
-            // sort the array and measure how long it takes
+            // sort the array in place and measure how long it takes
             SortingAlgorithms.bubbleSort(listToSort)
-
-            // verify the array is sorted
-            runWithTimingDisabled { assertTrue(listToSort.isSorted) }
         }
+
+        // verify the last iteration sorted the array properly
+        // not verifying every iteration as it adds unnecessary time overhead to the test
+        assertTrue(listToSort.isSorted)
     }
 }
