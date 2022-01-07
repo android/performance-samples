@@ -18,17 +18,20 @@ class SortingBenchmarks {
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    // using random with the same seed, so that it generates the same data
+    // using random with the same seed, so that it generates the same data every run
     private val random = Random(0)
 
     // [START benchmark_with_timing_disabled]
+    // create the array once and just copy it in benchmarks
+    private val unsorted = IntArray(10_000) { random.nextInt() }
+
     @Test
     fun benchmark_quickSort() {
         var listToSort: IntArray = intArrayOf()
 
         benchmarkRule.measureRepeated {
-            // create a random array to sort without measuring because we care only about the algorithm itself
-            listToSort = runWithTimingDisabled { IntArray(10_000) { random.nextInt() } }
+            // copy the array with timing disabled to measure only the algorithm itself
+            listToSort = runWithTimingDisabled { unsorted.copyOf() }
 
             // sort the array in place and measure how long it takes
             SortingAlgorithms.quickSort(listToSort)
@@ -45,8 +48,8 @@ class SortingBenchmarks {
         var listToSort: IntArray = intArrayOf()
 
         benchmarkRule.measureRepeated {
-            // create a random array to sort without measuring because we care only about the algorithm itself
-            listToSort = runWithTimingDisabled { IntArray(10_000) { random.nextInt() } }
+            // copy the array with timing disabled to measure only the algorithm itself
+            listToSort = runWithTimingDisabled { unsorted.copyOf() }
 
             // sort the array in place and measure how long it takes
             SortingAlgorithms.bubbleSort(listToSort)
