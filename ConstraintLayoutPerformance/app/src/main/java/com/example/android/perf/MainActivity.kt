@@ -18,7 +18,7 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.FrameMetrics
 import android.view.View
