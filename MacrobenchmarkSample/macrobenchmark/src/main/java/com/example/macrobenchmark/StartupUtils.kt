@@ -17,6 +17,7 @@
 package com.example.macrobenchmark
 
 import android.content.Intent
+import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
@@ -33,9 +34,12 @@ fun MacrobenchmarkRule.measureStartup(
     packageName = TARGET_PACKAGE,
     metrics = listOf(StartupTimingMetric()),
     compilationMode = if (profileCompiled) {
-        CompilationMode.SpeedProfile(warmupIterations = 3)
+        CompilationMode.Partial(
+            baselineProfileMode = BaselineProfileMode.Disable,
+            warmupIterations = 3
+        )
     } else {
-        CompilationMode.None
+        CompilationMode.None()
     },
     iterations = iterations,
     startupMode = startupMode

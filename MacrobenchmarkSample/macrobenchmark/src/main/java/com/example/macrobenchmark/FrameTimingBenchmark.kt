@@ -47,7 +47,7 @@ class FrameTimingBenchmark {
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
-            compilationMode = CompilationMode.None,
+            compilationMode = CompilationMode.None(),
             iterations = 10,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
