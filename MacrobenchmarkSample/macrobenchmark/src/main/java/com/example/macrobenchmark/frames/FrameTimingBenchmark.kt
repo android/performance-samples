@@ -56,7 +56,10 @@ class FrameTimingBenchmark {
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)
-            repeat(10) { recycler.scroll(Direction.DOWN, 2f) }
+            repeat(10) {
+                recycler.scroll(Direction.DOWN, 2f)
+                device.waitForIdle()
+            }
         }
     }
 }
