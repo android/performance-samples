@@ -74,7 +74,10 @@ class NonExportedActivityBenchmark {
             recycler.setGestureMargin(device.displayWidth / 5)
 
             // Fling the recycler several times
-            repeat(3) { recycler.fling(Direction.DOWN) }
+            repeat(3) {
+                recycler.fling(Direction.DOWN)
+                device.waitForIdle()
+            }
         }
     }
     // [END macrobenchmark_navigate_within_app]
