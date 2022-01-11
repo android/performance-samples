@@ -3,7 +3,7 @@ package com.example.benchmark.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.random.Random.Default.nextLong
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+// stable random for having the same results
+private val random = Random(0)
+
 fun doSomeWork() {
     // Pretend this method does some work
-    Thread.sleep(nextLong(1_000))
+    Thread.sleep(random.nextLong(1_000))
 }

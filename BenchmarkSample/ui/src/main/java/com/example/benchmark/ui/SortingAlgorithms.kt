@@ -16,19 +16,16 @@
 
 package com.example.benchmark.ui
 
+/**
+ * Some trivial sorting algorithms for benchmarks
+ */
 object SortingAlgorithms {
 
     fun bubbleSort(array: IntArray) {
-        var sorted = false
-        var temp: Int
-        while (!sorted) {
-            sorted = true
-            for (i in 0 until array.lastIndex) {
-                if (array[i] > array[i + 1]) {
-                    temp = array[i]
-                    array[i] = array[i + 1]
-                    array[i + 1] = temp
-                    sorted = false
+        for (i in 0..array.lastIndex) {
+            for (j in 0 until array.lastIndex) {
+                if (array[j] > array[j + 1]) {
+                    swap(array, j, j + 1)
                 }
             }
         }
@@ -46,18 +43,21 @@ object SortingAlgorithms {
         var counter = begin
         for (i in begin until end) {
             if (array[i] < array[end]) {
-                val temp = array[counter]
-                array[counter] = array[i]
-                array[i] = temp
+                swap(array, counter, i)
                 counter++
             }
         }
-        val temp = array[end]
-        array[end] = array[counter]
-        array[counter] = temp
+        swap(array, end, counter)
         return counter
     }
+
+    private fun swap(arr: IntArray, i: Int, j: Int) {
+        val temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+    }
 }
+
 
 /**
  * Check if the array is already sorted
