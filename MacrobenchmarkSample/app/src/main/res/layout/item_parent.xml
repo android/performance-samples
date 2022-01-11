@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/row_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        app:layout_constraintEnd_toStartOf="@id/item_options"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Row title" />
+
+    <ImageView
+        android:id="@+id/item_options"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/itemOptions"
+        android:padding="12dp"
+        android:src="@drawable/ic_more"
+        app:layout_constraintBottom_toBottomOf="@id/row_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/row_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/row_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row_title"
+        tools:listitem="@layout/item_child" />
+</androidx.constraintlayout.widget.ConstraintLayout>
