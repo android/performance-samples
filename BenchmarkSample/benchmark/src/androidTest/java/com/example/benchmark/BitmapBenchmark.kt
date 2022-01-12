@@ -23,7 +23,6 @@ import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,14 +37,9 @@ class BitmapBenchmark {
     val benchmarkRule = BenchmarkRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private lateinit var bitmap: Bitmap
 
-    @Before
-    fun setUp() {
-        context.assets.open(JETPACK).use {
-            bitmap = BitmapFactory.decodeStream(it)
-        }
-    }
+    // Retrieve the bitmap from assets
+    private val bitmap: Bitmap = context.assets.open(JETPACK).use { BitmapFactory.decodeStream(it) }
 
     /**
      * Measure the cost of many relatively cheaper JNI calls to fetch a row of pixels, one pixel at
