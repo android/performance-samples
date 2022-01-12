@@ -36,10 +36,14 @@ android {
 
     // [START macrobenchmark_setup_app_build_type]
     buildTypes {
-        benchmark {
+        release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+
+        benchmark {
+            initWith buildTypes.release
             signingConfig signingConfigs.debug
         }
     }
