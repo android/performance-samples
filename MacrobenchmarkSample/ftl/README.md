@@ -99,8 +99,8 @@ jobs:
         run: |
           gcloud firebase test android run \
             --type instrumentation \
-            --app ${{ github.workspace }}/.../release/app-release.apk \
-            --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
+            --app ${{ github.workspace }}/.../benchmark/app-benchmark.apk \
+            --test ${{ github.workspace }}/.../macrobenchmark-benchmark.apk \
             --device model=flame,version=29,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
@@ -167,8 +167,8 @@ We can now kick execute tests using Firebase Test Lab with the following job:
   run: |
     gcloud firebase test android run \
       --type instrumentation \
-      --app ${{ github.workspace }}/.../release/app-release.apk \
-      --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
+      --app ${{ github.workspace }}/.../benchmark/app-benchmark.apk \
+      --test ${{ github.workspace }}/.../macrobenchmark-benchmark.apk \
       --device model=redfin,version=30,locale=en,orientation=portrait \
       --directories-to-pull /sdcard/Download \
       --results-bucket gs://macrobenchmark-results \
