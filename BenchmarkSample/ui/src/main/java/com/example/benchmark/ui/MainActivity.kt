@@ -2,8 +2,8 @@ package com.example.benchmark.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,12 +21,4 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerview)
         recyclerView.adapter = adapter
     }
-}
-
-// stable random for having the same results
-private val random = Random(0)
-
-fun doSomeWork() {
-    // Pretend this method does some work
-    Thread.sleep(random.nextLong(1_000))
 }
