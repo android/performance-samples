@@ -18,5 +18,5 @@ package com.example.benchmark.data
 
 fun doSomeWork() {
     // Pretend this method does some work
-    Thread.sleep(1_000)
+    Thread.sleep(100)
 }
