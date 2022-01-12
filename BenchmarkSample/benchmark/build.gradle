@@ -38,12 +38,13 @@ android {
 
 // [START benchmark_dependency]
 dependencies {
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmark_version"
+    // [START_EXCLUDE]
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     androidTestImplementation project(":ui")
-    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmark_version"
 
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestImplementation 'junit:junit:4.13.2'
 
     androidTestImplementation 'androidx.test:runner:1.4.0'
@@ -55,5 +56,6 @@ dependencies {
     androidTestImplementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     androidTestImplementation 'androidx.cardview:cardview:1.0.0'
     androidTestImplementation 'androidx.recyclerview:recyclerview:1.2.1'
+    // [END_EXCLUDE]
 }
 // [END benchmark_dependency]
