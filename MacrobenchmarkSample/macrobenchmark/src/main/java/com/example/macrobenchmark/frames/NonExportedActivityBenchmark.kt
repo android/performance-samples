@@ -51,7 +51,7 @@ class NonExportedActivityBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // Ensures that a new activity is created every single time
-            iterations = 3,
+            iterations = 5,
             // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured

@@ -39,7 +39,7 @@ class SmallListStartupBenchmark(
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        iterations = 3,
+        iterations = 5,
         startupMode = startupMode,
     ) {
         val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")

@@ -39,7 +39,7 @@ class StartupBenchmarkParametrizedStartupMode(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
         startupMode = startupMode,
-        iterations = 3,
+        iterations = 5,
         setupBlock = {
             // when running StartupMode.HOT, it wouldn't launch the activity between iterations
             // therefore we press home before each test to be sure the activity isn't visible
