@@ -15,6 +15,12 @@ class SampleAdapter : ListAdapter<String, Holder>(StringDiffCallback) {
 }
 
 private object StringDiffCallback : DiffUtil.ItemCallback<String>() {
+    /**
+     * In real diff callback, you'd want to return true if two objects refer to the same thing.
+     * It may be some ID or a field uniquely identifying the thing.
+     *
+     * In this sample, we don't have changing list item, so simply using equality.
+     */
     override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
         oldItem == newItem
 
