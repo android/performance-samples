@@ -45,7 +45,7 @@ Now that you have a service account, you also need to grant the service account 
 
 #### Deploy the Google Cloud Function
 
-A [Google Cloud function](https://github.com/android/performance-samples/tree/macrobenchmark/MacrobenchmarkSample/functions) is used to process the results of test runs from Firebase Test Lab, and process the Macrobenchmark results `json` file. The cloud function also captures all the quantitative metrics from the `json` file, and uploads them to Google Cloud Monitoring.
+A [Google Cloud function](https://github.com/android/performance-samples/tree/main/MacrobenchmarkSample/functions) is used to process the results of test runs from Firebase Test Lab, and process the Macrobenchmark results `json` file. The cloud function also captures all the quantitative metrics from the `json` file, and uploads them to Google Cloud Monitoring.
 
 The cloud function uses the [default service account](https://cloud.google.com/functions/docs/securing/function-identity) associated with the Google Cloud Platform project. This service account should be assigned roles that give it access to Google Cloud Storage (so it has access to the created buckets and results stored by Firebase Test Lab), and Google Cloud Monitoring. For more information, please refer to [enabling an API for your project](https://cloud.google.com/endpoints/docs/openapi/enable-api).
 
@@ -169,7 +169,7 @@ We can now kick execute tests using Firebase Test Lab with the following job:
       --type instrumentation \
       --app ${{ github.workspace }}/.../release/app-release.apk \
       --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
-      --device model=flame,version=29,locale=en,orientation=portrait \
+      --device model=redfin,version=30,locale=en,orientation=portrait \
       --directories-to-pull /sdcard/Download \
       --results-bucket gs://macrobenchmark-results \
       --environment-variables additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \

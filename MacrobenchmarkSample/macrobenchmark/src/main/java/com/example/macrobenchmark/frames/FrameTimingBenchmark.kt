@@ -45,7 +45,7 @@ class FrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = 5,
+            iterations = 10,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
                 val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")

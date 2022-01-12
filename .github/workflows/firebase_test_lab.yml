@@ -31,7 +31,7 @@ jobs:
           wrapper-directory: ${{ github.workspace }}/MacrobenchmarkSample/gradle/wrapper
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
@@ -43,7 +43,7 @@ jobs:
             --type instrumentation \
             --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/release/app-release.apk \
             --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/release/macrobenchmark-release.apk \
-            --device model=flame,version=30,locale=en,orientation=portrait \
+            --device model=redfin,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
             --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \

@@ -14,18 +14,19 @@
 
 package com.example.android.perf.test
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.support.test.InstrumentationRegistry
-import android.support.test.filters.MediumTest
-import android.support.test.filters.SdkSuppress
-import android.support.test.runner.AndroidJUnit4
-import android.support.test.uiautomator.By
-import android.support.test.uiautomator.UiDevice
-import android.support.test.uiautomator.UiObject2
-import android.support.test.uiautomator.Until
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.filters.MediumTest
+import androidx.test.filters.SdkSuppress
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsNull.notNullValue
-import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,10 +52,10 @@ class PerformanceTest {
         assertThat(launcherPackage, notNullValue())
         device.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT)
 
-        val context = InstrumentationRegistry.getTargetContext()
+        val context = getApplicationContext<Context>()
         val intent = context.packageManager
                 .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)    // Clear out any previous instances
+        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)    // Clear out any previous instances
 
         context.startActivity(intent)
 
@@ -80,7 +81,7 @@ class PerformanceTest {
      */
     private fun runCalculation(buttonIdToStart: String) {
         device.findObject(By.res(BASIC_SAMPLE_PACKAGE, buttonIdToStart)).click()
-        device.wait<UiObject2>(Until.findObject(By.res(BASIC_SAMPLE_PACKAGE,
+        device.wait(Until.findObject(By.res(BASIC_SAMPLE_PACKAGE,
                 "textview_finish")), TimeUnit.SECONDS.toMillis(15))
     }
 
@@ -89,18 +90,18 @@ class PerformanceTest {
      * is "com.android.launcher" but can be different at times. This is a generic solution which
      * works on all platforms.`
      */
-    private val launcherPackageName: String
+    private val launcherPackageName: String?
         get() {
             val intent = Intent(Intent.ACTION_MAIN)
             intent.addCategory(Intent.CATEGORY_HOME)
 
-            val pm = InstrumentationRegistry.getContext().packageManager
+            val pm = getApplicationContext<Context>().packageManager
             val resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-            return resolveInfo.activityInfo.packageName
+            return resolveInfo?.activityInfo?.packageName
         }
 
     companion object {
-        private val BASIC_SAMPLE_PACKAGE = "com.example.android.perf"
-        private val LAUNCH_TIMEOUT = 5000L
+        private const val BASIC_SAMPLE_PACKAGE = "com.example.android.perf"
+        private const val LAUNCH_TIMEOUT = 5000L
     }
 }
