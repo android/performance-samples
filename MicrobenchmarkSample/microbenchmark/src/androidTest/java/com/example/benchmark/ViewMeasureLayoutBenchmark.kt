@@ -17,33 +17,57 @@
 package com.example.benchmark
 
 import android.view.LayoutInflater
-import android.widget.FrameLayout
+import android.view.View.MeasureSpec
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.benchmark.ui.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-// [START simple_benchmark]
+@LargeTest
 @RunWith(AndroidJUnit4::class)
-class ViewInflateBenchmark {
+class ViewMeasureLayoutBenchmark {
 
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
     @Test
-    fun benchmarkViewInflate() {
+    fun traditionalViewHierarchy_AT_MOST() {
+        benchmarkMeasureLayout(R.layout.activity_traditional, MeasureSpec.AT_MOST)
+    }
+
+    @Test
+    fun constraintLayoutHierarchy_AT_MOST() {
+        benchmarkMeasureLayout(R.layout.activity_constraintlayout, MeasureSpec.AT_MOST)
+    }
+
+    @Test
+    fun traditionalViewHierarchy_EXACTLY() {
+        benchmarkMeasureLayout(R.layout.activity_traditional, MeasureSpec.EXACTLY)
+    }
+
+    @Test
+    fun constraintLayoutHierarchy_EXACTLY() {
+        benchmarkMeasureLayout(R.layout.activity_constraintlayout, MeasureSpec.EXACTLY)
+    }
+
+    private fun benchmarkMeasureLayout(layoutRes: Int, mode: Int) {
         val context = InstrumentationRegistry.getInstrumentation().context
         val inflater = LayoutInflater.from(context)
-        val root = FrameLayout(context)
 
         benchmarkRule.measureRepeated {
-            @Suppress("UNUSED_VARIABLE")
-            val inflated = inflater.inflate(R.layout.item_card, root, false)
+            // Not to use the view cache in the View class, we inflate it every time
+            val container = runWithTimingDisabled { inflater.inflate(layoutRes, null) }
+
+            val widthMeasureSpec = MeasureSpec.makeMeasureSpec(1080, mode)
+            val heightMeasureSpec = MeasureSpec.makeMeasureSpec(1920, mode)
+
+            container.measure(widthMeasureSpec, heightMeasureSpec)
+            container.layout(0, 0, container.measuredWidth, container.measuredHeight)
         }
     }
 }
-// [END simple_benchmark]
