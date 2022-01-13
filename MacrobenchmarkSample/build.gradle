@@ -18,7 +18,7 @@
 buildscript {
     ext.kotlin_version = "1.6.10"
     // Switch to beta01 after publish
-    ext.benchmark_version = "1.1.0-SNAPSHOT"
+    ext.benchmark_version = "1.1.0-beta01"
 
     repositories {
         google()
@@ -37,7 +37,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://androidx.dev/snapshots/builds/8061501/artifacts/repository' }
     }
 }
 
