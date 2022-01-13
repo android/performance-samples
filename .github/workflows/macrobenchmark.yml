@@ -9,6 +9,8 @@ on:
 
 jobs:
   build:
+    # Only run action for the main repo & not forks
+    if: github.repository_owner == 'android'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
