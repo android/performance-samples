@@ -48,3 +48,9 @@ dependencies {
     implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     implementation "androidx.benchmark:benchmark-macro-junit4:$benchmark_version"
 }
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    }
+}
