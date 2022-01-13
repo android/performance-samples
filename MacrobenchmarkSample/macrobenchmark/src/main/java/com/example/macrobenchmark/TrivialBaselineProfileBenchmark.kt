@@ -23,8 +23,10 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalBaselineProfilesApi::class)
-// Remove `@Ignore`` to actually run the test using an emulator without Google Play Services
-// Also run `adb -e root` before you start the test.
+// Remove @Ignore to actually run the test using a rooted device/emulator.
+// Generally emulator images without Google Play Services are user-debug builds, which support
+// `adb root`
+
 // For the output baseline profile file, look at the `Benchmark` tag in logcat for the location
 // of the output directory.
 @Ignore
@@ -35,10 +37,8 @@ class TrivialBaselineProfileBenchmark {
     @Test
     fun startup() = baselineProfileRule.collectBaselineProfile(
         packageName = TARGET_PACKAGE,
-        setupBlock = {
-            startActivityAndWait()
-        },
         profileBlock = {
+            startActivityAndWait()
             device.waitForIdle()
         }
     )
