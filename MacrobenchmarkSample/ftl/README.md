@@ -246,14 +246,14 @@ Now click on `Runtime, Build and Connection Settings`. Update the settings to th
 ```bash
 # The Macrobenchmark target app package name
 # Example:
-package_name = "com.example.macrobenchmark.target"
+package_name = "com.example.macrobenchmark"
 ```
 
 ```bash
 # The device configurations you are interested in tracking metrics for.
 # This should match the device that you are testing on in the GitHub workflow.
 # Example:
-device_configurations = ["flame-30-en-portrait"]
+device_configurations = ["redfin-30-en-portrait"]
 ```
 
 ![Example setup](./images/cloud_function_settings.png)
