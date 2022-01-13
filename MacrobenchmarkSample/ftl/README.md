@@ -51,7 +51,7 @@ The cloud function uses the [default service account](https://cloud.google.com/f
 
 ### GitHub Workflow
 
-You can create your GitHub workflow, based on [this](https://github.com/android/performance-samples/blob/macrobenchmark/.github/workflows/macrobenchmark.yml) sample.
+You can create your GitHub workflow, based on [this](https://github.com/android/performance-samples/blob/main/.github/workflows/macrobenchmark.yml) sample.
 
 Let's look at the sample workflow in  more detail, and break it down.
 
@@ -101,7 +101,7 @@ jobs:
             --type instrumentation \
             --app ${{ github.workspace }}/.../release/app-release.apk \
             --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
-            --device model=flame,version=29,locale=en,orientation=portrait \
+            --device model=redfin,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
             --environment-variables additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
@@ -180,7 +180,7 @@ A couple of important things to keep in mind are:
 
 * We are specifying the type of tests to run (`instrumentation`). 
 
-* We are specifying a device make and model that we are interested in using. Here the `job` wants to use `flame` (a Pixel 4), API 29. It’s best to run tests against a consistent set of devices so you can compare subsequent runs and set up alerts for regressions.
+* We are specifying a device make and model that we are interested in using. Here the `job` wants to use `redfin` (a Pixel 5), API 30. It’s best to run tests against a consistent set of devices so you can compare subsequent runs and set up alerts for regressions.
 
 * We are specifying an environment variable `additionalTestOutputDir` as an argument to the Macrobenchmark Library. This tells the library to store the JSON outputs and associated traces in the external storage directory. These artifacts are eventually copied to the Google Cloud Storage bucket we created. 
 
