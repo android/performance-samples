@@ -57,3 +57,9 @@ dependencies {
     implementation "androidx.benchmark:benchmark-macro-junit4:$benchmark_version"
 }
 // [END macrobenchmark_setup_dependencies]
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    }
+}
