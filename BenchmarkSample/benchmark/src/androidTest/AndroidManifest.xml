@@ -13,4 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<manifest package="com.example.benchmark.test" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.benchmark.test">
+    <!-- [START benchmark_manifest] -->
+
+    <!-- Requesting legacy storage is needed to be able to write to additionalTestOutputDir on API 29 -->
+    <application android:requestLegacyExternalStorage="true">
+
+        <profileable android:shell="true" />
+
+    </application>
+    <!-- [END benchmark_manifest] -->
+</manifest>
