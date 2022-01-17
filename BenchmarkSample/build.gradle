@@ -11,8 +11,10 @@ buildscript {
 
     // [START root_classpath]
     dependencies {
+        // [START_EXCLUDE]
         classpath "com.android.tools.build:gradle:7.1.0-rc01"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // [END_EXCLUDE]
         classpath "androidx.benchmark:benchmark-gradle-plugin:$benchmark_version"
     }
     // [END root_classpath]
