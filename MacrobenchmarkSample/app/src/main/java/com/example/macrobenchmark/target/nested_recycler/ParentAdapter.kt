@@ -14,8 +14,11 @@ import androidx.tracing.trace
 import com.example.macrobenchmark.target.databinding.ItemParentBinding
 import com.example.macrobenchmark.target.dp
 
-class ParentAdapter :
-    ListAdapter<ParentItem, BindingViewHolder<ItemParentBinding>>(ParentItemDiffCallback) {
+class ParentAdapter(
+    private val useRecyclerPools: Boolean
+) : ListAdapter<ParentItem, BindingViewHolder<ItemParentBinding>>(ParentItemDiffCallback) {
+
+    private val recyclerViewPool = if (useRecyclerPools) RecyclerView.RecycledViewPool() else null
 
     // allows keeping the state of nested RecyclerView after it's recycled
     private val nestedStates = mutableMapOf<Int, Parcelable?>()
@@ -31,12 +34,15 @@ class ParentAdapter :
 
             binding.rowRecycler.addItemDecoration(childItemDecoration(parent.context))
             binding.rowRecycler.adapter = ChildAdapter()
+            binding.rowRecycler.setRecycledViewPool(recyclerViewPool)
 
             val layoutManager = LinearLayoutManager(
                 parent.context,
                 RecyclerView.HORIZONTAL,
                 false
             )
+
+            layoutManager.recycleChildrenOnDetach = useRecyclerPools
 
             binding.rowRecycler.layoutManager = layoutManager
 

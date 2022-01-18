@@ -20,4 +20,5 @@
     <string name="itemOptions">Item options</string>
     <string name="launchRecyclerActivity">RecyclerView</string>
     <string name="launchNestedRecyclerActivity">Nested RecyclerView</string>
+    <string name="launchNestedRecyclerWithPoolsActivity">Nested RecyclerView With Pools</string>
 </resources>

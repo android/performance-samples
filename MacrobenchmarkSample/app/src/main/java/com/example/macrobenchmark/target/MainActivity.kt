@@ -21,6 +21,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.macrobenchmark.target.databinding.ActivityMainBinding
 import com.example.macrobenchmark.target.nested_recycler.NestedRecyclerActivity
+import com.example.macrobenchmark.target.nested_recycler.USE_RECYCLER_POOLS
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.nestedRecyclerActivity.setOnClickListener {
             val intent = Intent(it.context, NestedRecyclerActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.nestedRecyclerWithPoolsActivity.setOnClickListener {
+            val intent = Intent(it.context, NestedRecyclerActivity::class.java).also {
+                it.putExtra(USE_RECYCLER_POOLS, true)
+            }
             startActivity(intent)
         }
     }

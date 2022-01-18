@@ -20,11 +20,13 @@ class NestedRecyclerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val useRecyclerPools = intent.getBooleanExtra(USE_RECYCLER_POOLS, false)
+
         binding = ActivityNestedRvBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
-        val adapter = ParentAdapter()
+        val adapter = ParentAdapter(useRecyclerPools)
 
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(this)
@@ -38,3 +40,5 @@ class NestedRecyclerActivity : AppCompatActivity() {
         }
     }
 }
+
+const val USE_RECYCLER_POOLS = "USE_RECYCLER_POOLS"

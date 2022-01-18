@@ -16,10 +16,7 @@
 
 package com.example.macrobenchmark.frames
 
-import androidx.benchmark.macro.ExperimentalMetricApi
-import androidx.benchmark.macro.FrameTimingMetric
-import androidx.benchmark.macro.StartupMode
-import androidx.benchmark.macro.TraceSectionMetric
+import androidx.benchmark.macro.*
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -38,52 +35,74 @@ class NestedRecyclerFrameTimingBenchmarks {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+    private val metrics = listOf(
+        FrameTimingMetric(),
+        TraceSectionMetric("ParentAdapter.onCreateViewHolder"),
+        TraceSectionMetric("ParentAdapter.onBindViewHolder"),
+        TraceSectionMetric("ChildAdapter.onCreateViewHolder"),
+        TraceSectionMetric("ChildAdapter.onBindViewHolder"),
+    )
+
     @Test
-    fun scrollNestedRecycler() {
+    fun scrollNestedRecyclerWithoutRecyclerPool() {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
-            metrics = listOf(
-                FrameTimingMetric(),
-                TraceSectionMetric("ParentAdapter.onCreateViewHolder"),
-                TraceSectionMetric("ParentAdapter.onBindViewHolder"),
-                TraceSectionMetric("ChildAdapter.onCreateViewHolder"),
-                TraceSectionMetric("ChildAdapter.onBindViewHolder"),
-            ),
+            metrics = metrics,
             startupMode = StartupMode.WARM, // restarts the activity each iteration
             iterations = 10,
-            setupBlock = {
-                startActivityAndWait()
+            setupBlock = { navigateToNestedRvScreen(false) }
+        ) { measureScrollingNestedRecycler() }
+    }
 
-                // navigate to the activity
-                device
-                    .findObject(By.res(packageName, "nestedRecyclerActivity"))
-                    .click()
+    @Test
+    fun scrollNestedRecyclerWithRecyclerPool() {
+        benchmarkRule.measureRepeated(
+            packageName = TARGET_PACKAGE,
+            metrics = metrics,
+            startupMode = StartupMode.WARM, // restarts the activity each iteration
+            iterations = 10,
+            setupBlock = { navigateToNestedRvScreen(true) }
+        ) { measureScrollingNestedRecycler() }
+    }
 
-                // wait until the activity is shown
-                device.waitUntilActivity("$packageName.NestedRecyclerActivity")
-            }
-        ) {
-            val recycler = device.findObject(By.res(packageName, "recycler"))
+    private fun MacrobenchmarkScope.navigateToNestedRvScreen(useRecyclerViewPool: Boolean) {
+        startActivityAndWait()
+
+        // navigate to the activity
+        val buttonId =
+            if (useRecyclerViewPool) "nestedRecyclerWithPoolsActivity" else "nestedRecyclerActivity"
+
+        device
+            .findObject(By.res(packageName, buttonId))
+            .click()
+
+        // wait until the activity is shown
+        device.waitUntilActivity("$packageName.NestedRecyclerActivity")
+    }
+
+    private fun MacrobenchmarkScope.measureScrollingNestedRecycler() {
+        val recycler = device.findObject(By.res(packageName, "recycler"))
+        // Set gesture margin to avoid triggering gesture navigation with input events from automation.
+        recycler.setGestureMargin(device.displayWidth / 5)
+
+        repeat(3) { index ->
+            val visibleNestedRecyclers =
+                recycler.findObjects(By.res(packageName, "row_recycler"))
+
+            // scroll the second recycler, because the first one may be shown just a pixel
+            val nestedRecyclerToScroll = visibleNestedRecyclers[1]
+
             // Set gesture margin to avoid triggering gesture navigation with input events from automation.
-            recycler.setGestureMargin(device.displayWidth / 5)
+            nestedRecyclerToScroll.setGestureMargin(device.displayWidth / 5)
 
-            repeat(3) { index ->
-                val visibleNestedRecyclers =
-                    recycler.findObjects(By.res(packageName, "row_recycler"))
-
-                // scroll the second recycler, because the first one may be shown just a pixel
-                val nestedRecyclerToScroll = visibleNestedRecyclers[1]
-
-                // Set gesture margin to avoid triggering gesture navigation with input events from automation.
-                nestedRecyclerToScroll.setGestureMargin(device.displayWidth / 5)
-
-                // swipe horizontally
-                nestedRecyclerToScroll.fling(Direction.RIGHT)
-                // scroll down twice and once up
-                recycler.swipe(if (index < 2) Direction.UP else Direction.DOWN, 0.5f)
-                // wait until the swipe is done
-                device.waitForIdle()
-            }
+            // swipe horizontally
+            nestedRecyclerToScroll.fling(Direction.RIGHT)
+            // scroll down twice and once up
+            recycler.swipe(if (index < 2) Direction.UP else Direction.DOWN, 0.5f)
+            // wait until the swipe is done
+            device.waitForIdle()
         }
     }
+
 }
+

@@ -54,4 +54,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/launchRecyclerActivity" />
 
+    <Button
+        android:id="@+id/nestedRecyclerWithPoolsActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchNestedRecyclerWithPoolsActivity"
+        android:text="@string/launchNestedRecyclerWithPoolsActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nestedRecyclerActivity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
