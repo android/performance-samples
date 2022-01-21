@@ -7,9 +7,9 @@ import android.widget.FrameLayout.LayoutParams.MATCH_PARENT
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.annotation.UiThreadTest
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.rule.ActivityTestRule
 import com.example.benchmark.ui.MainActivity
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -46,6 +46,7 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class RecyclerViewBenchmark {
+    
     class LazyComputedList<T>(
         override val size: Int = Int.MAX_VALUE,
         private inline val compute: (Int) -> T
@@ -57,13 +58,11 @@ class RecyclerViewBenchmark {
     val benchmarkRule = BenchmarkRule()
 
     @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun setup() {
-        activityRule.runOnUiThread {
-            val activity = activityRule.activity
-
+        activityRule.scenario.onActivity { activity ->
             // Set the RecyclerView to have a height of 1 pixel.
             // This ensures that only one item can be displayed at once.
             activity.recyclerView.layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, 1)
@@ -88,16 +87,19 @@ class RecyclerViewBenchmark {
     @UiThreadTest
     @Test
     fun scroll() {
-        val recyclerView = activityRule.activity.recyclerView
-        assertTrue("RecyclerView expected to have children", recyclerView.childCount > 0)
-        assertEquals("RecyclerView must have height = 1", 1, recyclerView.height)
+        activityRule.scenario.onActivity { activity ->
+            val recyclerView = activity.recyclerView
 
-        // RecyclerView has children, its items are attached, bound, and have gone through layout.
-        // Ready to benchmark!
-        benchmarkRule.measureRepeated {
-            // Scroll RecyclerView by one item
-            // this will synchronously execute: attach / detach(old item) / bind / layout
-            recyclerView.scrollBy(0, recyclerView.getLastChild().height)
+            assertTrue("RecyclerView expected to have children", recyclerView.childCount > 0)
+            assertEquals("RecyclerView must have height = 1", 1, recyclerView.height)
+
+            // RecyclerView has children, its items are attached, bound, and have gone through layout.
+            // Ready to benchmark!
+            benchmarkRule.measureRepeated {
+                // Scroll RecyclerView by one item
+                // this will synchronously execute: attach / detach(old item) / bind / layout
+                recyclerView.scrollBy(0, recyclerView.getLastChild().height)
+            }
         }
     }
 }

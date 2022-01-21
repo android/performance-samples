@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2019 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.benchmark.test">
-    <!-- Important: disable debuggable for accurate performance results -->
-    <application
-        android:debuggable="false"
-        android:requestLegacyExternalStorage="true"
-        tools:replace="android:debuggable">
+    <!-- [START benchmark_manifest] -->
+
+    <!-- Requesting legacy storage is needed to be able to write to additionalTestOutputDir on API 29 -->
+    <application android:requestLegacyExternalStorage="true">
 
         <profileable android:shell="true" />
 
     </application>
+    <!-- [END benchmark_manifest] -->
 </manifest>

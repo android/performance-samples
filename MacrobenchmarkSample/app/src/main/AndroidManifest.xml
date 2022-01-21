@@ -15,6 +15,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.macrobenchmark.target">
 
     <application
@@ -29,7 +30,7 @@
         under the new package visibility changes for Android 11.
         -->
         <activity
-            android:name=".TrivialStartupActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,11 +38,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="com.example.macrobenchmark.target.TRIVIAL_STARTUP_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
+
         <activity
             android:name=".RecyclerViewActivity"
             android:exported="true">
@@ -50,21 +48,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ActivityLauncherActivity"
-            android:exported="true">
-            <intent-filter>
-                <action
-                    android:name="com.example.macrobenchmark.target.ACTIVITY_LAUNCHER_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
         <!-- non-exported activities -->
         <activity android:name=".NonExportedRecyclerActivity" />
 
+        <!-- [START macrobenchmark_setup_profileable] -->
         <!-- enable profiling by macrobenchmark -->
-        <!--suppress AndroidElementNotAllowed -->
-        <profileable android:shell="true" />
+        <profileable
+            android:shell="true"
+            tools:targetApi="q" />
+        <!-- [END macrobenchmark_setup_profileable] -->
+
     </application>
 
 </manifest>

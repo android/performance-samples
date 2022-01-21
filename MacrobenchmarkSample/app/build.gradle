@@ -23,21 +23,31 @@ android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.example.macrobenchmark.target"
-        minSdkVersion 29
+        minSdkVersion 14
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
+    // [START macrobenchmark_setup_app_build_type]
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+
+        benchmark {
+            initWith buildTypes.release
             signingConfig signingConfigs.debug
         }
     }
+    // [END macrobenchmark_setup_app_build_type]
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
