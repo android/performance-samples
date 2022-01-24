@@ -17,12 +17,12 @@
 package com.example.jankstats
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.metrics.performance.PerformanceMetricsState
-import androidx.metrics.performance.FrameData
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -40,45 +40,46 @@ import kotlinx.coroutines.asExecutor
 class JankAggregatorActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var jankStatsAggregator: JankStatsAggregator
+    private lateinit var jankStatsAggregator: JankStatsAggregator
+
+    private val jankReportListener =
+        JankStatsAggregator.OnJankReportListener { reason, totalFrames, jankFrameData ->
+            Log.v(
+                "JankStatsSample",
+                "*** Jank Report ($reason), totalFrames = $totalFrames, " +
+                        "jankFrames = ${jankFrameData.size}"
+            )
+            for (frameData in jankFrameData) {
+                Log.v(
+                    "JankStatsSample",
+                    "***** Jank Report: " +
+                            "frame start ${frameData.frameStartNanos}, " +
+                            "duration = ${frameData.frameDurationNanos}, " +
+                            "jank = ${frameData.isJank}"
+                )
+                for (state in frameData.states) {
+                    Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         val rootView = findViewById<View>(R.id.nav_host_fragment_content_main)
         val metricsStateHolder = PerformanceMetricsState.getForHierarchy(rootView)
-        jankStatsAggregator = JankStatsAggregator(window, Dispatchers.Default.asExecutor(),
-            jankReportListener)
+        jankStatsAggregator = JankStatsAggregator(
+            window,
+            Dispatchers.Default.asExecutor(),
+            jankReportListener
+        )
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
-
-        setSupportActionBar(findViewById(R.id.toolbar))
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-    }
-
-    object jankReportListener : JankStatsAggregator.OnJankReportListener {
-
-        override fun onJankReport(
-            reason: String,
-            totalFrames: Int,
-            jankFrameData: List<FrameData>
-        ) {
-            println("*** Jank Report ($reason), totalFrames = $totalFrames, " +
-                    "jankFrames = ${jankFrameData.size}")
-            for (frameData in jankFrameData) {
-                println(
-                    "***** Jank Report: frame start, duration, jank = " +
-                            "${frameData.frameStartNanos}, ${frameData.frameDurationNanos}, " +
-                            "${frameData.isJank}"
-                )
-                for (state in frameData.states) {
-                    println("    ${state.stateName}: ${state.state}")
-                }
-            }
-        }
     }
 
     override fun onResume() {

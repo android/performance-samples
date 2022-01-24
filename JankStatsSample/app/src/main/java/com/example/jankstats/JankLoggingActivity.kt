@@ -17,13 +17,13 @@
 package com.example.jankstats
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.metrics.performance.PerformanceMetricsState
-import androidx.metrics.performance.FrameData
 import androidx.metrics.performance.JankStats
+import androidx.metrics.performance.PerformanceMetricsState
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -39,7 +39,7 @@ import kotlinx.coroutines.asExecutor
 class JankLoggingActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var jankStats: JankStats
+    private lateinit var jankStats: JankStats
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +47,12 @@ class JankLoggingActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val rootView = findViewById<View>(R.id.nav_host_fragment_content_main)
-
         val metricsStateHolder = PerformanceMetricsState.getForHierarchy(rootView)
-        jankStats = JankStats.createAndTrack(window, Dispatchers.Default.asExecutor(),
-            jankFrameListener)
+        jankStats = JankStats.createAndTrack(
+            window,
+            Dispatchers.Default.asExecutor(),
+            jankFrameListener
+        )
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -58,18 +60,19 @@ class JankLoggingActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-    object jankFrameListener : JankStats.OnFrameListener {
-
-        override fun onFrame(frameData: FrameData) {
-            println(
-                "*** Jank frame start, duration, jank = ${frameData.frameStartNanos}, " +
-                        "${frameData.frameDurationNanos}, ${frameData.isJank}"
+    private val jankFrameListener =
+        JankStats.OnFrameListener { frameData ->
+            Log.v(
+                "JankStatsSample",
+                "*** Jank " +
+                        "frame start ${frameData.frameStartNanos}, " +
+                        "duration = ${frameData.frameDurationNanos}, " +
+                        "jank = ${frameData.isJank}"
             )
             for (state in frameData.states) {
-                println("    ${state.stateName}: ${state.state}")
+                Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
             }
         }
-    }
 
     override fun onResume() {
         super.onResume()

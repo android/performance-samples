@@ -23,12 +23,14 @@ import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
-class MessageListAdapter(val messageList: Array<String>) :
-    RecyclerView.Adapter<MessageListAdapter.MessageHeaderViewHolder>() {
+class MessageListAdapter(
+    private val messageList: Array<String>
+) : RecyclerView.Adapter<MessageListAdapter.MessageHeaderViewHolder>() {
 
     class MessageHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageHeaderTV =
             itemView.findViewById<android.widget.TextView>(R.id.messageHeader)
+
         fun bind(headerText: String) {
             itemView.setOnClickListener {
                 val bundle = bundleOf("title" to headerText)

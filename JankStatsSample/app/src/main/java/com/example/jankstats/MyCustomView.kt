@@ -43,8 +43,7 @@ class MyCustomView : View {
          */
         val probability = Math.random()
         if (probability > .7) {
-            val delay: Long
-            delay = if (probability > .98) {
+            val delay = if (probability > .98) {
                 500 + (Math.random() * 200).toLong()
             } else {
                 32 + (Math.random() * 50).toLong()

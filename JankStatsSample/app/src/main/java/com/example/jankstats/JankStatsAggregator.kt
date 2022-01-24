@@ -42,14 +42,12 @@ class JankStatsAggregator(
     private val onJankReportListener: OnJankReportListener
 ) {
 
-    private val listener = object : JankStats.OnFrameListener {
-        override fun onFrame(frameData: FrameData) {
-            ++numFrames
-            if (frameData.isJank) {
-                jankReport.add(frameData)
-                if (jankReport.size >= REPORT_BUFFER_LIMIT) {
-                    issueJankReport("Max buffer size reached")
-                }
+    private val listener = JankStats.OnFrameListener { frameData ->
+        ++numFrames
+        if (frameData.isJank) {
+            jankReport.add(frameData)
+            if (jankReport.size >= REPORT_BUFFER_LIMIT) {
+                issueJankReport("Max buffer size reached")
             }
         }
     }
@@ -75,9 +73,9 @@ class JankStatsAggregator(
     fun issueJankReport(reason: String = "") {
         val jankReportCopy = jankReport
         val numFramesCopy = numFrames
-        executor.execute(Runnable {
+        executor.execute {
             onJankReportListener.onJankReport(reason, numFramesCopy, jankReportCopy)
-        })
+        }
         jankReport = ArrayList()
         numFrames = 0
     }

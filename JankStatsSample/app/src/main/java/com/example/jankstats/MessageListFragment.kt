@@ -31,8 +31,24 @@ class MessageListFragment : Fragment() {
 
     private val metricsStateCache = MetricsStateCache()
 
-    val messageList: Array<String> = Array<String>(100) {
-        "Message #" + it
+    private val messageList = Array<String>(100) {
+        "Message #$it"
+    }
+
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            when (newState) {
+                RecyclerView.SCROLL_STATE_DRAGGING -> {
+                    metricsStateCache.state?.addState("RecyclerView", "Dragging")
+                }
+                RecyclerView.SCROLL_STATE_SETTLING -> {
+                    metricsStateCache.state?.addState("RecyclerView", "Settling")
+                }
+                else -> {
+                    metricsStateCache.state?.removeState("RecyclerView")
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -47,17 +63,7 @@ class MessageListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.MessageList)
         recyclerView.addOnAttachStateChangeListener(metricsStateCache)
         recyclerView.adapter = MessageListAdapter(messageList)
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    metricsStateCache.state?.addState("RecyclerView", "Dragging")
-                } else if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
-                    metricsStateCache.state?.addState("RecyclerView", "Settling")
-                } else {
-                    metricsStateCache.state?.removeState("RecyclerView")
-                }
-            }
-        })
+        recyclerView.addOnScrollListener(scrollListener)
     }
 
     class MetricsStateCache : View.OnAttachStateChangeListener {
