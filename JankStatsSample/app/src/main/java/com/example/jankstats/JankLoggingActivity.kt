@@ -44,6 +44,7 @@ class JankLoggingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         val rootView = findViewById<View>(R.id.nav_host_fragment_content_main)
 
