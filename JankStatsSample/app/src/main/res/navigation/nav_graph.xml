@@ -32,8 +32,8 @@
     </fragment>
     <fragment
         android:id="@+id/messageContent"
-        android:name="com.example.jankstats.MessageContent"
-        android:label="fragment_message_content">
+        android:name="com.example.jankstats.MessageContentFragment"
+        android:label="Message Content">
         <argument
             android:name="title"
             app:argType="string" />
