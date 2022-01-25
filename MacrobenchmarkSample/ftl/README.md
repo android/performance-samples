@@ -197,7 +197,7 @@ Once a test run is complete, the function processes the resulting JSON file, and
 
 The first step is to deploy the Google Cloud Functions to your GCP project. Make sure you have downloaded the `gcloud` [CLI])(https://cloud.google.com/sdk/gcloud) and the Firebase [CLI](https://firebase.google.com/docs/cli) setup. 
 
-Copy the cloud function from [here](https://github.com/android/performance-samples/tree/macrobenchmark/MacrobenchmarkSample/functions).
+Copy the cloud function from [here](https://github.com/android/performance-samples/tree/main/MacrobenchmarkSample/functions).
 
 Then, initialize your project using the commands below.
 
