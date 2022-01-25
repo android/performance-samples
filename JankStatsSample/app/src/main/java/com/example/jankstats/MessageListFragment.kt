@@ -23,11 +23,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.metrics.performance.PerformanceMetricsState
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jankstats.databinding.FragmentMessageListBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class MessageListFragment : Fragment() {
+
+    private var _binding: FragmentMessageListBinding? = null
+    private val binding get() = requireNotNull(_binding)
 
     private val metricsStateCache = MetricsStateCache()
 
@@ -55,15 +59,20 @@ class MessageListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_message_list, container, false)
+    ): View {
+        _binding = FragmentMessageListBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.MessageList)
-        recyclerView.addOnAttachStateChangeListener(metricsStateCache)
-        recyclerView.adapter = MessageListAdapter(messageList)
-        recyclerView.addOnScrollListener(scrollListener)
+        binding.messageList.addOnAttachStateChangeListener(metricsStateCache)
+        binding.messageList.adapter = MessageListAdapter(messageList)
+        binding.messageList.addOnScrollListener(scrollListener)
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
     class MetricsStateCache : View.OnAttachStateChangeListener {

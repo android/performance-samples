@@ -20,13 +20,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.metrics.performance.PerformanceMetricsState
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.jankstats.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 
@@ -39,7 +40,10 @@ import kotlinx.coroutines.asExecutor
  */
 class JankAggregatorActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     private lateinit var jankStatsAggregator: JankStatsAggregator
 
     private val jankReportListener =
@@ -65,21 +69,19 @@ class JankAggregatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setupUi()
 
-        val rootView = findViewById<View>(R.id.nav_host_fragment_content_main)
-        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(rootView)
+        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+
         jankStatsAggregator = JankStatsAggregator(
             window,
             Dispatchers.Default.asExecutor(),
             jankReportListener
         )
-        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
     }
 
     override fun onResume() {
@@ -110,7 +112,17 @@ class JankAggregatorActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun setupUi() {
+        setSupportActionBar(binding.toolbar)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navigation_container) as NavHostFragment
+        navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 }

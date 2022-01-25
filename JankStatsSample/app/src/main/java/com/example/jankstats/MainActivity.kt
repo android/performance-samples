@@ -20,59 +20,62 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.metrics.performance.JankStats
 import androidx.metrics.performance.PerformanceMetricsState
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.jankstats.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 /**
  * This activity shows the basic usage of JankStats, from creating and enabling it to track
  * a view hierarchy, to setting application state on JankStats, to receiving and logging per-frame
  * callbacks with jank data.
  */
-class JankLoggingActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     private lateinit var jankStats: JankStats
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setupUi()
 
-        val rootView = findViewById<View>(R.id.nav_host_fragment_content_main)
-        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(rootView)
+        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+
         jankStats = JankStats.createAndTrack(
             window,
             Dispatchers.Default.asExecutor(),
             jankFrameListener
         )
-        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
     }
 
-    private val jankFrameListener =
-        JankStats.OnFrameListener { frameData ->
-            Log.v(
-                "JankStatsSample",
-                "*** Jank " +
-                        "frame start ${frameData.frameStartNanos}, " +
-                        "duration = ${frameData.frameDurationNanos}, " +
-                        "jank = ${frameData.isJank}"
-            )
-            for (state in frameData.states) {
-                Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
-            }
+    private val jankFrameListener = JankStats.OnFrameListener { frameData ->
+        Log.v(
+            "JankStatsSample",
+            "*** Jank " +
+                    "frame start ${frameData.frameStartNanos}, " +
+                    "duration = ${frameData.frameDurationNanos}, " +
+                    "jank = ${frameData.isJank}"
+        )
+        for (state in frameData.states) {
+            Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
         }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -101,7 +104,17 @@ class JankLoggingActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun setupUi() {
+        setSupportActionBar(binding.toolbar)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navigation_container) as NavHostFragment
+        navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 }

@@ -20,25 +20,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.jankstats.databinding.FragmentMessageContentBinding
 
 /**
  * A simple [Fragment] subclass.
  */
 class MessageContentFragment : Fragment() {
 
+    private var _binding: FragmentMessageContentBinding? = null
+    private val binding get() = requireNotNull(_binding)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message_content, container, false)
+        _binding = FragmentMessageContentBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val contentsText = view.findViewById<TextView>(R.id.messageHeader)
-        contentsText.text = arguments?.getString("title")
+        binding.messageHeader.text = arguments?.getString("title")
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

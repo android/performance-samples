@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JankStats">
         <activity
-            android:name=".JankLoggingActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

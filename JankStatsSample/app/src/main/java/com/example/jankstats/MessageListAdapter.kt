@@ -17,19 +17,19 @@
 package com.example.jankstats
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jankstats.databinding.MessageItemBinding
 
 class MessageListAdapter(
     private val messageList: Array<String>
 ) : RecyclerView.Adapter<MessageListAdapter.MessageHeaderViewHolder>() {
 
-    class MessageHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageHeaderTV =
-            itemView.findViewById<android.widget.TextView>(R.id.messageHeader)
+    class MessageHeaderViewHolder(
+        private val binding: MessageItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(headerText: String) {
             itemView.setOnClickListener {
@@ -38,15 +38,13 @@ class MessageListAdapter(
                     R.id.action_MessageList_to_messageContent, bundle
                 )
             }
-            messageHeaderTV.text = headerText
+            binding.messageHeader.text = headerText
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHeaderViewHolder {
-        return MessageHeaderViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.message_item, parent, false)
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        return MessageHeaderViewHolder(MessageItemBinding.inflate(inflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: MessageHeaderViewHolder, position: Int) {
