@@ -36,16 +36,19 @@ class FrameTimingBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+    // [START control_your_app]
     @Test
     fun scrollList() {
         benchmarkRule.measureRepeated(
+            // [START_EXCLUDE]
             packageName = TARGET_PACKAGE,
-            metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
+            metrics = listOf(FrameTimingMetric()),
             startupMode = StartupMode.WARM, // restarts activity each iteration
             iterations = 10,
+            // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
                 val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
@@ -56,10 +59,11 @@ class FrameTimingBenchmark {
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)
-            repeat(10) {
-                recycler.scroll(Direction.DOWN, 2f)
-                device.waitForIdle()
-            }
+
+            // Scroll down several times
+            repeat(3) { recycler.fling(Direction.DOWN) }
         }
     }
+    // [END control_your_app]
+
 }
