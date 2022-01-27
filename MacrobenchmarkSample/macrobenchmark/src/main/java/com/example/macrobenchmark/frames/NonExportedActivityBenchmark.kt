@@ -24,11 +24,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.Until
 import com.example.macrobenchmark.TARGET_PACKAGE
-import com.example.macrobenchmark.waitUntilActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
 
 
 @LargeTest
@@ -42,7 +43,7 @@ class NonExportedActivityBenchmark {
      */
     // [START macrobenchmark_navigate_within_app]
     @Test
-    fun scrollList() {
+    fun nonExportedActivityScrollList() {
         benchmarkRule.measureRepeated(
             // [START_EXCLUDE]
             packageName = TARGET_PACKAGE,
@@ -64,9 +65,15 @@ class NonExportedActivityBenchmark {
                     By.res(packageName, "launchRecyclerActivity")
                 )
                 launchRecyclerActivity.click()
-                device.waitUntilActivity("$packageName.NonExportedRecyclerActivity")
+
+                // wait until the activity is shown
+                device.wait(
+                    Until.hasObject(By.clazz("$packageName.NonExportedRecyclerActivity")),
+                    TimeUnit.SECONDS.toMillis(10)
+                )
             }
         ) {
+            // [START_EXCLUDE]
             val recycler = device.findObject(By.res(packageName, "recycler"))
 
             // Set gesture margin to avoid triggering gesture navigation
@@ -75,6 +82,7 @@ class NonExportedActivityBenchmark {
 
             // Fling the recycler several times
             repeat(3) { recycler.fling(Direction.DOWN) }
+            // [END_EXCLUDE]
         }
     }
     // [END macrobenchmark_navigate_within_app]
