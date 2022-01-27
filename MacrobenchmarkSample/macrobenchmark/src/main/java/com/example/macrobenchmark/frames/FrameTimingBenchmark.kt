@@ -36,16 +36,16 @@ class FrameTimingBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
-    // [START control_your_app]
+    // [START macrobenchmark_control_your_app]
     @Test
     fun scrollList() {
         benchmarkRule.measureRepeated(
             // [START_EXCLUDE]
             packageName = TARGET_PACKAGE,
+            metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
-            metrics = listOf(FrameTimingMetric()),
             startupMode = StartupMode.WARM, // restarts activity each iteration
             iterations = 10,
             // [END_EXCLUDE]
@@ -64,6 +64,6 @@ class FrameTimingBenchmark {
             repeat(3) { recycler.fling(Direction.DOWN) }
         }
     }
-    // [END control_your_app]
+    // [END macrobenchmark_control_your_app]
 
 }
