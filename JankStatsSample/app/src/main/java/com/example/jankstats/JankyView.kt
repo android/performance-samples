@@ -26,7 +26,7 @@ import com.example.jankstats.tools.simulateJank
  * This custom view is used to inject an artificial, random delay during drawing, to simulate
  * jank on the UI thread.
  */
-class MyCustomView @JvmOverloads constructor(
+class JankyView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,

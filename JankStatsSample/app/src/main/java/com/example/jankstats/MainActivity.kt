@@ -31,8 +31,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.jankstats.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 /**
  * This activity shows the basic usage of JankStats, from creating and enabling it to track
@@ -69,10 +67,11 @@ class MainActivity : AppCompatActivity() {
             "JankStatsSample",
             "*** Jank " +
                     "frame start ${frameData.frameStartNanos}, " +
-                    "duration = ${frameData.frameDurationNanos}, " +
+                    "duration = ${frameData.frameDurationUiNanos}, " +
                     "jank = ${frameData.isJank}"
         )
-        for (state in frameData.states) {
+
+        frameData.states.forEach { state ->
             Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
         }
     }

@@ -35,7 +35,7 @@ class MessageListAdapter(
             itemView.setOnClickListener {
                 val bundle = bundleOf("title" to headerText)
                 Navigation.findNavController(it).navigate(
-                    R.id.action_MessageList_to_messageContent, bundle
+                    R.id.action_messageList_to_messageContent, bundle
                 )
             }
             binding.messageHeader.text = headerText
@@ -44,7 +44,8 @@ class MessageListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHeaderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return MessageHeaderViewHolder(MessageItemBinding.inflate(inflater, parent, false))
+        val itemBinding = MessageItemBinding.inflate(inflater, parent, false)
+        return MessageHeaderViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: MessageHeaderViewHolder, position: Int) {

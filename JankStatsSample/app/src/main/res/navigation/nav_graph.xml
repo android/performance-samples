@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  Copyright 2020 The Android Open Source Project
+  Copyright 2022 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,17 +18,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/MessageList">
+    app:startDestination="@id/messageList">
 
     <fragment
-        android:id="@+id/MessageList"
+        android:id="@+id/messageList"
         android:name="com.example.jankstats.MessageListFragment"
         android:label="Message List"
         tools:layout="@layout/fragment_message_list">
         <action
-            android:id="@+id/action_MessageList_to_messageContent"
+            android:id="@+id/action_messageList_to_messageContent"
             app:destination="@id/messageContent" />
     </fragment>
+
     <fragment
         android:id="@+id/messageContent"
         android:name="com.example.jankstats.MessageContentFragment"
