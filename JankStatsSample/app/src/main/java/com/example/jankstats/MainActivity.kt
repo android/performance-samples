@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var jankStats: JankStats
+    private lateinit var metricsStateHolder: PerformanceMetricsState.MetricsStateHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,29 +52,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupUi()
 
-        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+        metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
 
         jankStats = JankStats.createAndTrack(
             window,
             Dispatchers.Default.asExecutor(),
-            jankFrameListener
-        )
+        ) { frameData ->
+            Log.v(
+                "JankStatsSample",
+                "*** Jank " +
+                        "frame start ${frameData.frameStartNanos}, " +
+                        "duration = ${frameData.frameDurationUiNanos}, " +
+                        "jank = ${frameData.isJank}"
+            )
+
+            frameData.states.forEach { state ->
+                Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
+            }
+        }
 
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
-    }
 
-    private val jankFrameListener = JankStats.OnFrameListener { frameData ->
-        Log.v(
-            "JankStatsSample",
-            "*** Jank " +
-                    "frame start ${frameData.frameStartNanos}, " +
-                    "duration = ${frameData.frameDurationUiNanos}, " +
-                    "jank = ${frameData.isJank}"
-        )
-
-        frameData.states.forEach { state ->
-            Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
-        }
+        setupNavigationState()
     }
 
     override fun onResume() {
@@ -115,5 +115,14 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    private fun setupNavigationState() {
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            metricsStateHolder.state?.addState(
+                "Navigation",
+                "Args(${arguments.toString()}), $destination"
+            )
+        }
     }
 }
