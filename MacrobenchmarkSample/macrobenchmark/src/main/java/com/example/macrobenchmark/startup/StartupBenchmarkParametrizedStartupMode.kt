@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark
+package com.example.macrobenchmark.startup
 
 import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
+import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,25 +28,35 @@ import org.junit.runners.Parameterized
 
 @LargeTest
 @RunWith(Parameterized::class)
-class TrivialStartupBenchmark(private val startupMode: StartupMode) {
+class StartupBenchmarkParametrizedStartupMode(
+    private val startupMode: StartupMode
+) {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    fun startup() = benchmarkRule.measureStartup(
-        profileCompiled = false,
+    fun startup() = benchmarkRule.measureRepeated(
+        packageName = TARGET_PACKAGE,
+        metrics = listOf(StartupTimingMetric()),
         startupMode = startupMode,
-        iterations = 3
+        iterations = 5,
+        setupBlock = {
+            // when running StartupMode.HOT, it wouldn't launch the activity between iterations
+            // therefore we press home before each test to be sure the activity isn't visible
+            pressHome()
+        }
     ) {
-        action = "com.example.macrobenchmark.target.TRIVIAL_STARTUP_ACTIVITY"
+        // starts default launch activity
+        startActivityAndWait()
     }
 
     companion object {
         @Parameterized.Parameters(name = "mode={0}")
         @JvmStatic
-        fun parameters(): List<Array<Any>> {
-            return listOf(StartupMode.COLD, StartupMode.WARM, StartupMode.HOT)
-                .map { arrayOf(it) }
-        }
+        fun parameters(): List<Array<Any>> = listOf(
+            StartupMode.COLD,
+            StartupMode.WARM,
+            StartupMode.HOT
+        ).map { arrayOf(it) }
     }
 }

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 current_dir=`basename $(pwd)`
-if [ $current_dir != "android-constraint-layout-performance" ];then
-    echo 'You need to run the script at the "android-constraint-layout-performance" directory'
+if [ $current_dir != "ConstraintLayoutPerformance" ];then
+    echo 'You need to run the script at the "ConstraintLayoutPerformance" directory'
     exit 1
 fi
 

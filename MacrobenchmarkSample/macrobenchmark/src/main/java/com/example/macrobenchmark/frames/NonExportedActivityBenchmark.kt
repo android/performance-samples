@@ -14,62 +14,77 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark
+package com.example.macrobenchmark.frames
 
-import android.content.Intent
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
+import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.filters.SdkSuppress
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
+
 
 @LargeTest
-@SdkSuppress(minSdkVersion = 29)
 @RunWith(AndroidJUnit4::class)
-class FrameTimingBenchmark {
+class NonExportedActivityBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+    /**
+     * Showcase how to access non exported activity by navigating into it from default one.
+     */
+    // [START macrobenchmark_navigate_within_app]
     @Test
-    fun start() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val device = UiDevice.getInstance(instrumentation)
+    fun nonExportedActivityScrollList() {
         benchmarkRule.measureRepeated(
-            packageName = PACKAGE_NAME,
+            // [START_EXCLUDE]
+            packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
-            iterations = 10,
+            startupMode = StartupMode.WARM, // Ensures that a new activity is created every single time
+            iterations = 5,
+            // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent()
-                intent.action = ACTION
-                startActivityAndWait(intent)
+                startActivityAndWait()
+
+                // click a button to launch the target activity.
+                // While we use resourceId here to find the button, you could also use
+                // accessibility info or button text content.
+                val launchRecyclerActivity = device.findObject(
+                    By.res(packageName, "launchRecyclerActivity")
+                )
+                launchRecyclerActivity.click()
+
+                // wait until the activity is shown
+                device.wait(
+                    Until.hasObject(By.clazz("$packageName.NonExportedRecyclerActivity")),
+                    TimeUnit.SECONDS.toMillis(10)
+                )
             }
         ) {
-            val recycler = device.findObject(By.res(PACKAGE_NAME, RESOURCE_ID))
+            // [START_EXCLUDE]
+            val recycler = device.findObject(By.res(packageName, "recycler"))
+
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             recycler.setGestureMargin(device.displayWidth / 5)
-            for (i in 1..10) {
-                recycler.scroll(Direction.DOWN, 2f)
-                device.waitForIdle()
-            }
+
+            // Fling the recycler several times
+            repeat(3) { recycler.fling(Direction.DOWN) }
+            // [END_EXCLUDE]
         }
     }
+    // [END macrobenchmark_navigate_within_app]
 
-    companion object {
-        private const val PACKAGE_NAME = "com.example.macrobenchmark.target"
-        private const val ACTION = "com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY"
-        private const val RESOURCE_ID = "recycler"
-    }
 }

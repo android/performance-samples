@@ -51,7 +51,7 @@ The cloud function uses the [default service account](https://cloud.google.com/f
 
 ### GitHub Workflow
 
-You can create your GitHub workflow, based on [this](https://github.com/android/performance-samples/blob/macrobenchmark/.github/workflows/macrobenchmark.yml) sample.
+You can create your GitHub workflow, based on [this](https://github.com/android/performance-samples/blob/main/.github/workflows/macrobenchmark.yml) sample.
 
 Let's look at the sample workflow in  more detail, and break it down.
 
@@ -99,9 +99,9 @@ jobs:
         run: |
           gcloud firebase test android run \
             --type instrumentation \
-            --app ${{ github.workspace }}/.../release/app-release.apk \
-            --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
-            --device model=flame,version=29,locale=en,orientation=portrait \
+            --app ${{ github.workspace }}/.../benchmark/app-benchmark.apk \
+            --test ${{ github.workspace }}/.../macrobenchmark-benchmark.apk \
+            --device model=redfin,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
             --environment-variables additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
@@ -167,8 +167,8 @@ We can now kick execute tests using Firebase Test Lab with the following job:
   run: |
     gcloud firebase test android run \
       --type instrumentation \
-      --app ${{ github.workspace }}/.../release/app-release.apk \
-      --test ${{ github.workspace }}/.../macrobenchmark-release.apk \
+      --app ${{ github.workspace }}/.../benchmark/app-benchmark.apk \
+      --test ${{ github.workspace }}/.../macrobenchmark-benchmark.apk \
       --device model=redfin,version=30,locale=en,orientation=portrait \
       --directories-to-pull /sdcard/Download \
       --results-bucket gs://macrobenchmark-results \
@@ -180,7 +180,7 @@ A couple of important things to keep in mind are:
 
 * We are specifying the type of tests to run (`instrumentation`). 
 
-* We are specifying a device make and model that we are interested in using. Here the `job` wants to use `flame` (a Pixel 4), API 29. It’s best to run tests against a consistent set of devices so you can compare subsequent runs and set up alerts for regressions.
+* We are specifying a device make and model that we are interested in using. Here the `job` wants to use `redfin` (a Pixel 5), API 30. It’s best to run tests against a consistent set of devices so you can compare subsequent runs and set up alerts for regressions.
 
 * We are specifying an environment variable `additionalTestOutputDir` as an argument to the Macrobenchmark Library. This tells the library to store the JSON outputs and associated traces in the external storage directory. These artifacts are eventually copied to the Google Cloud Storage bucket we created. 
 
@@ -197,7 +197,7 @@ Once a test run is complete, the function processes the resulting JSON file, and
 
 The first step is to deploy the Google Cloud Functions to your GCP project. Make sure you have downloaded the `gcloud` [CLI])(https://cloud.google.com/sdk/gcloud) and the Firebase [CLI](https://firebase.google.com/docs/cli) setup. 
 
-Copy the cloud function from [here](https://github.com/android/performance-samples/tree/macrobenchmark/MacrobenchmarkSample/functions).
+Copy the cloud function from [here](https://github.com/android/performance-samples/tree/main/MacrobenchmarkSample/functions).
 
 Then, initialize your project using the commands below.
 
@@ -246,14 +246,14 @@ Now click on `Runtime, Build and Connection Settings`. Update the settings to th
 ```bash
 # The Macrobenchmark target app package name
 # Example:
-package_name = "com.example.macrobenchmark.target"
+package_name = "com.example.macrobenchmark"
 ```
 
 ```bash
 # The device configurations you are interested in tracking metrics for.
 # This should match the device that you are testing on in the GitHub workflow.
 # Example:
-device_configurations = ["flame-30-en-portrait"]
+device_configurations = ["redfin-30-en-portrait"]
 ```
 
 ![Example setup](./images/cloud_function_settings.png)

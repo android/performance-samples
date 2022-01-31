@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 The Android Open Source Project
+ * Copyright 2021 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,51 +16,33 @@
 
 package com.example.benchmark
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.view.LayoutInflater
+import android.widget.FrameLayout
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.benchmark.ui.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-private const val JETPACK = "images/jetpack.png"
-
-@LargeTest
+// [START simple_benchmark]
 @RunWith(AndroidJUnit4::class)
-class BitmapBenchmark {
+class ViewInflateBenchmark {
 
     @get:Rule
     val benchmarkRule = BenchmarkRule()
 
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
-
-    // Retrieve the bitmap from assets
-    private val bitmap: Bitmap = context.assets.open(JETPACK).use { BitmapFactory.decodeStream(it) }
-
-    /**
-     * Measure the cost of many relatively cheaper JNI calls to fetch a row of pixels, one pixel at
-     * a time.
-     */
     @Test
-    fun bitmapGetPixelBenchmark() {
-        val pixels = IntArray(100) { it }
-        benchmarkRule.measureRepeated {
-            pixels.map { bitmap.getPixel(it, 0) }
-        }
-    }
+    fun benchmarkViewInflate() {
+        val context = InstrumentationRegistry.getInstrumentation().context
+        val inflater = LayoutInflater.from(context)
+        val root = FrameLayout(context)
 
-    /**
-     * Measure the cost of a single expensive JNI call to fetch a row of 100 pixels.
-     */
-    @Test
-    fun bitmapGetPixelsBenchmark() {
-        val pixels = IntArray(100) { it }
         benchmarkRule.measureRepeated {
-            bitmap.getPixels(pixels, 0, 100, 0, 0, 100, 1)
+            val inflated = inflater.inflate(R.layout.item_card, root, false)
         }
     }
 }
+// [END simple_benchmark]

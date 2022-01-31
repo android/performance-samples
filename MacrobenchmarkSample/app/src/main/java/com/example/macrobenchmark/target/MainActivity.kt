@@ -16,16 +16,25 @@
 
 package com.example.macrobenchmark.target
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.macrobenchmark.target.databinding.ActivityMainBinding
 
-class TrivialStartupActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val notice = findViewById<TextView>(R.id.txtNotice)
-        notice.setText(R.string.app_notice)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.notice.setText(R.string.app_notice)
+
+        binding.launchRecyclerActivity.setOnClickListener {
+            val intent = Intent(it.context, NonExportedRecyclerActivity::class.java)
+            // Create a new activity instance every single time
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 }

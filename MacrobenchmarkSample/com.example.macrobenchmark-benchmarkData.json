@@ -1,0 +1,40 @@
+{
+    "context": {
+        "build": {
+            "brand": "google",
+            "device": "blueline",
+            "fingerprint": "google/blueline/blueline:12/SP1A.210812.015/7679548:user/release-keys",
+            "model": "Pixel 3",
+            "version": {
+                "sdk": 31
+            }
+        },
+        "cpuCoreCount": 8,
+        "cpuLocked": false,
+        "cpuMaxFreqHz": 2803200000,
+        "memTotalBytes": 3753299968,
+        "sustainedPerformanceModeEnabled": false
+    },
+    "benchmarks": [
+        {
+            "name": "startup",
+            "params": {},
+            "className": "com.example.macrobenchmark.startup.SampleStartupBenchmark",
+            "totalRunTimeNs": 4975598256,
+            "metrics": {
+                "timeToInitialDisplayMs": {
+                    "minimum": 347.881076,
+                    "maximum": 347.881076,
+                    "median": 347.881076,
+                    "runs": [
+                        347.881076
+                    ]
+                }
+            },
+            "sampledMetrics": {},
+            "warmupIterations": 0,
+            "repeatIterations": 3,
+            "thermalThrottleSleepSeconds": 0
+        }
+    ]
+}
