@@ -39,6 +39,7 @@ class MessageListFragment : Fragment() {
         "Message #$it"
     }
 
+    // [START state_recyclerview]
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             when (newState) {
@@ -54,6 +55,7 @@ class MessageListFragment : Fragment() {
             }
         }
     }
+    // [END state_recyclerview]
 
     override fun onCreateView(
         inflater: LayoutInflater,
