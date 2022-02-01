@@ -33,7 +33,8 @@ class MessageListFragment : Fragment() {
     private var _binding: FragmentMessageListBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val metricsStateCache = MetricsStateCache()
+    // initialized when View is created
+    private var metricsStateHolder: PerformanceMetricsState.MetricsStateHolder? = null
 
     private val messageList = Array<String>(100) {
         "Message #$it"
@@ -42,15 +43,17 @@ class MessageListFragment : Fragment() {
     // [START state_recyclerview]
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            val metricsState = metricsStateHolder?.state ?: return
+
             when (newState) {
                 RecyclerView.SCROLL_STATE_DRAGGING -> {
-                    metricsStateCache.state?.addState("RecyclerView", "Dragging")
+                    metricsState.addState("RecyclerView", "Dragging")
                 }
                 RecyclerView.SCROLL_STATE_SETTLING -> {
-                    metricsStateCache.state?.addState("RecyclerView", "Settling")
+                    metricsState.addState("RecyclerView", "Settling")
                 }
                 else -> {
-                    metricsStateCache.state?.removeState("RecyclerView")
+                    metricsState.removeState("RecyclerView")
                 }
             }
         }
@@ -67,28 +70,16 @@ class MessageListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.messageList.addOnAttachStateChangeListener(metricsStateCache)
+        metricsStateHolder = PerformanceMetricsState.getForHierarchy(view)
+
         binding.messageList.adapter = MessageListAdapter(messageList)
         binding.messageList.addOnScrollListener(scrollListener)
     }
 
     override fun onDestroyView() {
         _binding = null
+        metricsStateHolder = null
         super.onDestroyView()
     }
 
-    class MetricsStateCache : View.OnAttachStateChangeListener {
-        private var holder: PerformanceMetricsState.MetricsStateHolder? = null
-
-        val state: PerformanceMetricsState?
-            get() = holder?.state
-
-        override fun onViewAttachedToWindow(view: View) {
-            holder = PerformanceMetricsState.getForHierarchy(view)
-        }
-
-        override fun onViewDetachedFromWindow(view: View) {
-            holder = null
-        }
-    }
 }

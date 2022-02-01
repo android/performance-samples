@@ -58,17 +58,7 @@ class MainActivity : AppCompatActivity() {
             window,
             Dispatchers.Default.asExecutor(),
         ) { frameData ->
-            Log.v(
-                "JankStatsSample",
-                "*** Jank " +
-                        "frame start ${frameData.frameStartNanos}, " +
-                        "duration = ${frameData.frameDurationUiNanos}, " +
-                        "jank = ${frameData.isJank}"
-            )
-
-            frameData.states.forEach { state ->
-                Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
-            }
+            Log.v("JankStatsSample", frameData.toString())
         }
 
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)

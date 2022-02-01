@@ -55,17 +55,7 @@ class JankAggregatorActivity : AppCompatActivity() {
             )
 
             jankFrameData.forEach { frameData ->
-                Log.v(
-                    "JankStatsSample",
-                    "***** Jank Report: " +
-                            "frame start ${frameData.frameStartNanos}, " +
-                            "duration = ${frameData.frameDurationUiNanos}, " +
-                            "jank = ${frameData.isJank}"
-                )
-
-                frameData.states.forEach { state ->
-                    Log.v("JankStatsSample", "    ${state.stateName}: ${state.state}")
-                }
+                Log.v("JankStatsSample", frameData.toString())
             }
         }
 
