@@ -66,4 +66,31 @@ class FrameTimingBenchmark {
     }
     // [END macrobenchmark_control_your_app]
 
+    @Test
+    fun scrollComposeList() {
+        benchmarkRule.measureRepeated(
+            // [START_EXCLUDE]
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(FrameTimingMetric()),
+            // Try switching to different compilation modes to see the effect
+            // it has on frame timing metrics.
+            compilationMode = CompilationMode.None(),
+            startupMode = StartupMode.WARM, // restarts activity each iteration
+            iterations = 10,
+            // [END_EXCLUDE]
+            setupBlock = {
+                // Before starting to measure, navigate to the UI to be measured
+                val intent = Intent("$packageName.COMPOSE_ACTIVITY")
+                startActivityAndWait(intent)
+            }
+        ) {
+            val column = device.findObject(By.desc("MyLazyColumn"))
+            // Set gesture margin to avoid triggering gesture navigation
+            // with input events from automation.
+            column.setGestureMargin(device.displayWidth / 5)
+
+            // Scroll down several times
+            repeat(3) { column.fling(Direction.DOWN) }
+        }
+    }
 }

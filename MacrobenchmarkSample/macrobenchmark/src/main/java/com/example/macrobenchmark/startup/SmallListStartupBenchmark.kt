@@ -48,6 +48,19 @@ class SmallListStartupBenchmark(
         startActivityAndWait(intent)
     }
 
+    @Test
+    fun startupCompose() = benchmarkRule.measureRepeated(
+        packageName = TARGET_PACKAGE,
+        metrics = listOf(StartupTimingMetric()),
+        iterations = 5,
+        startupMode = StartupMode.COLD,
+    ) {
+        val intent = Intent("$packageName.COMPOSE_ACTIVITY")
+        intent.putExtra("ITEM_COUNT", 5)
+
+        startActivityAndWait(intent)
+    }
+
     companion object {
         @Parameterized.Parameters(name = "mode={0}")
         @JvmStatic
