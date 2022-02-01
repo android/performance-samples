@@ -35,13 +35,14 @@ import kotlinx.coroutines.asExecutor
  * a view hierarchy, to setting application state on JankStats, to receiving and logging per-frame
  * callbacks with jank data.
  */
+// [START activity_init]
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var jankStats: JankStats
+    // [START_EXCLUDE]
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-    private lateinit var jankStats: JankStats
 
     // [START jank_frame_listener]
     private val jankFrameListener = JankStats.OnFrameListener { frameData ->
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         Log.v("JankStatsSample", frameData.toString())
     }
     // [END jank_frame_listener]
+    // [END_EXCLUDE]
 
-    // [START activity_init]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // [START_EXCLUDE]
