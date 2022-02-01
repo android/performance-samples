@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private lateinit var jankStats: JankStats
-    private lateinit var metricsStateHolder: PerformanceMetricsState.MetricsStateHolder
 
     // [START jank_frame_listener]
     private val jankFrameListener = JankStats.OnFrameListener { frameData ->
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         setupUi()
         // [END_EXCLUDE]
         // metrics state holder can be retrieved regardless of JankStats initialization
-        metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
 
         // initialize JankStats for current window
         jankStats = JankStats.createAndTrack(
@@ -108,6 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavigationState() {
         // [START state_navigation]
+        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
         // add current navigation information into JankStats state
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             metricsStateHolder.state?.addState(
