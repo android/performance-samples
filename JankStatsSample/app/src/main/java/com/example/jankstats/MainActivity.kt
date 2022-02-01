@@ -46,26 +46,42 @@ class MainActivity : AppCompatActivity() {
     private lateinit var jankStats: JankStats
     private lateinit var metricsStateHolder: PerformanceMetricsState.MetricsStateHolder
 
+    // [START jank_frame_listener]
+    private val jankFrameListener = JankStats.OnFrameListener { frameData ->
+        // you can process only janky frames if needed
+        if (frameData.isJank) return@OnFrameListener
+
+        Log.v("JankStatsSample", frameData.toString())
+    }
+    // [END jank_frame_listener]
+
+    // [START activity_init]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // [START_EXCLUDE]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUi()
-
+        // [END_EXCLUDE]
+        // metrics state holder can be retrieved regardless of JankStats initialization
         metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
 
+        // initialize JankStats for current window
         jankStats = JankStats.createAndTrack(
             window,
             Dispatchers.Default.asExecutor(),
-        ) { frameData ->
-            Log.v("JankStatsSample", frameData.toString())
-        }
+            jankFrameListener,
+        )
 
+        // add activity name as state
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
-
+        // [START_EXCLUDE]
         setupNavigationState()
+        // [END_EXCLUDE]
     }
+    // [END activity_init]
 
+    // [START tracking_enabled]
     override fun onResume() {
         super.onResume()
         jankStats.isTrackingEnabled = true
@@ -75,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         jankStats.isTrackingEnabled = false
     }
+    // [END tracking_enabled]
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -108,11 +125,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigationState() {
+        // [START state_navigation]
+        // add current navigation information into JankStats state
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             metricsStateHolder.state?.addState(
                 "Navigation",
                 "Args(${arguments.toString()}), $destination"
             )
         }
+        // [END state_navigation]
     }
 }

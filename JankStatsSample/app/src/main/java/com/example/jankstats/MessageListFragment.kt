@@ -43,6 +43,7 @@ class MessageListFragment : Fragment() {
     // [START state_recyclerview]
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            // check if JankStats is initialized and skip adding state if not
             val metricsState = metricsStateHolder?.state ?: return
 
             when (newState) {
