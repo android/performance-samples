@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.nestedRecyclerWithPoolsActivity.setOnClickListener {
-            val intent = Intent(it.context, NestedRecyclerActivity::class.java).also {
-                it.putExtra(USE_RECYCLER_POOLS, true)
+            val intent = Intent(it.context, NestedRecyclerActivity::class.java).apply {
+                putExtra(USE_RECYCLER_POOLS, true)
             }
             startActivity(intent)
         }
