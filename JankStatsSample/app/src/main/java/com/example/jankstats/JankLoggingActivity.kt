@@ -26,7 +26,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.jankstats.databinding.ActivityMainBinding
+import com.example.jankstats.databinding.ActivityJankLoggingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 
@@ -36,19 +36,17 @@ import kotlinx.coroutines.asExecutor
  * callbacks with jank data.
  */
 // [START activity_init]
-class MainActivity : AppCompatActivity() {
+class JankLoggingActivity : AppCompatActivity() {
 
     private lateinit var jankStats: JankStats
+
     // [START_EXCLUDE]
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityJankLoggingBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     // [START jank_frame_listener]
     private val jankFrameListener = JankStats.OnFrameListener { frameData ->
-        // you can process only janky frames if needed
-        if (frameData.isJank) return@OnFrameListener
-
         Log.v("JankStatsSample", frameData.toString())
     }
     // [END jank_frame_listener]
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // [START_EXCLUDE]
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityJankLoggingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUi()
         // [END_EXCLUDE]

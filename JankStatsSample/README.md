@@ -1,4 +1,4 @@
-Benchmark Sample
+JankStats Sample
 ===================================
 
 This sample project shows how to use the JankStats library.

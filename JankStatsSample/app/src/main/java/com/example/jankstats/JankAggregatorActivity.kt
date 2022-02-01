@@ -25,7 +25,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.jankstats.databinding.ActivityMainBinding
+import com.example.jankstats.databinding.ActivityJankLoggingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 
@@ -38,7 +38,7 @@ import kotlinx.coroutines.asExecutor
  */
 class JankAggregatorActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityJankLoggingBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -59,7 +59,7 @@ class JankAggregatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityJankLoggingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUi()
 
@@ -84,7 +84,7 @@ class JankAggregatorActivity : AppCompatActivity() {
         jankStatsAggregator.issueJankReport("Activity paused")
         jankStatsAggregator.jankStats.isTrackingEnabled = false
     }
-    
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
