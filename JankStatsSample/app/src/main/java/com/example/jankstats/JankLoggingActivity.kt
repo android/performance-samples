@@ -46,7 +46,7 @@ class JankLoggingActivity : AppCompatActivity() {
 
     // [START jank_frame_listener]
     private val jankFrameListener = JankStats.OnFrameListener { frameData ->
-        // real app would do something more interesting than log this...
+        // A real app could do something more interesting, like writing the info to local storage and later on report it.
         Log.v("JankStatsSample", frameData.toString())
     }
     // [END jank_frame_listener]

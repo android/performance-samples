@@ -48,7 +48,7 @@ class JankAggregatorActivity : AppCompatActivity() {
     // [START jank_aggregator_listener]
     private val jankReportListener =
         JankStatsAggregator.OnJankReportListener { reason, totalFrames, jankFrameData ->
-            // real app would do something more interesting than log this...
+            // A real app could do something more interesting, like writing the info to local storage and later on report it.
 
             Log.v(
                 "JankStatsSample",
@@ -71,17 +71,17 @@ class JankAggregatorActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupUi()
         // [END_EXCLUDE]
-        // metrics state holder can be retrieved regardless of JankStats initialization
+        // Metrics state holder can be retrieved regardless of JankStats initialization.
         val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
 
-        // initialize JankStats with aggregator for current window
+        // Initialize JankStats with an aggregator for the current window.
         jankStatsAggregator = JankStatsAggregator(
             window,
             Dispatchers.Default.asExecutor(),
             jankReportListener
         )
 
-        // add activity name as state
+        // Add the Activity name as state.
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
     }
     // [END aggregator_activity_init]
@@ -94,7 +94,7 @@ class JankAggregatorActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // before disabling tracking, issue the report with (optionally) specified reason
+        // Before disabling tracking, issue the report with (optionally) specified reason.
         jankStatsAggregator.issueJankReport("Activity paused")
         jankStatsAggregator.jankStats.isTrackingEnabled = false
     }
