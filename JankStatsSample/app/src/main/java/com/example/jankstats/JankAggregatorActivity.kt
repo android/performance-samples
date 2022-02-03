@@ -36,19 +36,24 @@ import kotlinx.coroutines.asExecutor
  * receives data when a report is issued, either when the activity goes into the background
  * or if JankStatsAggregator issues the report itself.
  */
+// [START aggregator_activity_init]
 class JankAggregatorActivity : AppCompatActivity() {
 
+    private lateinit var jankStatsAggregator: JankStatsAggregator
+    // [START_EXCLUDE silent]
     private lateinit var binding: ActivityJankLoggingBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private lateinit var jankStatsAggregator: JankStatsAggregator
-
+    // [START jank_aggregator_listener]
     private val jankReportListener =
         JankStatsAggregator.OnJankReportListener { reason, totalFrames, jankFrameData ->
+            // A real app could do something more interesting, like writing the info to local storage and later on report it.
+
             Log.v(
                 "JankStatsSample",
-                "*** Jank Report ($reason), totalFrames = $totalFrames, " +
+                "*** Jank Report ($reason), " +
+                        "totalFrames = $totalFrames, " +
                         "jankFrames = ${jankFrameData.size}"
             )
 
@@ -56,24 +61,32 @@ class JankAggregatorActivity : AppCompatActivity() {
                 Log.v("JankStatsSample", frameData.toString())
             }
         }
+    // [END jank_aggregator_listener]
+    // [END_EXCLUDE silent]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // [START_EXCLUDE]
         binding = ActivityJankLoggingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUi()
-
+        // [END_EXCLUDE]
+        // Metrics state holder can be retrieved regardless of JankStats initialization.
         val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
 
+        // Initialize JankStats with an aggregator for the current window.
         jankStatsAggregator = JankStatsAggregator(
             window,
             Dispatchers.Default.asExecutor(),
             jankReportListener
         )
 
+        // Add the Activity name as state.
         metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
     }
+    // [END aggregator_activity_init]
 
+    // [START aggregator_tracking_enabled]
     override fun onResume() {
         super.onResume()
         jankStatsAggregator.jankStats.isTrackingEnabled = true
@@ -81,9 +94,11 @@ class JankAggregatorActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        // Before disabling tracking, issue the report with (optionally) specified reason.
         jankStatsAggregator.issueJankReport("Activity paused")
         jankStatsAggregator.jankStats.isTrackingEnabled = false
     }
+    // [END aggregator_tracking_enabled]
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
