@@ -29,7 +29,7 @@ import org.junit.Test
 
 // For the output baseline profile file, look at the `Benchmark` tag in logcat for the location
 // of the output directory.
-@Ignore
+@Ignore("Cannot run the test unless the device is rooted")
 class TrivialBaselineProfileBenchmark {
     @get:Rule
     val baselineProfileRule = BaselineProfileRule()
