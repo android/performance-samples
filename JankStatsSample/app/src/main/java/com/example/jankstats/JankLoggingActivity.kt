@@ -39,14 +39,14 @@ import kotlinx.coroutines.asExecutor
 class JankLoggingActivity : AppCompatActivity() {
 
     private lateinit var jankStats: JankStats
-
-    // [START_EXCLUDE]
+    // [START_EXCLUDE silent]
     private lateinit var binding: ActivityJankLoggingBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     // [START jank_frame_listener]
     private val jankFrameListener = JankStats.OnFrameListener { frameData ->
+        // real app would do something more interesting than log this...
         Log.v("JankStatsSample", frameData.toString())
     }
     // [END jank_frame_listener]
