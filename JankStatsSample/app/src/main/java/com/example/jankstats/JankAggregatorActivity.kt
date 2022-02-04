@@ -62,7 +62,7 @@ class JankAggregatorActivity : AppCompatActivity() {
             }
         }
     // [END jank_aggregator_listener]
-    // [END_EXCLUDE silent]
+    // [END_EXCLUDE]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
