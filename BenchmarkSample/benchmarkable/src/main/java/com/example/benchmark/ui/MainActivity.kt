@@ -2,7 +2,6 @@ package com.example.benchmark.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -20,5 +19,14 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerview)
         recyclerView.adapter = adapter
+        adapter.submitList(
+            mutableListOf(
+                "Welcome",
+                "to",
+                "this",
+                "Microbenchmark",
+                "sample",
+            )
+        )
     }
 }

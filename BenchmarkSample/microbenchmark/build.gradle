@@ -39,7 +39,7 @@ android {
 // [START benchmark_dependency]
 dependencies {
     androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmark_version"
-    androidTestImplementation project(":ui")
+    androidTestImplementation project(':benchmarkable')
     // [START_EXCLUDE]
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
