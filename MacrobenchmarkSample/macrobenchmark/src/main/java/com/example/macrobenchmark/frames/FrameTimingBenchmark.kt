@@ -30,6 +30,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val ITERATIONS = 10
+
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class FrameTimingBenchmark {
@@ -47,7 +49,7 @@ class FrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = 10,
+            iterations = ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
@@ -76,7 +78,7 @@ class FrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = 10,
+            iterations = ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured

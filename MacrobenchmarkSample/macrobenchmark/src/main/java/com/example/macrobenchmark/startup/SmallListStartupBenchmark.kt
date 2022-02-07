@@ -27,6 +27,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
+private const val ITERATIONS = 5
+private const val LIST_ITEMS = 5
+
 @LargeTest
 @RunWith(Parameterized::class)
 class SmallListStartupBenchmark(
@@ -39,11 +42,11 @@ class SmallListStartupBenchmark(
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        iterations = 5,
+        iterations = ITERATIONS,
         startupMode = startupMode,
     ) {
         val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
-        intent.putExtra("ITEM_COUNT", 5)
+        intent.putExtra("ITEM_COUNT", LIST_ITEMS)
 
         startActivityAndWait(intent)
     }
@@ -52,11 +55,11 @@ class SmallListStartupBenchmark(
     fun startupCompose() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        iterations = 5,
+        iterations = ITERATIONS,
         startupMode = StartupMode.COLD,
     ) {
         val intent = Intent("$packageName.COMPOSE_ACTIVITY")
-        intent.putExtra("ITEM_COUNT", 5)
+        intent.putExtra("ITEM_COUNT", LIST_ITEMS)
 
         startActivityAndWait(intent)
     }
