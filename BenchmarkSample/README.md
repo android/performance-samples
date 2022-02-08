@@ -21,6 +21,20 @@ As well as one more complex UI benchmark:
 * [RecyclerViewBenchmark](microbenchmark/src/androidTest/java/com/example/benchmark/RecyclerViewBenchmark.kt)
   measures the cost of scrolling a RecyclerView UI defined in another UI library module.
 
+### Project Structure
+
+Microbenchmarks require specific setup to produce consistent results. As a consequence of this, the
+project has to be split into several modules:
+
+- `:microbenchmark`- contains only the Microbenchmarks tests.
+- `:benchmarkable` - contains the code callable from Microbenchmarks
+- `:app` - code within this module can't be called from Microbenchmarks
+
+No Gradle module has dependency on `:microbenchmark` module and therefore it's not merged into the
+built application. It serves as an entrypoint to run the benchmark tests from.
+
+![App structure with :app, :microbenchmark and :benchmarkable Gradle modules which allows Microbenchmarks to benchmark code in the :benchmarkable module.](images/benchmark-modules.svg)
+
 ### Running
 
 Open the project in Android Studio Arctic Fox 2020.3.1 or later, and run benchmarks as you usually
