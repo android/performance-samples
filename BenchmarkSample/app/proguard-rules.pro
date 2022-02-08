@@ -19,19 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--dontobfuscate
-
--ignorewarnings
-
--keepattributes *Annotation*
-
--dontnote junit.framework.**
--dontnote junit.runner.**
-
--dontwarn androidx.test.**
--dontwarn org.junit.**
--dontwarn org.hamcrest.**
--dontwarn com.squareup.javawriter.JavaWriter
-
--keepclasseswithmembers @org.junit.runner.RunWith public class *
