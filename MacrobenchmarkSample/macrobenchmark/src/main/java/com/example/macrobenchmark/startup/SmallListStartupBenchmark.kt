@@ -56,7 +56,7 @@ class SmallListStartupBenchmark(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
         iterations = ITERATIONS,
-        startupMode = StartupMode.COLD,
+        startupMode = startupMode,
     ) {
         val intent = Intent("$packageName.COMPOSE_ACTIVITY")
         intent.putExtra("ITEM_COUNT", LIST_ITEMS)
