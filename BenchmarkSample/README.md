@@ -37,14 +37,22 @@ built application. It serves as an entrypoint to run the benchmark tests from.
 
 ### Running
 
-Open the project in Android Studio Arctic Fox 2020.3.1 or later, and run benchmarks as you usually
-would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R)
+Open the project in Android Studio Arctic Fox 2020.3.1 or later, and run benchmarks as you usually would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R).
+
+Alternatively, run from command line with:
+```
+./gradlew benchmark:cC
+```
 
 ### Locking Clocks
 
 If you have a rooted device you can benchmark on, use `./gradlew lockClocks` to lock the CPU clocks
 of the device to stable values. To unlock clocks, use `./gradlew unlockClocks`, or reboot your
 device. This feature is provided by the `androidx.benchmark` gradle plugin.
+
+### Reporting Issues
+
+You can report an [Issue with the sample](https://github.com/android/performance-samples/issues) using this repository. If you find an issue with the Microbenchmark library, report it using the [Issue Tracker](https://issuetracker.google.com/issues/new?component=585351&template=1235073).
 
 License
 -------

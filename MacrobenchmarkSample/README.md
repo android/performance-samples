@@ -1,4 +1,4 @@
-## Macrobenchmark Sample
+# Macrobenchmark Sample
 
 This sample project shows how to use the Jetpack Macrobenchmark library.
 
@@ -16,12 +16,21 @@ The sample project includes the following:
 
 ### Running
 
-Open the `MacrobenchmarkSample` project in Android Studio Arctic Fox, Beta 1 or later, and run benchmarks as you usually would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R)
+Open the `MacrobenchmarkSample` project in Android Studio Bumblebee or later, and run benchmarks as you usually would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R)
+
+Alternatively, run the benchmarks from terminal with: 
+```
+./gradlew macrobenchmark:cC
+```
+
+### Reporting Issues
+
+You can report an [Issue with the sample](https://github.com/googlesamples/android-performance/issues) using this repository. If you find an issue with the Macrobenchmark library, report it using the [Issue Tracker](https://issuetracker.google.com/issues/new?component=975669&template=1519452).
 
 License
 -------
 
-Copyright 2021 The Android Open Source Project, Inc.
+Copyright 2022 The Android Open Source Project, Inc.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor
 license agreements.  See the NOTICE file distributed with this work for
