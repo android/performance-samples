@@ -25,6 +25,10 @@ In the case of JankLoggingActivity, that data will be output inline to logcat.
 For JankAggregatorActivity, the data will be cached internally and output later,
 when requested (which for that activity happens when it goes to the background).
 
+### Reporting Issues
+
+You can report an [Issue with the sample](https://github.com/android/performance-samples/issues) using this repository. If you find an issue with the JankStats library, report it using the [Issue Tracker](https://goo.gle/metrics-issue).
+
 License
 -------
 

@@ -1,53 +1,47 @@
 Android Performance
 ===================================
 
-Benchmark samples using the shiny new [Jetpack Benchmark library](https://d.android.com/benchmark).
+A collection of samples using the performance libraries.
 
-## [BenchmarkSample](BenchmarkSample)
+## [JankStats sample](JankStatsSample)
+
+This sample shows how to set up and use the JankStats library to detect janky frames. 
+
+## [Microbenchmark sample](BenchmarkSample)
 
 This sample shows how to use the Benchmark library to benchmark code and UI from
 library modules.
 
-To run the sample: `./gradlew benchmark:cC`
-
-## [BenchmarkNdkSample (Prototype!)](BenchmarkNdkSample)
-
-### Important Notes
-
-* Make sure your device's screen is on before running benchmarks
-* Don't forget to checkout submodules: `git submodule update --init --recursive`
-
-This prototype sample shows how to use the Benchmark library together with the
-NDK, and [google/benchmark](https://github.com/google/benchmark) to benchmark
-C++ code, while getting the Android-specific performance stability, and Studio
-integration from the Jetpack Benchmark library.
-
-To run the sample: `./gradlew benchmark:cC`
-
-## [Macrobenchmark](MacrobenchmarkSample)
+## [Macrobenchmark sample](MacrobenchmarkSample)
 
 This sample shows how to use the MacrobenchmarkSample library for testing application startup and runtime performance cases, such as scrolling a `RecyclerView` to measure jank.
 
 The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab.yml) to run Macrobenchmarks on Firebase Test Lab. For more information refer to the [README.md](MacrobenchmarkSample/ftl/README.md).
-
-To run the sample: `./gradlew macrobenchmark:cC`
 
 ## [ConstraintLayout performance comparison](ConstraintLayoutPerformance)
 
 This sample compares how different ViewGroups
 (ConstraintLayout vs traditional layouts) affect the UI performance.
 
-To run the sample: `./gradlew benchmark:cC`
+## [BenchmarkNdk sample (Prototype!)](BenchmarkNdkSample)
 
-### Reporting Issues
+This prototype sample shows how to use the Benchmark library together with the
+NDK, and [google/benchmark](https://github.com/google/benchmark) to benchmark
+C++ code, while getting the Android-specific performance stability, and Studio
+integration from the Jetpack Benchmark library.
+
+### Important Notes
+
+* Make sure your device's screen is on before running benchmarks
+* Don't forget to checkout submodules: `git submodule update --init --recursive`
+
+## Reporting Issues
 
 You can report an [Issue with a
-sample](https://github.com/googlesamples/android-performance/issues) using this
-repository. If you find an issue with the Benchmark library, report it using the
-[Android Benchmark Issue
-Tracker](https://issuetracker.google.com/issues/new?component=585351&template=1235073)
+sample](https://github.com/android/performance-samples/issues) using this
+repository. If you find an issue with a specific library, report it using the corresponding issue tracker link available in the 
 
-### Additional Resources
+## Additional Resources
 
 [PagingWithNetworkSample](https://github.com/googlesamples/android-architecture-components/tree/master/PagingWithNetworkSample) - Example of benchmarking an androidx.paging backed RecyclerView
 
@@ -56,7 +50,7 @@ Tracker](https://issuetracker.google.com/issues/new?component=585351&template=12
 License
 -------
 
-Copyright 2019 The Android Open Source Project, Inc.
+Copyright 2022 The Android Open Source Project, Inc.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor
 license agreements.  See the NOTICE file distributed with this work for
