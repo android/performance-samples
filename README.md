@@ -39,7 +39,7 @@ integration from the Jetpack Benchmark library.
 
 You can report an [Issue with a
 sample](https://github.com/android/performance-samples/issues) using this
-repository. If you find an issue with a specific library, report it using the corresponding issue tracker link available in the 
+repository. If you find an issue with a specific library, report it using the corresponding issue tracker link available in the sample README file.
 
 ## Additional Resources
 
