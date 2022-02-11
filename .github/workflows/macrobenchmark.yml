@@ -8,7 +8,13 @@ on:
   workflow_dispatch:
 
 jobs:
+  # This job checks for any file changed within MacrobenchmarkSample/ folder 
+  # to distinguish if the build check for Macrobenchmark is needed to be run.
+  # It sets the outputs.macrobenchmark to true/false based on the changes.
+  # In the next build job, it checks for needs.changes.outputs.macrobenchmark == 'true' 
+  # or skips the job otherwise.
   changes:
+    if: github.repository_owner == 'android' 
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step to be able to use it in next job
     outputs:
