@@ -8,9 +8,23 @@ on:
   workflow_dispatch:
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step to be able to use it in next job
+    outputs:
+      macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          macrobenchmark:
+            - 'MacrobenchmarkSample/**'
+
   build:
-    # Only run action for the main repo & not forks
-    if: github.repository_owner == 'android'
+    needs: changes
+    # Only run action for the main repo & not forks and if change is in macrobenchmark sample
+    if: github.repository_owner == 'android' && needs.changes.outputs.macrobenchmark == 'true' 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
