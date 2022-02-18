@@ -10,9 +10,9 @@ The sample project includes the following:
 
 * [TrivialStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/TrivialStartupBenchmark.kt) measures the application startup time for a trivial `Activity` with a single `TextView`.
 
-* [SmallListStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView`.
+* [SmallListStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView` and an `Activity` with a Compose `LazyColumn`.
 
-* [FrameTimingBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView`, measuring frame timing / jank.
+* [FrameTimingBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView` and Compose `LazyColumn`, measuring frame timing / jank.
 
 ### Running
 
