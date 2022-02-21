@@ -32,8 +32,10 @@ android {
         benchmark {
             debuggable = true
             signingConfig = debug.signingConfig
+            // [START_EXCLUDE silent]
             // Selects release buildType if the benchmark buildType not available in other modules.
             matchingFallbacks = ['release']
+            // [END_EXCLUDE]
         }
     }
 }

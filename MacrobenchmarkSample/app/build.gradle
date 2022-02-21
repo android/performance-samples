@@ -46,8 +46,10 @@ android {
         benchmark {
             initWith buildTypes.release
             signingConfig signingConfigs.debug
+            // [START_EXCLUDE silent]
             // Selects release buildType if the benchmark buildType not available in other modules.
             matchingFallbacks = ['release']
+            // [START_EXCLUDE silent]
         }
     }
     // [END macrobenchmark_setup_app_build_type]
