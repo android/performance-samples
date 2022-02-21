@@ -86,7 +86,12 @@ class FrameTimingBenchmark {
                 startActivityAndWait(intent)
             }
         ) {
-            val column = device.findObject(By.desc("MyLazyColumn"))
+            // Compose does not have view IDs so we have to use other methods of UIAutomator
+            // to find the correct composable. Be careful when using content description because you may
+            // break the accessibility of your app if you are providing descriptions just for tests.
+            // Here we use scrollable as the only scrollable item in the activity is our lazy list.
+            val column = device.findObject(By.scrollable(true))
+
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
             column.setGestureMargin(device.displayWidth / 5)

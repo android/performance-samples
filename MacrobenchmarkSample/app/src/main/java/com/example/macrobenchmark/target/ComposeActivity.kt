@@ -17,8 +17,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -35,13 +33,7 @@ class ComposeActivity: ComponentActivity() {
         setContent {
             MaterialTheme {
                 LazyColumn(
-                    Modifier
-                        .fillMaxSize()
-                        .semantics {
-                            // There are no view ids in Compose so we use the content description
-                            // in order to find the Composable.
-                            contentDescription = LAZY_COLUMN_TAG
-                        }
+                    Modifier.fillMaxSize()
                 ) {
                     items(data, key = { it.contents }) { item ->
                         EntryRow(entry = item, Modifier.padding(8.dp))
@@ -57,7 +49,6 @@ class ComposeActivity: ComponentActivity() {
 
     companion object {
         const val EXTRA_ITEM_COUNT = "ITEM_COUNT"
-        const val LAZY_COLUMN_TAG = "MyLazyColumn"
     }
 }
 
