@@ -49,6 +49,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ComposeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.COMPOSE_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <!-- non-exported activities -->
         <activity android:name=".NonExportedRecyclerActivity" />
 
