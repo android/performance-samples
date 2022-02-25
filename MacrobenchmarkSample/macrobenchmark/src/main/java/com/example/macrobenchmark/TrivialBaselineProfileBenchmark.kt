@@ -30,7 +30,13 @@ import org.junit.Test
 // For the output baseline profile file, look at the `Benchmark` tag in logcat for the location
 // of the output directory.
 @Ignore
+/**
+ * This benchmark generates a basic baseline profile for the target package.
+ * Refer to the [baseline profile documentation](https://developer.android.com/studio/profile/baselineprofiles)
+ * for more information.
+ */
 class TrivialBaselineProfileBenchmark {
+    // [START baseline_profile_basic]
     @get:Rule
     val baselineProfileRule = BaselineProfileRule()
 
@@ -42,4 +48,5 @@ class TrivialBaselineProfileBenchmark {
             device.waitForIdle()
         }
     )
+    // [END baseline_profile_basic]
 }
