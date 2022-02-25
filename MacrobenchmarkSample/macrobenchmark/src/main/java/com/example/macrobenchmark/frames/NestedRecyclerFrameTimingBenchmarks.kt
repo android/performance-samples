@@ -16,10 +16,7 @@
 
 package com.example.macrobenchmark.frames
 
-import androidx.benchmark.macro.ExperimentalMetricApi
-import androidx.benchmark.macro.FrameTimingMetric
-import androidx.benchmark.macro.MacrobenchmarkScope
-import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.*
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -39,13 +36,15 @@ class NestedRecyclerFrameTimingBenchmarks {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
-
     @Test
     fun scrollNestedRecyclerWithoutRecyclerPool() {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
-            startupMode = StartupMode.WARM, // restarts the activity each iteration
+            // CompilationMode.None + StartupMode.Cold clears compilation on each iteration,
+            // and can represent the worst-case performance scenario.
+            compilationMode = CompilationMode.None(),
+            startupMode = StartupMode.COLD,
             iterations = 10,
             setupBlock = { navigateToNestedRvScreen(false) }
         ) { measureScrollingNestedRecycler() }
@@ -56,7 +55,10 @@ class NestedRecyclerFrameTimingBenchmarks {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
-            startupMode = StartupMode.WARM, // restarts the activity each iteration
+            // CompilationMode.None + StartupMode.Cold clears compilation on each iteration,
+            // and can represent the worst-case performance scenario.
+            compilationMode = CompilationMode.None(),
+            startupMode = StartupMode.COLD,
             iterations = 10,
             setupBlock = { navigateToNestedRvScreen(true) }
         ) { measureScrollingNestedRecycler() }
