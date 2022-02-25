@@ -30,6 +30,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+private const val ITERATIONS = 10
+
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class FrameTimingBenchmark {
@@ -47,7 +49,7 @@ class FrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = 10,
+            iterations = ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
@@ -66,4 +68,36 @@ class FrameTimingBenchmark {
     }
     // [END macrobenchmark_control_your_app]
 
+    @Test
+    fun scrollComposeList() {
+        benchmarkRule.measureRepeated(
+            // [START_EXCLUDE]
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(FrameTimingMetric()),
+            // Try switching to different compilation modes to see the effect
+            // it has on frame timing metrics.
+            compilationMode = CompilationMode.None(),
+            startupMode = StartupMode.WARM, // restarts activity each iteration
+            iterations = ITERATIONS,
+            // [END_EXCLUDE]
+            setupBlock = {
+                // Before starting to measure, navigate to the UI to be measured
+                val intent = Intent("$packageName.COMPOSE_ACTIVITY")
+                startActivityAndWait(intent)
+            }
+        ) {
+            // Compose does not have view IDs so we have to use other methods of UIAutomator
+            // to find the correct composable. Be careful when using content description because you may
+            // break the accessibility of your app if you are providing descriptions just for tests.
+            // Here we use scrollable as the only scrollable item in the activity is our lazy list.
+            val column = device.findObject(By.scrollable(true))
+
+            // Set gesture margin to avoid triggering gesture navigation
+            // with input events from automation.
+            column.setGestureMargin(device.displayWidth / 5)
+
+            // Scroll down several times
+            repeat(3) { column.fling(Direction.DOWN) }
+        }
+    }
 }

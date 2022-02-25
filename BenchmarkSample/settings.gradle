@@ -1,1 +1,1 @@
-include ':benchmark', ':ui'
+include ':app', ':microbenchmark', ':benchmarkable'
