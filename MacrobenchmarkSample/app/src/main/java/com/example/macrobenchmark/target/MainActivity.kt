@@ -30,12 +30,13 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.notice.setText(R.string.app_notice)
-
         binding.launchRecyclerActivity.setOnClickListener {
             val intent = Intent(it.context, NonExportedRecyclerActivity::class.java)
-            // Create a new activity instance every single time
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        binding.launchComposeList.setOnClickListener {
+            val intent = Intent(it.context, ComposeActivity::class.java)
             startActivity(intent)
         }
 

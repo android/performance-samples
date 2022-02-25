@@ -19,6 +19,7 @@
     <string name="recyclerDescription">A list of items</string>
     <string name="itemOptions">Item options</string>
     <string name="launchRecyclerActivity">RecyclerView</string>
+    <string name="launchComposeList">Compose LazyList</string>
     <string name="launchNestedRecyclerActivity">Nested RecyclerView</string>
     <string name="launchNestedRecyclerWithPoolsActivity">Nested RecyclerView With Pools</string>
 </resources>
