@@ -16,21 +16,18 @@
   limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Preview Some Text" />
+        android:text="@string/app_notice" />
 
     <Button
         android:id="@+id/launchRecyclerActivity"
@@ -38,9 +35,30 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:contentDescription="@string/launchRecyclerActivity"
-        android:text="@string/launchRecyclerActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/launchRecyclerActivity" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/launchComposeList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchComposeList"
+        android:text="@string/launchComposeList" />
+
+    <Button
+        android:id="@+id/nestedRecyclerActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchNestedRecyclerActivity"
+        android:text="@string/launchNestedRecyclerActivity" />
+
+    <Button
+        android:id="@+id/nestedRecyclerWithPoolsActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchNestedRecyclerWithPoolsActivity"
+        android:text="@string/launchNestedRecyclerWithPoolsActivity" />
+
+</LinearLayout>

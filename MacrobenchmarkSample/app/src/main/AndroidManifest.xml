@@ -61,6 +61,8 @@
         <!-- non-exported activities -->
         <activity android:name=".NonExportedRecyclerActivity" />
 
+        <activity android:name=".nested_recycler.NestedRecyclerActivity" />
+
         <!-- [START macrobenchmark_setup_profileable] -->
         <!-- enable profiling by macrobenchmark -->
         <profileable

@@ -20,6 +20,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.macrobenchmark.target.databinding.ActivityMainBinding
+import com.example.macrobenchmark.target.nested_recycler.NestedRecyclerActivity
+import com.example.macrobenchmark.target.nested_recycler.USE_RECYCLER_POOLS
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,12 +30,25 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.notice.setText(R.string.app_notice)
-
         binding.launchRecyclerActivity.setOnClickListener {
             val intent = Intent(it.context, NonExportedRecyclerActivity::class.java)
-            // Create a new activity instance every single time
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        binding.launchComposeList.setOnClickListener {
+            val intent = Intent(it.context, ComposeActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.nestedRecyclerActivity.setOnClickListener {
+            val intent = Intent(it.context, NestedRecyclerActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.nestedRecyclerWithPoolsActivity.setOnClickListener {
+            val intent = Intent(it.context, NestedRecyclerActivity::class.java).apply {
+                putExtra(USE_RECYCLER_POOLS, true)
+            }
             startActivity(intent)
         }
     }
