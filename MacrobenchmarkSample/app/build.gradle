@@ -39,12 +39,17 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         benchmark {
             initWith buildTypes.release
             signingConfig signingConfigs.debug
+            // [START_EXCLUDE silent]
+            // Selects release buildType if the benchmark buildType not available in other modules.
+            matchingFallbacks = ['release']
+            // [START_EXCLUDE silent]
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-rules.pro'
         }
     }
     // [END macrobenchmark_setup_app_build_type]
