@@ -41,8 +41,7 @@ class StartupBenchmarkParametrizedStartupMode(
         startupMode = startupMode,
         iterations = 5,
         setupBlock = {
-            // when running StartupMode.HOT, it wouldn't launch the activity between iterations
-            // therefore we press home before each test to be sure the activity isn't visible
+            // Press home button before each run to ensure the starting activity isn't visible.
             pressHome()
         }
     ) {
