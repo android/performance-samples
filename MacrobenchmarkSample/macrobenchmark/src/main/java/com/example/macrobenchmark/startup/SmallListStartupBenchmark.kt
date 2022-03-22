@@ -44,6 +44,10 @@ class SmallListStartupBenchmark(
         metrics = listOf(StartupTimingMetric()),
         iterations = ITERATIONS,
         startupMode = startupMode,
+        setupBlock = {
+            // Press home button before each run to ensure the starting activity isn't visible.
+            pressHome()
+        }
     ) {
         val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
         intent.putExtra("ITEM_COUNT", LIST_ITEMS)
@@ -57,6 +61,10 @@ class SmallListStartupBenchmark(
         metrics = listOf(StartupTimingMetric()),
         iterations = ITERATIONS,
         startupMode = startupMode,
+        setupBlock = {
+            // Press home button before each run to ensure the starting activity isn't visible.
+            pressHome()
+        }
     ) {
         val intent = Intent("$packageName.COMPOSE_ACTIVITY")
         intent.putExtra("ITEM_COUNT", LIST_ITEMS)
