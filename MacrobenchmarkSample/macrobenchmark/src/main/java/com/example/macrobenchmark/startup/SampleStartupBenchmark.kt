@@ -37,7 +37,6 @@ class SampleStartupBenchmark {
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        startupMode = StartupMode.COLD,
         iterations = 5,
         setupBlock = {
             // Press home button before each run to ensure the starting activity isn't visible.
