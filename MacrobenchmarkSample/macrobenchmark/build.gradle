@@ -30,7 +30,6 @@ android {
     buildTypes {
         // declare a build type to match the target app's build type
         benchmark {
-            isDefault = true
             debuggable = true
             signingConfig = debug.signingConfig
             // [START_EXCLUDE silent]
