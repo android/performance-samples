@@ -50,6 +50,15 @@
         </activity>
 
         <activity
+            android:name=".FullyDrawnStartupActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.FULLY_DRAWN_STARTUP_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ComposeActivity"
             android:exported="true">
             <intent-filter>
