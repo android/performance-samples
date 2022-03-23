@@ -16,6 +16,7 @@
 
 package com.example.jankstats.tools
 
+import androidx.tracing.trace
 import kotlin.random.Random.Default.nextFloat
 import kotlin.random.Random.Default.nextLong
 
@@ -39,7 +40,10 @@ fun simulateJank(
         }
 
         try {
-            Thread.sleep(delay)
+            // Make jank easier to spot in the profiler through tracing.
+            trace("Jank Simulation") {
+                Thread.sleep(delay)
+            }
         } catch (e: Exception) {
         }
     }
