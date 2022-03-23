@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 31
+    namespace 'com.example.benchmark.ui'
 
     defaultConfig {
         minSdkVersion 14
