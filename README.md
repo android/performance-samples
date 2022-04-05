@@ -23,7 +23,7 @@ The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab
 This sample compares how different ViewGroups
 (ConstraintLayout vs traditional layouts) affect the UI performance.
 
-## [BenchmarkNdk sample (Prototype!)](BenchmarkNdkSample)
+## [BenchmarkNdk sample (Prototype/Deprecated!)](https://github.com/android/performance-samples/tree/21c99d1d8b8a4601015e091e1e34564b0f660eea/BenchmarkNdkSample)
 
 This prototype sample shows how to use the Benchmark library together with the
 NDK, and [google/benchmark](https://github.com/google/benchmark) to benchmark
