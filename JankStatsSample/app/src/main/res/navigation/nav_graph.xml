@@ -39,4 +39,17 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/composeList"
+        android:name="com.example.jankstats.compose.ComposeListFragment"
+        android:label="Compose List">
+        <action
+            android:id="@+id/action_composeList_to_messageContent"
+            app:destination="@id/messageContent" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_composeList"
+        app:destination="@id/composeList"
+        app:launchSingleTop="true" />
 </navigation>

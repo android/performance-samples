@@ -10,8 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JankStats">
 
-        <profileable android:shell="true" />
-
         <activity
             android:name=".JankLoggingActivity"
             android:exported="true">
