@@ -7,7 +7,7 @@ A collection of samples using the performance libraries.
 
 This sample shows how to set up and use the JankStats library to detect janky frames. 
 
-## [Microbenchmark sample](BenchmarkSample)
+## [Microbenchmark sample](MicrobenchmarkSample)
 
 This sample shows how to use the Benchmark library to benchmark code and UI from
 library modules.
