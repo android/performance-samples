@@ -26,19 +26,17 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.benchmark.ui.R
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.OrderWith
 import org.junit.runner.RunWith
+import org.junit.runner.manipulation.Alphanumeric
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
+@OrderWith(Alphanumeric::class)
 class ViewMeasureLayoutBenchmark {
 
     @get:Rule
     val benchmarkRule = BenchmarkRule()
-
-    @Test
-    fun traditionalViewHierarchy_AT_MOST() {
-        benchmarkMeasureLayout(R.layout.activity_traditional, MeasureSpec.AT_MOST)
-    }
 
     @Test
     fun constraintLayoutHierarchy_AT_MOST() {
@@ -46,13 +44,18 @@ class ViewMeasureLayoutBenchmark {
     }
 
     @Test
-    fun traditionalViewHierarchy_EXACTLY() {
-        benchmarkMeasureLayout(R.layout.activity_traditional, MeasureSpec.EXACTLY)
+    fun constraintLayoutHierarchy_EXACTLY() {
+        benchmarkMeasureLayout(R.layout.activity_constraintlayout, MeasureSpec.EXACTLY)
     }
 
     @Test
-    fun constraintLayoutHierarchy_EXACTLY() {
-        benchmarkMeasureLayout(R.layout.activity_constraintlayout, MeasureSpec.EXACTLY)
+    fun traditionalViewHierarchy_AT_MOST() {
+        benchmarkMeasureLayout(R.layout.activity_traditional, MeasureSpec.AT_MOST)
+    }
+
+    @Test
+    fun traditionalViewHierarchy_EXACTLY() {
+        benchmarkMeasureLayout(R.layout.activity_traditional, MeasureSpec.EXACTLY)
     }
 
     private fun benchmarkMeasureLayout(layoutRes: Int, mode: Int) {
