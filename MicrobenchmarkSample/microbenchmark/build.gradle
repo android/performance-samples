@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+// [START benchmark_apply_plugin]
+apply plugin: 'androidx.benchmark'
+// [END benchmark_apply_plugin]
+
+android {
+    compileSdk rootProject.compileSdkVersion
+
+    defaultConfig {
+        minSdk rootProject.minSdkVersion
+        targetSdk rootProject.targetSdkVersion
+
+        // Set this argument to capture profiling information, instead of measuring performance.
+        // Can be one of:
+        //   * None
+        //   * StackSampling
+        //   * MethodTracing
+        // See full descriptions of available options at: d.android.com/benchmark#profiling
+        testInstrumentationRunnerArguments["androidx.benchmark.profiling.mode"] = 'StackSampling'
+    }
+
+    testBuildType = "release"
+
+    buildTypes {
+        release {
+            // The androidx.benchmark plugin configures release buildType with proper settings, such as:
+            // - disables code coverage
+            // - adds CPU clock locking task
+            // - signs release buildType with debug signing config
+            // - copies benchmark results into build/outputs/connected_android_test_additional_output folder
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    namespace 'com.example.benchmark'
+}
+
+// [START benchmark_dependency]
+dependencies {
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmarkVersion"
+    androidTestImplementation project(':benchmarkable')
+    // [START_EXCLUDE]
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    androidTestImplementation "junit:junit:$jUnitVersion"
+
+    androidTestImplementation "androidx.test:runner:$androidxTestVersion"
+    androidTestImplementation "androidx.test:rules:$androidxTestVersion"
+    androidTestImplementation "androidx.test.ext:junit:$testExtVersion"
+
+    // duplicate the dependencies of ui module here, to ensure we have the same versions
+    androidTestImplementation "androidx.appcompat:appcompat:$appcompatVersion"
+    androidTestImplementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    androidTestImplementation "androidx.cardview:cardview:$cardViewVersion"
+    androidTestImplementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    // [END_EXCLUDE]
+}
+// [END benchmark_dependency]

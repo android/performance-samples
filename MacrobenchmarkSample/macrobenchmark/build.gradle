@@ -6,10 +6,10 @@ plugins {
 // [START macrobenchmark_setup_android]
 android {
     // [START_EXCLUDE]
-    compileSdkVersion 31
+    compileSdk rootProject.compileSdkVersion
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 31
+        minSdk 23 // Macrobenchmark doesn't work with SDK lower than 23
+        targetSdk rootProject.targetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,12 +53,12 @@ androidComponents {
 // [START macrobenchmark_setup_dependencies]
 dependencies {
     // [START_EXCLUDE]
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.test.ext:junit:1.1.3'
-    implementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "androidx.test.ext:junit:$testExtVersion"
+    implementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    implementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
     // [END_EXCLUDE]
-    implementation "androidx.benchmark:benchmark-macro-junit4:$benchmark_version"
+    implementation "androidx.benchmark:benchmark-macro-junit4:$benchmarkVersion"
 }
 // [END macrobenchmark_setup_dependencies]
 
