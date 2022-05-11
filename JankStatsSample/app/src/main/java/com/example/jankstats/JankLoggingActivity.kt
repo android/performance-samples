@@ -26,6 +26,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.jankstats.databinding.ActivityJankLoggingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
@@ -100,6 +101,8 @@ class JankLoggingActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navigation_container) as NavHostFragment
         navController = navHostFragment.navController
 
+        binding.bottomNavigation.setupWithNavController(navController)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
@@ -108,7 +111,7 @@ class JankLoggingActivity : AppCompatActivity() {
         // [START state_navigation]
         val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
         // add current navigation information into JankStats state
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, arguments ->
             metricsStateHolder.state?.addState(
                 "Navigation",
                 "Args(${arguments.toString()}), $destination"
