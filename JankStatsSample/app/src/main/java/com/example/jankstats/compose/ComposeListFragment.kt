@@ -56,9 +56,11 @@ class ComposeListFragment : Fragment() {
             )
 
             setContent {
-                MessageList(onItemClick = {
-                    findNavController().navigate(R.id.action_composeList_to_messageContent)
-                })
+                MaterialTheme {
+                    MessageList(onItemClick = {
+                        findNavController().navigate(R.id.action_composeList_to_messageContent)
+                    })
+                }
             }
         }
     }
