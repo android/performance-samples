@@ -7,9 +7,9 @@ allprojects {
         activity_version = '1.4.1'
         core_version = '1.7.0'
         constraint_layout_version = '2.1.3'
-        navigation_version = '2.4.1'
+        navigation_version = '2.4.2'
         tracing_version = '1.0.0'
-        material_version = '1.5.0'
+        material_version = '1.6.0'
     }
 
     repositories {
