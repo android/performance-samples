@@ -44,6 +44,7 @@ import kotlinx.coroutines.flow.collect
 
 /**
  * Showcase how to work with JankStats from Compose.
+  * This Fragment will intentionally cause poor UI performance which can be monitored by JankStats.
  */
 class ComposeListFragment : Fragment() {
 
