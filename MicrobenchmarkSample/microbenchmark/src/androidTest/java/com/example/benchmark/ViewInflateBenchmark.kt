@@ -41,6 +41,7 @@ class ViewInflateBenchmark {
         val root = FrameLayout(context)
 
         benchmarkRule.measureRepeated {
+            @Suppress("UNUSED_VARIABLE")
             val inflated = inflater.inflate(R.layout.item_card, root, false)
         }
     }
