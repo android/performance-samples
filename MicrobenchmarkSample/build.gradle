@@ -7,7 +7,7 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 31
 
-        benchmarkVersion = "1.1.0-beta06"
+        benchmarkVersion = "1.1.0-rc01"
         kotlinVersion = '1.6.20'
         coreVersion = '1.7.0'
         appcompatVersion = '1.4.1'
