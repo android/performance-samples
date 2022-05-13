@@ -21,6 +21,7 @@ plugins {
 
 android {
     compileSdk rootProject.compileSdkVersion
+    namespace 'com.example.shared'
 
     defaultConfig {
         minSdk rootProject.minSdkVersion

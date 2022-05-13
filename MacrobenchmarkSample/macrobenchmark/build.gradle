@@ -7,6 +7,8 @@ plugins {
 android {
     // [START_EXCLUDE]
     compileSdk rootProject.compileSdkVersion
+    namespace 'com.example.macrobenchmark'
+
     defaultConfig {
         minSdk 23 // Macrobenchmark doesn't work with SDK lower than 23
         targetSdk rootProject.targetSdkVersion

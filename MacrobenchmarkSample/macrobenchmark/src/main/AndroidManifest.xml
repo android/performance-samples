@@ -14,8 +14,7 @@
   limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.macrobenchmark">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Requesting legacy storage is needed to be able to write to additionalTestOutputDir on API 29 -->
     <application android:requestLegacyExternalStorage="true" />
