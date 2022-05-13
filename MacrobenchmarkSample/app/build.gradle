@@ -21,6 +21,8 @@ plugins {
 
 android {
     compileSdk rootProject.compileSdkVersion
+    namespace 'com.example.macrobenchmark.target'
+
     defaultConfig {
         applicationId "com.example.macrobenchmark.target"
         minSdk rootProject.minSdkVersion
