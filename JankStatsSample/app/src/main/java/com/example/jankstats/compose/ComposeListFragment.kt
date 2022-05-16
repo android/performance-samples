@@ -71,6 +71,7 @@ class ComposeListFragment : Fragment() {
 @Composable
 fun MessageList(onItemClick: () -> Unit) {
     val listState = rememberLazyListState()
+    // [START compose_jank_metrics]
     val metricsStateHolder = rememberMetricsStateHolder()
 
     // Reporting scrolling state from compose should be done from side effect to prevent recomposition.
@@ -83,6 +84,8 @@ fun MessageList(onItemClick: () -> Unit) {
             }
         }
     }
+    // [END compose_jank_metrics]
+
 
     LazyColumn(state = listState) {
         items(100) { index ->
