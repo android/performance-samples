@@ -35,7 +35,7 @@ Create a Google Cloud IAM [service account key](https://cloud.google.com/iam/doc
 Create 2 secrets:
 
 * `GCP_PROJECT_ID` represents your Google Cloud Platform `project id`. 
-* `GCP_SA_KEY` represents the service account key exported to JSON.
+* `GCP_CREDENTIALS` represents the service account key exported to JSON.
 
 Now that you have a service account, you also need to grant the service account access to the Firebase Test Lab APIs. For more information, please refer to [enabling an API for your project](https://cloud.google.com/endpoints/docs/openapi/enable-api).
 
