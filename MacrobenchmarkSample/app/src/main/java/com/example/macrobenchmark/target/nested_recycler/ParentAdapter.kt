@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.tracing.Trace
 import androidx.tracing.trace
+import com.example.macrobenchmark.target.ClickTrace
 import com.example.macrobenchmark.target.databinding.ItemParentBinding
 import com.example.macrobenchmark.target.dp
 
@@ -31,6 +32,9 @@ class ParentAdapter(
         return trace("ParentAdapter.onCreateViewHolder") {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemParentBinding.inflate(inflater, parent, false)
+            binding.rowTitle.setOnClickListener {
+                ClickTrace.onClickPerformed()
+            }
 
             binding.rowRecycler.addItemDecoration(childItemDecoration(parent.context))
             binding.rowRecycler.adapter = ChildAdapter()

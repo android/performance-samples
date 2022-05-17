@@ -38,6 +38,22 @@
         android:text="@string/launchRecyclerActivity" />
 
     <Button
+        android:id="@+id/launchListViewActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchListViewActivity"
+        android:text="@string/launchListViewActivity" />
+
+    <Button
+        android:id="@+id/launchScrollViewActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchScrollViewActivity"
+        android:text="@string/launchScrollViewActivity" />
+
+    <Button
         android:id="@+id/launchComposeList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

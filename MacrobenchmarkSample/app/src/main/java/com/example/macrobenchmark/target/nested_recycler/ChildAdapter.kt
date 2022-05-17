@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.tracing.trace
+import com.example.macrobenchmark.target.ClickTrace
 import com.example.macrobenchmark.target.R
 import com.example.macrobenchmark.target.databinding.ItemChildBinding
 
@@ -21,6 +22,9 @@ class ChildAdapter :
         return trace("ChildAdapter.onCreateViewHolder") {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemChildBinding.inflate(inflater, parent, false)
+            binding.text.setOnClickListener {
+                ClickTrace.onClickPerformed()
+            }
             BindingViewHolder(binding)
         }
     }

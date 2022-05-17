@@ -23,7 +23,9 @@
         android:label="@string/app_notice"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Macrobenchmarktarget">
+        android:theme="@style/Theme.Macrobenchmarktarget"
+        android:name=".ExampleApplication"
+        >
         <!--
         Activities need to be exported so the Macrobenchmarks can discover them
         under the new package visibility changes for Android 11.
@@ -44,6 +46,24 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ListViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.LIST_VIEW_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ScrollViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.SCROLL_VIEW_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

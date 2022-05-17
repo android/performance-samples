@@ -38,6 +38,7 @@ buildscript {
         testExtVersion = '1.1.3'
         espressoCoreVersion = '3.4.0'
         uiAutomatorVersion = '2.2.0'
+        curtainsVersion = '1.2.4'
     }
 
     repositories {

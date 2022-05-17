@@ -32,6 +32,9 @@ class EntryAdapter(private val entries: List<Entry>) : RecyclerView.Adapter<Entr
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.recycler_row, parent, false)
+        itemView.findViewById<View>(R.id.card).setOnClickListener {
+            ClickTrace.onClickPerformed()
+        }
         return EntryViewHolder(itemView)
     }
 
