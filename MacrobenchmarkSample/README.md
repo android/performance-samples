@@ -8,11 +8,11 @@ See the [Macrobenchmark guide](https://developer.android.com/studio/profile/macr
 
 The sample project includes the following:
 
-* [TrivialStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/TrivialStartupBenchmark.kt) measures the application startup time for a trivial `Activity` with a single `TextView`.
+* [SampleStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/startup/SampleStartupBenchmark.kt) measures the application startup time for a trivial `Activity` with a single `TextView`.
 
-* [SmallListStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView` and an `Activity` with a Compose `LazyColumn`.
+* [SmallListStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/startup/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView` and an `Activity` with a Compose `LazyColumn`.
 
-* [FrameTimingBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView` and Compose `LazyColumn`, measuring frame timing / jank.
+* [FrameTimingBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/frames/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView` and Compose `LazyColumn`, measuring frame timing / jank.
 
 ### Running
 
