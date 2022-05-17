@@ -31,21 +31,37 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.launchRecyclerActivity.setOnClickListener {
+            ClickTrace.onClickPerformed()
             val intent = Intent(it.context, NonExportedRecyclerActivity::class.java)
             startActivity(intent)
         }
 
+        binding.launchListViewActivity.setOnClickListener {
+            ClickTrace.onClickPerformed()
+            val intent = Intent(it.context, ListViewActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.launchScrollViewActivity.setOnClickListener {
+            ClickTrace.onClickPerformed()
+            val intent = Intent(it.context, ScrollViewActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.launchComposeList.setOnClickListener {
+            ClickTrace.onClickPerformed()
             val intent = Intent(it.context, ComposeActivity::class.java)
             startActivity(intent)
         }
 
         binding.nestedRecyclerActivity.setOnClickListener {
+            ClickTrace.onClickPerformed()
             val intent = Intent(it.context, NestedRecyclerActivity::class.java)
             startActivity(intent)
         }
 
         binding.nestedRecyclerWithPoolsActivity.setOnClickListener {
+            ClickTrace.onClickPerformed()
             val intent = Intent(it.context, NestedRecyclerActivity::class.java).apply {
                 putExtra(USE_RECYCLER_POOLS, true)
             }

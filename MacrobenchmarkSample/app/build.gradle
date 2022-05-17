@@ -92,6 +92,8 @@ dependencies {
     implementation "androidx.profileinstaller:profileinstaller:$profileInstallerVersion"
     implementation "androidx.tracing:tracing-ktx:$tracingVersion"
 
+    implementation "com.squareup.curtains:curtains:$curtainsVersion"
+
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$testExtVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
