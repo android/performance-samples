@@ -68,7 +68,7 @@ jobs:
       
       - name: Run Macro Benchmarks
         run: |
-          gcloud firebase test android run \
+          gcloud beta firebase test android run \
             --type instrumentation \
             --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/benchmark/app-benchmark.apk \
             --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/benchmark/macrobenchmark-benchmark.apk \
