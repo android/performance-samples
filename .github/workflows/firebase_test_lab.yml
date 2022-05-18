@@ -66,6 +66,9 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
       
+      - name: Install Cloud SDK Beta components
+        run: gcloud components install beta
+      
       - name: Run Macro Benchmarks
         run: |
           gcloud beta firebase test android run \
