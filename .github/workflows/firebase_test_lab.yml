@@ -51,7 +51,9 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.path }}
         with:
-          arguments: build
+          arguments: |
+            :app:assembleBenchmark
+            :macrobenchmark:assembleBenchmark
           build-root-directory: ${{ github.workspace }}/MacrobenchmarkSample
           gradle-executable: ${{ github.workspace }}/MacrobenchmarkSample/gradlew
           wrapper-directory: ${{ github.workspace }}/MacrobenchmarkSample/gradle/wrapper
@@ -64,14 +66,18 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0
       
+      - name: Install Cloud SDK Beta components
+        run: gcloud components install beta
+      
       - name: Run Macro Benchmarks
         run: |
-          gcloud firebase test android run \
+          gcloud beta firebase test android run \
             --type instrumentation \
             --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/benchmark/app-benchmark.apk \
             --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/benchmark/macrobenchmark-benchmark.apk \
             --device model=redfin,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
-            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true \
+            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true,androidx.benchmark.enabledRules=Macrobenchmark \
+            --num-uniform-shards 3 \
             --timeout 30m

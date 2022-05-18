@@ -18,23 +18,27 @@ package com.example.macrobenchmark
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalBaselineProfilesApi::class)
-// Remove @Ignore to actually run the test using a rooted device/emulator.
-// Generally emulator images without Google Play Services are user-debug builds, which support
-// `adb root`
-
-// For the output baseline profile file, look at the `Benchmark` tag in logcat for the location
-// of the output directory.
-//@Ignore
 /**
  * This benchmark generates a basic baseline profile for the target package.
- * Refer to the [baseline profile documentation](https://developer.android.com/studio/profile/baselineprofiles)
+ * Refer to the [baseline profile documentation](https://developer.android.com/topic/performance/baselineprofiles)
  * for more information.
+ *
+ * You need to run the test on a rooted device/emulator. Generally emulator images without
+ * Google Play Services are user-debug builds and support `adb root`.
+ *
+ * For the output Baseline Profile file, look at the folder
+ * `macrobenchmark/build/outputs/connected_android_test_additional_output/benchmark/[device name]/`,
+ * which contains the file [name-of-test]-baseline.prof.txt and copy the file into src/main/
+ * (next to AndroidManifest.xml) and rename it to baseline-prof.txt.
+ *
+ * To filter out the generator when running benchmarks on CI, use instrumentation argument:
+ * androidx.benchmark.enabledRules=Macrobenchmark
+ * (see [documentation](https://android.devsite.corp.google.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args) for more info)
  */
+@OptIn(ExperimentalBaselineProfilesApi::class)
 class TrivialBaselineProfileBenchmark {
     // [START baseline_profile_basic]
     @get:Rule

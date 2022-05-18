@@ -99,8 +99,8 @@ jobs:
         run: |
           gcloud firebase test android run \
             --type instrumentation \
-            --app ${{ github.workspace }}/.../benchmark/app-benchmark.apk \
-            --test ${{ github.workspace }}/.../macrobenchmark-benchmark.apk \
+            --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/benchmark/app-benchmark.apk \
+            --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/benchmark/macrobenchmark-benchmark.apk \
             --device model=redfin,version=30,locale=en,orientation=portrait \
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
