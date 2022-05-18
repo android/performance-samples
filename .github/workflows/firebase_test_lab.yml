@@ -51,7 +51,9 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.path }}
         with:
-          arguments: build
+          arguments: |
+            :app:assembleBenchmark
+            :macrobenchmark:assembleBenchmark
           build-root-directory: ${{ github.workspace }}/MacrobenchmarkSample
           gradle-executable: ${{ github.workspace }}/MacrobenchmarkSample/gradlew
           wrapper-directory: ${{ github.workspace }}/MacrobenchmarkSample/gradle/wrapper
