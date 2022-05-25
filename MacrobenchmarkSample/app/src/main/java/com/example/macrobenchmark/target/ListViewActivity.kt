@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.macrobenchmark.target.databinding.ActivityListViewBinding
 
@@ -66,6 +67,9 @@ class ListViewActivity : AppCompatActivity() {
 
         binding.listview.setOnItemClickListener { _, _, _, _ ->
             ClickTrace.onClickPerformed()
+            AlertDialog.Builder(this)
+                    .setMessage("Item clicked")
+                    .show()
         }
 
     }

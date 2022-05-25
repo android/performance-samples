@@ -19,6 +19,7 @@ package com.example.macrobenchmark.target
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.macrobenchmark.target.databinding.ActivityScrollViewBinding
 
@@ -48,6 +49,9 @@ class ScrollViewActivity : AppCompatActivity() {
             contentView.text = entry.contents
             itemView.setOnClickListener {
                 ClickTrace.onClickPerformed()
+                AlertDialog.Builder(this)
+                        .setMessage("Item clicked")
+                        .show()
             }
         }
     }
