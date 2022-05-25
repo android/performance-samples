@@ -24,6 +24,7 @@ import curtains.OnRootViewAddedListener
 import curtains.OnTouchEventListener
 import curtains.phoneWindow
 import curtains.touchEventInterceptors
+import curtains.windowAttachCount
 
 /**
  * Logs async trace sections that track the duration of click handling in the app, i.e. the
@@ -37,23 +38,33 @@ object ClickTrace {
 
     private val isMainThread: Boolean get() = Looper.getMainLooper().thread === Thread.currentThread()
 
+    /**
+     * Ends a trace started when a ACTION_UP motion event was received.
+     */
     fun onClickPerformed() {
         Trace.endAsyncSection(SECTION_NAME, 0)
         checkMainThread()
         clickInProgress = false
     }
 
+    /**
+     * Leverages the [Curtains] library to intercept all ACTION_UP motion events sent to all
+     * windows in the app, starting an async trace that will end when [onClickPerformed] is called.
+     */
     fun install() {
         checkMainThread()
+        // Listen to every new attached root view.
         Curtains.onRootViewsChangedListeners += OnRootViewAddedListener { rootView ->
-            rootView.phoneWindow?.let { window ->
-                window.touchEventInterceptors += OnTouchEventListener { event ->
-                    if (event.action == MotionEvent.ACTION_UP) {
-                        Trace.beginAsyncSection(SECTION_NAME, 0)
-                        check(!clickInProgress) {
-                            "Click already in progress, chill!"
+            // If a root is attached, detached and reattached we don't want to do this again.
+            if (rootView.windowAttachCount == 0) {
+                // Not all root views have a window associated to them.
+                rootView.phoneWindow?.let { window ->
+                    // Adds a touch event interceptor to the window callback
+                    window.touchEventInterceptors += OnTouchEventListener { event ->
+                        if (event.action == MotionEvent.ACTION_UP) {
+                            Trace.beginAsyncSection(SECTION_NAME, 0)
+                            clickInProgress = true
                         }
-                        clickInProgress = true
                     }
                 }
             }
