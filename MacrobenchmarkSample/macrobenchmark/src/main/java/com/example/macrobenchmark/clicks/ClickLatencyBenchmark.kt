@@ -25,6 +25,7 @@ import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
@@ -57,13 +58,13 @@ class ClickLatencyBenchmark {
                     if (firstStart) {
                         startActivityAndWait()
                         firstStart = false
-                    } else {
-                        device.pressBack()
                     }
-                    Thread.sleep(500)
                 }
         ) {
             clickOnId("launchRecyclerActivity")
+            waitForTextShown("RecyclerView Sample")
+            device.pressBack()
+            waitForTextGone("RecyclerView Sample")
         }
     }
 
@@ -82,10 +83,9 @@ class ClickLatencyBenchmark {
                         startActivityAndWait(intent)
                         firstStart = false
                     }
-                    Thread.sleep(500)
                 }
         ) {
-            clickOnText("Item 0")
+            clickOnFirstItem()
         }
     }
 
@@ -103,11 +103,10 @@ class ClickLatencyBenchmark {
                         val intent = Intent("$packageName.COMPOSE_ACTIVITY")
                         startActivityAndWait(intent)
                         firstStart = false
-                        Thread.sleep(500)
                     }
                 }
         ) {
-            clickOnText("Item 0")
+            clickOnFirstItem()
         }
     }
 
@@ -125,11 +124,10 @@ class ClickLatencyBenchmark {
                         val intent = Intent("$packageName.LIST_VIEW_ACTIVITY")
                         startActivityAndWait(intent)
                         firstStart = false
-                        Thread.sleep(500)
                     }
                 }
         ) {
-            clickOnText("Item 0")
+            clickOnFirstItem()
         }
     }
 
@@ -147,26 +145,43 @@ class ClickLatencyBenchmark {
                         val intent = Intent("$packageName.SCROLL_VIEW_ACTIVITY")
                         startActivityAndWait(intent)
                         firstStart = false
-                        Thread.sleep(500)
                     }
                 }
         ) {
-            clickOnText("Item 0")
+            clickOnFirstItem()
+        }
+    }
+
+    private fun MacrobenchmarkScope.clickOnFirstItem() {
+        clickOnText("Item 0")
+        waitForTextShown("Item clicked")
+        // Dismiss dialog
+        device.pressBack()
+        waitForTextGone("Item clicked")
+    }
+
+    private fun MacrobenchmarkScope.waitForTextShown(text: String) {
+        check(device.wait(Until.hasObject(By.text(text)), 500)) {
+            "View showing '$text' not found after waiting 500 ms."
+        }
+    }
+
+    private fun MacrobenchmarkScope.waitForTextGone(text: String) {
+        check(device.wait(Until.gone(By.text(text)), 500)) {
+            "View showing '$text' not found after waiting 500 ms."
         }
     }
 
     private fun MacrobenchmarkScope.clickOnText(text: String) {
         device
-                .findObject(By.text(text))
-                .click()
-        // Chill to ensure we capture the end of the click span in the trace.
-        Thread.sleep(100)
+            .findObject(By.text(text))
+            .click()
     }
 
     private fun MacrobenchmarkScope.clickOnId(resourceId: String) {
         device
-                .findObject(By.res(packageName, resourceId))
-                .click()
+            .findObject(By.res(packageName, resourceId))
+            .click()
         // Chill to ensure we capture the end of the click span in the trace.
         Thread.sleep(100)
     }

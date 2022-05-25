@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 
 data class Entry(val contents: String)
@@ -34,6 +35,9 @@ class EntryAdapter(private val entries: List<Entry>) : RecyclerView.Adapter<Entr
         val itemView = inflater.inflate(R.layout.recycler_row, parent, false)
         itemView.findViewById<View>(R.id.card).setOnClickListener {
             ClickTrace.onClickPerformed()
+            AlertDialog.Builder(parent.context)
+                .setMessage("Item clicked")
+                .show()
         }
         return EntryViewHolder(itemView)
     }

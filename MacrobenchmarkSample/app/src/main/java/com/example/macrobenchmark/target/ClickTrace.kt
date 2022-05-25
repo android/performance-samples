@@ -40,9 +40,6 @@ object ClickTrace {
     fun onClickPerformed() {
         Trace.endAsyncSection(SECTION_NAME, 0)
         checkMainThread()
-        check(clickInProgress) {
-            "No click in progress"
-        }
         clickInProgress = false
     }
 

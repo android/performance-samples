@@ -3,6 +3,7 @@ package com.example.macrobenchmark.target
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,6 +41,9 @@ class ComposeActivity: ComponentActivity() {
                     items(data, key = { it.contents }) { item ->
                         EntryRow(entry = item, Modifier.padding(8.dp).clickable {
                             ClickTrace.onClickPerformed()
+                            AlertDialog.Builder(this@ComposeActivity)
+                                .setMessage("Item clicked")
+                                .show()
                         })
                     }
                 }
