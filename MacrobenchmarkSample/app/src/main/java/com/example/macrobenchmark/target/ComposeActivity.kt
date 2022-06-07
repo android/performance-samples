@@ -5,25 +5,23 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-class ComposeActivity: ComponentActivity() {
+@OptIn(ExperimentalComposeUiApi::class)
+class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,16 +33,34 @@ class ComposeActivity: ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                LazyColumn(
-                    Modifier.fillMaxSize()
+                Box(
+                    modifier = Modifier.semantics {
+                        // Allows to use testTag() for UiAutomator's resource-id.
+                        // It can be enabled high in the compose hierarchy, 
+                        // so that it's enabled for the whole subtree 
+                        testTagsAsResourceId = true
+                    }
                 ) {
-                    items(data, key = { it.contents }) { item ->
-                        EntryRow(entry = item, Modifier.padding(8.dp).clickable {
-                            ClickTrace.onClickPerformed()
-                            AlertDialog.Builder(this@ComposeActivity)
-                                .setMessage("Item clicked")
-                                .show()
-                        })
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            // Thanks to [SemanticsPropertyReceiver.testTagsAsResourceId], 
+                            // this [Modifier.testTag] will be propagated to resource-id 
+                            // and can be accessed from benchmarks.
+                            .testTag("myLazyColumn")
+                    ) {
+                        items(data, key = { it.contents }) { item ->
+                            EntryRow(entry = item,
+                                Modifier
+                                    .padding(8.dp)
+                                    .clickable {
+                                        ClickTrace.onClickPerformed()
+                                        AlertDialog
+                                            .Builder(this@ComposeActivity)
+                                            .setMessage("Item clicked")
+                                            .show()
+                                    })
+                        }
                     }
                 }
             }
