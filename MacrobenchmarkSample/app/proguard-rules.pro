@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# TODO can be removed when https://github.com/square/curtains/issues/36 is fixed and 1.2.5+ is released
+# Fixes missing method crash 
+-keepclassmembers class android.view.JavaViewSpy {
+    static int windowAttachCount(android.view.View);
+}
