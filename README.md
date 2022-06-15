@@ -7,16 +7,16 @@ A collection of samples using the performance libraries.
 
 This sample shows how to set up and use the JankStats library to detect janky frames. 
 
-## [Microbenchmark sample](MicrobenchmarkSample)
-
-This sample shows how to use the Benchmark library to benchmark code and UI from
-library modules.
-
 ## [Macrobenchmark sample](MacrobenchmarkSample)
 
 This sample shows how to use the MacrobenchmarkSample library for testing application startup and runtime performance cases, such as scrolling a `RecyclerView` to measure jank.
 
 The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab.yml) to run Macrobenchmarks on Firebase Test Lab. For more information refer to the [README.md](MacrobenchmarkSample/ftl/README.md).
+
+## [Microbenchmark sample](MicrobenchmarkSample)
+
+This sample shows how to use the Benchmark library to benchmark code and UI from
+library modules.
 
 ## [BenchmarkNdk sample (Prototype/Deprecated!)](https://github.com/android/performance-samples/tree/21c99d1d8b8a4601015e091e1e34564b0f660eea/BenchmarkNdkSample)
 
