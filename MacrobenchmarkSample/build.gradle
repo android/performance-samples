@@ -17,7 +17,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        agpVersion = '7.3.0-beta01'
+        agpVersion = '7.4.0-alpha03'
         targetSdkVersion = 31
         minSdkVersion = 21
         compileSdkVersion = 31
