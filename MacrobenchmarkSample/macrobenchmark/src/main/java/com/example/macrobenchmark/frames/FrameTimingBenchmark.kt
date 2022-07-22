@@ -86,11 +86,15 @@ class FrameTimingBenchmark {
                 startActivityAndWait(intent)
             }
         ) {
-            // Compose does not have view IDs so we have to use other methods of UIAutomator
-            // to find the correct composable. Be careful when using content description because you may
-            // break the accessibility of your app if you are providing descriptions just for tests.
-            // Here we use scrollable as the only scrollable item in the activity is our lazy list.
-            val column = device.findObject(By.scrollable(true))
+            /**
+             * Compose does not have view IDs so we cannot directly access composables from UiAutomator.
+             * To access a composable we need to set:
+             * 1) Modifier.semantics { testTagsAsResourceId = true } once, high in the compose hierarchy
+             * 2) Add Modifier.testTag("someIdentifier") to all of the composables you want to access
+             *
+             * Once done that, we can access the composable using By.res("someIdentifier")
+             */
+            val column = device.findObject(By.res("myLazyColumn"))
 
             // Set gesture margin to avoid triggering gesture navigation
             // with input events from automation.
