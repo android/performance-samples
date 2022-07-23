@@ -18,13 +18,6 @@ The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab
 This sample shows how to use the Benchmark library to benchmark code and UI from
 library modules.
 
-## [BenchmarkNdk sample (Prototype/Deprecated!)](https://github.com/android/performance-samples/tree/21c99d1d8b8a4601015e091e1e34564b0f660eea/BenchmarkNdkSample)
-
-This prototype sample shows how to use the Benchmark library together with the
-NDK, and [google/benchmark](https://github.com/google/benchmark) to benchmark
-C++ code, while getting the Android-specific performance stability, and Studio
-integration from the Jetpack Benchmark library.
-
 ### Important Notes
 
 * Make sure your device's screen is on before running benchmarks
