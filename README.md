@@ -9,9 +9,11 @@ This sample shows how to set up and use the JankStats library to detect janky fr
 
 ## [Macrobenchmark sample](MacrobenchmarkSample)
 
-This sample shows how to use the MacrobenchmarkSample library for testing application startup and runtime performance cases, such as scrolling a `RecyclerView` to measure jank.
+This sample shows how to use the MacrobenchmarkSample library for testing application startup and runtime performance cases, such as scrolling a `RecyclerView` or `LazyColumn` to measure jank.
 
 The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab.yml) to run Macrobenchmarks on Firebase Test Lab. For more information refer to the [README.md](MacrobenchmarkSample/ftl/README.md).
+
+The Macrobenchmark sample also demonstrates using [Jetpack Compose with Macrobenchmark](MacrobenchmarkSample/macrobenchmark/src/main/java/com/example/macrobenchmark/frames/FrameTimingBenchmark.kt#L72).
 
 ## [Microbenchmark sample](MicrobenchmarkSample)
 
