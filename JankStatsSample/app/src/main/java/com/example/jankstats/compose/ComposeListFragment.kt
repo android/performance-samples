@@ -41,11 +41,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.jankstats.R
 import com.example.jankstats.tools.simulateJank
-import kotlinx.coroutines.flow.collect
 
 /**
  * Showcase how to work with JankStats from Compose.
-  * This Fragment will intentionally cause poor UI performance which can be monitored by JankStats.
+ * This Fragment will intentionally cause poor UI performance which can be monitored by JankStats.
  */
 class ComposeListFragment : Fragment() {
 
@@ -78,7 +77,7 @@ fun MessageList(onItemClick: () -> Unit) {
     LaunchedEffect(metricsStateHolder, listState) {
         snapshotFlow { listState.isScrollInProgress }.collect { isScrolling ->
             if (isScrolling) {
-                metricsStateHolder.state?.addState("LazyList", "Scrolling")
+                metricsStateHolder.state?.putState("LazyList", "Scrolling")
             } else {
                 metricsStateHolder.state?.removeState("LazyList")
             }
