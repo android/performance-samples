@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     buildFeatures {
         viewBinding true
@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId "com.example.jankstats"
         minSdk 21
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$activity_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.metrics:metrics-performance:$jankstats_version"

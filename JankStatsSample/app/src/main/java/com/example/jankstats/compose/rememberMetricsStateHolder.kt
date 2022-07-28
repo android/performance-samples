@@ -10,8 +10,8 @@ import androidx.metrics.performance.PerformanceMetricsState
  * Retrieve MetricsStateHolder from compose and remember until the current view changes.
  */
 @Composable
-fun rememberMetricsStateHolder(): PerformanceMetricsState.MetricsStateHolder {
+fun rememberMetricsStateHolder(): PerformanceMetricsState.Holder {
     val view = LocalView.current
-    return remember(view) { PerformanceMetricsState.getForHierarchy(view) }
+    return remember(view) { PerformanceMetricsState.getHolderForHierarchy(view) }
 }
 // [END metrics_state_holder]

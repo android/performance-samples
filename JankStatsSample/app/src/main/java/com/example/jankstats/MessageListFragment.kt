@@ -34,11 +34,9 @@ class MessageListFragment : Fragment() {
     private val binding get() = requireNotNull(_binding)
 
     // initialized when View is created
-    private var metricsStateHolder: PerformanceMetricsState.MetricsStateHolder? = null
+    private var metricsStateHolder: PerformanceMetricsState.Holder? = null
 
-    private val messageList = Array<String>(100) {
-        "Message #$it"
-    }
+    private val messageList = Array(100) { "Message #$it" }
 
     // [START state_recyclerview]
     private val scrollListener = object : RecyclerView.OnScrollListener() {
@@ -48,10 +46,10 @@ class MessageListFragment : Fragment() {
 
             when (newState) {
                 RecyclerView.SCROLL_STATE_DRAGGING -> {
-                    metricsState.addState("RecyclerView", "Dragging")
+                    metricsState.putState("RecyclerView", "Dragging")
                 }
                 RecyclerView.SCROLL_STATE_SETTLING -> {
-                    metricsState.addState("RecyclerView", "Settling")
+                    metricsState.putState("RecyclerView", "Settling")
                 }
                 else -> {
                     metricsState.removeState("RecyclerView")
@@ -71,7 +69,7 @@ class MessageListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        metricsStateHolder = PerformanceMetricsState.getForHierarchy(view)
+        metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(view)
 
         binding.messageList.adapter = MessageListAdapter(messageList)
         binding.messageList.addOnScrollListener(scrollListener)

@@ -28,8 +28,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.jankstats.databinding.ActivityJankLoggingBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asExecutor
 
 /**
  * This activity shows the basic usage of JankStats, from creating and enabling it to track
@@ -40,6 +38,7 @@ import kotlinx.coroutines.asExecutor
 class JankLoggingActivity : AppCompatActivity() {
 
     private lateinit var jankStats: JankStats
+
     // [START_EXCLUDE silent]
     private lateinit var binding: ActivityJankLoggingBinding
     private lateinit var navController: NavController
@@ -61,17 +60,13 @@ class JankLoggingActivity : AppCompatActivity() {
         setupUi()
         // [END_EXCLUDE]
         // metrics state holder can be retrieved regardless of JankStats initialization
-        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+        val metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(binding.root)
 
         // initialize JankStats for current window
-        jankStats = JankStats.createAndTrack(
-            window,
-            Dispatchers.Default.asExecutor(),
-            jankFrameListener,
-        )
+        jankStats = JankStats.createAndTrack(window, jankFrameListener)
 
         // add activity name as state
-        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
+        metricsStateHolder.state?.putState("Activity", javaClass.simpleName)
         // [START_EXCLUDE]
         setupNavigationState()
         // [END_EXCLUDE]
@@ -104,15 +99,16 @@ class JankLoggingActivity : AppCompatActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupNavigationState() {
         // [START state_navigation]
-        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+        val metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(binding.root)
         // add current navigation information into JankStats state
         navController.addOnDestinationChangedListener { _, destination, arguments ->
-            metricsStateHolder.state?.addState(
+            metricsStateHolder.state?.putState(
                 "Navigation",
                 "Args(${arguments.toString()}), $destination"
             )

@@ -26,8 +26,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.jankstats.databinding.ActivityJankLoggingBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.asExecutor
 
 /**
  * This activity shows how to use JankStatsAggregator, a class in this test directory layered
@@ -40,6 +38,7 @@ import kotlinx.coroutines.asExecutor
 class JankAggregatorActivity : AppCompatActivity() {
 
     private lateinit var jankStatsAggregator: JankStatsAggregator
+
     // [START_EXCLUDE silent]
     private lateinit var binding: ActivityJankLoggingBinding
     private lateinit var navController: NavController
@@ -72,17 +71,13 @@ class JankAggregatorActivity : AppCompatActivity() {
         setupUi()
         // [END_EXCLUDE]
         // Metrics state holder can be retrieved regardless of JankStats initialization.
-        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+        val metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(binding.root)
 
         // Initialize JankStats with an aggregator for the current window.
-        jankStatsAggregator = JankStatsAggregator(
-            window,
-            Dispatchers.Default.asExecutor(),
-            jankReportListener
-        )
+        jankStatsAggregator = JankStatsAggregator(window, jankReportListener)
 
         // Add the Activity name as state.
-        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
+        metricsStateHolder.state?.putState("Activity", javaClass.simpleName)
     }
     // [END aggregator_activity_init]
 
