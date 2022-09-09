@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target
+package com.example.macrobenchmark.target.activity
 
 /**
  * The same as a [RecyclerViewActivity], but not `exported` via the `AndroidManifest.xml`.

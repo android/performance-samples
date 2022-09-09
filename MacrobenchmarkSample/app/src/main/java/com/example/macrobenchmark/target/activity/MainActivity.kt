@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target
+package com.example.macrobenchmark.target.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.macrobenchmark.target.util.ClickTrace
 import com.example.macrobenchmark.target.databinding.ActivityMainBinding
-import com.example.macrobenchmark.target.nested_recycler.NestedRecyclerActivity
-import com.example.macrobenchmark.target.nested_recycler.USE_RECYCLER_POOLS
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

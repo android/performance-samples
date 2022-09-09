@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.nested_recycler
+package com.example.macrobenchmark.target.util
 
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
+import android.content.Context
+import android.util.TypedValue
 
-class BindingViewHolder<T : ViewBinding>(
-    val binding: T
-) : RecyclerView.ViewHolder(binding.root)
+
+fun Int.dp(context: Context): Float =
+    TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        context.resources.displayMetrics
+    )

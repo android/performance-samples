@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target
+package com.example.macrobenchmark.target.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +22,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.macrobenchmark.target.R
+import com.example.macrobenchmark.target.util.ClickTrace
 
 data class Entry(val contents: String)
 
