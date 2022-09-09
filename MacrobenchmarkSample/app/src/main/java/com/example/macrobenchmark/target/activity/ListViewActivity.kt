@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target
+package com.example.macrobenchmark.target.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,8 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.macrobenchmark.target.util.ClickTrace
+import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.databinding.ActivityListViewBinding
 
 /**

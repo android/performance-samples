@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.nested_recycler
+package com.example.macrobenchmark.target.recyclerview
 
 import android.content.Context
 import android.graphics.Rect
@@ -27,9 +27,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.tracing.Trace
 import androidx.tracing.trace
-import com.example.macrobenchmark.target.ClickTrace
+import com.example.macrobenchmark.target.util.ClickTrace
 import com.example.macrobenchmark.target.databinding.ItemParentBinding
-import com.example.macrobenchmark.target.dp
+import com.example.macrobenchmark.target.util.dp
 
 class ParentAdapter(
     private val useRecyclerPools: Boolean

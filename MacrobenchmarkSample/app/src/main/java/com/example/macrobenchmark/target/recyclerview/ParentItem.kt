@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.nested_recycler
+package com.example.macrobenchmark.target.recyclerview
 
 import androidx.recyclerview.widget.DiffUtil
 

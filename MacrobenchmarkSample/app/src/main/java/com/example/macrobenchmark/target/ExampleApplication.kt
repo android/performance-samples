@@ -17,6 +17,7 @@
 package com.example.macrobenchmark.target
 
 import android.app.Application
+import com.example.macrobenchmark.target.util.ClickTrace
 
 class ExampleApplication : Application() {
 

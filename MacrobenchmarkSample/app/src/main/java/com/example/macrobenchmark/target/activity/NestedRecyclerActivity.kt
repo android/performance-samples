@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.nested_recycler
+package com.example.macrobenchmark.target.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -24,7 +24,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.macrobenchmark.target.databinding.ActivityNestedRvBinding
-import kotlinx.coroutines.flow.collect
+import com.example.macrobenchmark.target.recyclerview.NestedRecyclerViewModel
+import com.example.macrobenchmark.target.recyclerview.ParentAdapter
 import kotlinx.coroutines.launch
 
 class NestedRecyclerActivity : AppCompatActivity() {

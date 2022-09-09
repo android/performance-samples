@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target
+package com.example.macrobenchmark.target.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.macrobenchmark.target.util.ClickTrace
+import com.example.macrobenchmark.target.recyclerview.Entry
+import com.example.macrobenchmark.target.R
 import com.example.macrobenchmark.target.databinding.ActivityScrollViewBinding
 
 /**

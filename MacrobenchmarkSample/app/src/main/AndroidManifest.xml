@@ -31,7 +31,7 @@
         under the new package visibility changes for Android 11.
         -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".RecyclerViewActivity"
+            android:name=".activity.RecyclerViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY" />
@@ -51,7 +51,7 @@
         </activity>
 
         <activity
-            android:name=".ListViewActivity"
+            android:name=".activity.ListViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.LIST_VIEW_ACTIVITY" />
@@ -60,7 +60,7 @@
         </activity>
 
         <activity
-            android:name=".ScrollViewActivity"
+            android:name=".activity.ScrollViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.SCROLL_VIEW_ACTIVITY" />
@@ -69,7 +69,7 @@
         </activity>
 
         <activity
-            android:name=".FullyDrawnStartupActivity"
+            android:name=".activity.FullyDrawnStartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.FULLY_DRAWN_STARTUP_ACTIVITY" />
@@ -78,7 +78,7 @@
         </activity>
 
         <activity
-            android:name=".ComposeActivity"
+            android:name=".activity.ComposeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.COMPOSE_ACTIVITY" />
@@ -87,9 +87,9 @@
         </activity>
 
         <!-- non-exported activities -->
-        <activity android:name=".NonExportedRecyclerActivity" />
+        <activity android:name=".activity.NonExportedRecyclerActivity" />
 
-        <activity android:name=".nested_recycler.NestedRecyclerActivity" />
+        <activity android:name=".activity.NestedRecyclerActivity" />
 
         <!-- [START macrobenchmark_setup_profileable] -->
         <!-- enable profiling by macrobenchmark -->
