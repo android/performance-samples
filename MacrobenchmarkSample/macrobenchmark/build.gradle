@@ -54,13 +54,13 @@ androidComponents {
 
 // [START macrobenchmark_setup_dependencies]
 dependencies {
-    // [START_EXCLUDE]
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "androidx.test.ext:junit:$testExtVersion"
-    implementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
-    implementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
-    // [END_EXCLUDE]
     implementation "androidx.benchmark:benchmark-macro-junit4:$benchmarkVersion"
+    // [START_EXCLUDE]
+    implementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    implementation "androidx.test.ext:junit:$testExtVersion"
+    implementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    // [END_EXCLUDE]
 }
 // [END macrobenchmark_setup_dependencies]
 
