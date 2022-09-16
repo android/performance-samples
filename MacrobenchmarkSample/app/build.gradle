@@ -72,27 +72,22 @@ android {
 dependencies {
     implementation project(':shared')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-
-    implementation "androidx.activity:activity-ktx:$activityVersion"
-    implementation "androidx.core:core-ktx:$coreVersion"
-    implementation "androidx.appcompat:appcompat:$appcompatVersion"
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-
     implementation "androidx.activity:activity-compose:$activityVersion"
-    implementation "androidx.compose.ui:ui:$composeUiVersion"
+    implementation "androidx.activity:activity-ktx:$activityVersion"
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.compose.material:material:$composeUiVersion"
     implementation "androidx.compose.ui:ui-tooling:$composeUiVersion"
-
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.compose.ui:ui:$composeUiVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$coreVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.profileinstaller:profileinstaller:$profileInstallerVersion"
     implementation "androidx.tracing:tracing-ktx:$tracingVersion"
-
+    implementation "com.google.android.material:material:$materialVersion"
     implementation "com.squareup.curtains:curtains:$curtainsVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$testExtVersion"
