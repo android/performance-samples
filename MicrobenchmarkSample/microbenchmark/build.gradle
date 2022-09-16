@@ -40,22 +40,20 @@ android {
 
 // [START benchmark_dependency]
 dependencies {
-    androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmarkVersion"
     androidTestImplementation project(':benchmarkable')
+    androidTestImplementation "androidx.benchmark:benchmark-junit4:$benchmarkVersion"
     // [START_EXCLUDE]
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    androidTestImplementation "junit:junit:$jUnitVersion"
-
-    androidTestImplementation "androidx.test:runner:$androidxTestVersion"
-    androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     androidTestImplementation "androidx.test.ext:junit:$testExtVersion"
+    androidTestImplementation "androidx.test:rules:$androidxTestVersion"
+    androidTestImplementation "androidx.test:runner:$androidxTestVersion"
+    androidTestImplementation "junit:junit:$jUnitVersion"
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // duplicate the dependencies of ui module here, to ensure we have the same versions
     androidTestImplementation "androidx.appcompat:appcompat:$appcompatVersion"
-    androidTestImplementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     androidTestImplementation "androidx.cardview:cardview:$cardViewVersion"
+    androidTestImplementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     androidTestImplementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
     // [END_EXCLUDE]
 }

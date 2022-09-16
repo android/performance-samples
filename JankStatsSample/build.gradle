@@ -1,15 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        agp_version = '7.2.1'
-        appcompat_version = '1.4.2'
-        compose_version = '1.2.0'
+        agp_version = '7.3.0'
+        appcompat_version = '1.5.2'
+        compose_version = '1.2.1'
         constraint_layout_version = '2.1.4'
-        core_version = '1.8.0'
+        core_version = '1.9.0'
         jankstats_version = '1.0.0-alpha03'
         kotlin_version = '1.7.0'
         material_version = '1.6.1'
-        navigation_version = '2.5.1'
+        navigation_version = '2.5.2'
         tracing_version = '1.1.0'
     }
 
