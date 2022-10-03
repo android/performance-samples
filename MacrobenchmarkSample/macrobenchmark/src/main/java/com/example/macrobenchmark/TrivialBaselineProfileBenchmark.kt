@@ -18,6 +18,7 @@ package com.example.macrobenchmark
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
+import androidx.test.uiautomator.UiSelector
 import org.junit.Rule
 import org.junit.Test
 
@@ -45,12 +46,40 @@ class TrivialBaselineProfileBenchmark {
     val baselineProfileRule = BaselineProfileRule()
 
     @Test
-    fun startup() = baselineProfileRule.collectBaselineProfile(
+    fun appStartupOnly() = baselineProfileRule.collectBaselineProfile(
         packageName = TARGET_PACKAGE,
         profileBlock = {
             startActivityAndWait()
-            device.waitForIdle()
         }
     )
     // [END baseline_profile_basic]
+
+    /**
+     * A more real world baseline profile collection method.
+     * The collection starts at app startup and then goes through several user journeys.
+     * This enables ahead of time compilation for these paths, making them smoother for users
+     * from the first start.
+     */
+    @Test
+    fun appStartupAndUserJourneys() = baselineProfileRule.collectBaselineProfile(
+        packageName = TARGET_PACKAGE,
+        profileBlock = {
+            startActivityAndWait()
+            with(device) {
+                // Open each activity based on its label, then press back.
+                listOf(
+                    "Recyclerview",
+                    "Listview",
+                    "Scrollview",
+                    "Compose Lazylist",
+                    "Nested Recyclerview",
+                    "Nested Recyclerview with Pools"
+                ).forEach { label ->
+                    findObject(UiSelector().text(label.uppercase())).click()
+                    waitForIdle()
+                    pressBack()
+                }
+            }
+        }
+    )
 }
