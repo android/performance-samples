@@ -18,7 +18,9 @@ package com.example.macrobenchmark
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
-import androidx.test.uiautomator.UiSelector
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.Until
 import org.junit.Rule
 import org.junit.Test
 
@@ -61,25 +63,30 @@ class TrivialBaselineProfileBenchmark {
      * from the first start.
      */
     @Test
-    fun appStartupAndUserJourneys() = baselineProfileRule.collectBaselineProfile(
-        packageName = TARGET_PACKAGE,
-        profileBlock = {
+    fun appStartupAndUserJourneys() =
+        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE, profileBlock = {
             startActivityAndWait()
             with(device) {
-                // Open each activity based on its label, then press back.
-                listOf(
-                    "Recyclerview",
-                    "Listview",
-                    "Scrollview",
-                    "Compose Lazylist",
-                    "Nested Recyclerview",
-                    "Nested Recyclerview with Pools"
-                ).forEach { label ->
-                    findObject(UiSelector().text(label.uppercase())).click()
+                findObject(By.text("RECYCLERVIEW")).clickAndWait(Until.newWindow(), 500L)
+                with(
+                    findObject(
+                        By.res("com.example.macrobenchmark.target", "recycler")
+                    )
+                ) {
+                    fling(Direction.DOWN)
                     waitForIdle()
+                    fling(Direction.UP)
+                    pressBack()
+                }
+
+                findObject(By.text("COMPOSE LAZYLIST")).clickAndWait(Until.newWindow(), 500L)
+                with(findObject(By.res("myLazyColumn"))) {
+                    fling(Direction.DOWN)
+                    waitForIdle()
+                    fling(Direction.UP)
                     pressBack()
                 }
             }
-        }
-    )
+        })
+
 }
