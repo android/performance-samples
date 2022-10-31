@@ -66,19 +66,14 @@ class TrivialBaselineProfileBenchmark {
             startActivityAndWait()
             with(device) {
                 findObject(By.text("RECYCLERVIEW")).clickAndWait(Until.newWindow(), 500L)
-                with(
-                    findObject(
-                        By.res(TARGET_PACKAGE, "recycler")
-                    )
-                ) {
+                findObject(By.res(packageName, "recycler")).run {
                     fling(Direction.DOWN)
                     waitForIdle()
                     fling(Direction.UP)
                     pressBack()
                 }
-
                 findObject(By.text("COMPOSE LAZYLIST")).clickAndWait(Until.newWindow(), 500L)
-                with(findObject(By.res("myLazyColumn"))) {
+                findObject(By.res("myLazyColumn")).run {
                     fling(Direction.DOWN)
                     waitForIdle()
                     fling(Direction.UP)
