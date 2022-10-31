@@ -18,6 +18,7 @@ package com.example.macrobenchmark.frames
 
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
+import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -54,24 +55,7 @@ class NonExportedActivityBenchmark {
             startupMode = StartupMode.WARM, // Ensures that a new activity is created every single time
             iterations = 5,
             // [END_EXCLUDE]
-            setupBlock = {
-                // Before starting to measure, navigate to the UI to be measured
-                startActivityAndWait()
-
-                // click a button to launch the target activity.
-                // While we use resourceId here to find the button, you could also use
-                // accessibility info or button text content.
-                val launchRecyclerActivity = device.findObject(
-                    By.res(packageName, "launchRecyclerActivity")
-                )
-                launchRecyclerActivity.click()
-
-                // wait until the activity is shown
-                device.wait(
-                    Until.hasObject(By.clazz("$packageName.NonExportedRecyclerActivity")),
-                    TimeUnit.SECONDS.toMillis(10)
-                )
-            }
+            setupBlock = setupBenchmark()
         ) {
             // [START_EXCLUDE]
             val recycler = device.findObject(By.res(packageName, "recycler"))
@@ -84,6 +68,25 @@ class NonExportedActivityBenchmark {
             repeat(3) { recycler.fling(Direction.DOWN) }
             // [END_EXCLUDE]
         }
+    }
+
+    private fun setupBenchmark(): MacrobenchmarkScope.() -> Unit = {
+        // Before starting to measure, navigate to the UI to be measured
+        startActivityAndWait()
+
+        // click a button to launch the target activity.
+        // While we use resourceId here to find the button, you could also use
+        // accessibility info or button text content.
+        val launchRecyclerActivity = device.findObject(
+            By.res(packageName, "launchRecyclerActivity")
+        )
+        launchRecyclerActivity.click()
+
+        // wait until the activity is shown
+        device.wait(
+            Until.hasObject(By.clazz("$packageName.NonExportedRecyclerActivity")),
+            TimeUnit.SECONDS.toMillis(10)
+        )
     }
     // [END macrobenchmark_navigate_within_app]
 
