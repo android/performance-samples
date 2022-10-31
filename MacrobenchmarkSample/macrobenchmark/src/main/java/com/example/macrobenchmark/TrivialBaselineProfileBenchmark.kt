@@ -48,12 +48,10 @@ class TrivialBaselineProfileBenchmark {
     val baselineProfileRule = BaselineProfileRule()
 
     @Test
-    fun appStartupOnly() = baselineProfileRule.collectBaselineProfile(
-        packageName = TARGET_PACKAGE,
-        profileBlock = {
+    fun appStartupOnly() =
+        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE) {
             startActivityAndWait()
         }
-    )
     // [END baseline_profile_basic]
 
     /**
@@ -63,14 +61,14 @@ class TrivialBaselineProfileBenchmark {
      * from the first start.
      */
     @Test
-    fun appStartupAndUserJourneys() =
-        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE, profileBlock = {
+    fun appStartupAndUserJourneys() {
+        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE) {
             startActivityAndWait()
             with(device) {
                 findObject(By.text("RECYCLERVIEW")).clickAndWait(Until.newWindow(), 500L)
                 with(
                     findObject(
-                        By.res("com.example.macrobenchmark.target", "recycler")
+                        By.res(TARGET_PACKAGE, "recycler")
                     )
                 ) {
                     fling(Direction.DOWN)
@@ -87,6 +85,6 @@ class TrivialBaselineProfileBenchmark {
                     pressBack()
                 }
             }
-        })
-
+        }
+    }
 }
