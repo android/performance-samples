@@ -51,7 +51,7 @@ android {
             // [START_EXCLUDE silent]
             // Selects release buildType if the benchmark buildType not available in other modules.
             matchingFallbacks = ['release']
-            // [START_EXCLUDE silent]
+            // [END_EXCLUDE]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'benchmark-rules.pro'
         }
     }
