@@ -16,45 +16,31 @@
 
 package com.example.macrobenchmark.target.activity
 
-import android.app.Activity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.ReportDrawnAfter
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.doOnPreDraw
+import com.example.macrobenchmark.target.util.SampleViewModel
 
 class FullyDrawnStartupActivity : ComponentActivity() {
+
+    private val sampleViewModel: SampleViewModel by viewModels<SampleViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TextBlock("Compose Macrobenchmark Target")
-        }
-    }
-
-    @Composable
-    fun ReportFullyDrawn(
-        text: String
-    ) {
-        val localView: View = LocalView.current
-        LaunchedEffect(text) {
-            val activity = localView.context as? Activity
-            if (activity != null) {
-                localView.doOnPreDraw {
-                    activity.reportFullyDrawn()
-                }
+            ReportDrawnAfter {
+                sampleViewModel.data.isReady()
             }
         }
     }
 
     @Composable
-    fun TextBlock(
-        text: String,
-    ) {
+    fun TextBlock(text: String) {
         Text(text)
-        ReportFullyDrawn(text)
     }
 }
