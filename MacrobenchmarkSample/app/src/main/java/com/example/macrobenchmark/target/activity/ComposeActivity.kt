@@ -63,44 +63,49 @@ class ComposeActivity : ComponentActivity() {
         val data = entries(itemCount)
 
         setContent {
-            MaterialTheme {
-                Box(
-                    modifier = Modifier.semantics {
-                        // Allows to use testTag() for UiAutomator's resource-id.
-                        // It can be enabled high in the compose hierarchy, 
-                        // so that it's enabled for the whole subtree 
-                        testTagsAsResourceId = true
-                    }
-                ) {
-                    // Thanks to [SemanticsPropertyReceiver.testTagsAsResourceId],
-                    // [Modifier.testTag]s will be propagated to resource-id
-                    // and can be accessed from benchmarks.
-                    var value by remember { mutableStateOf("Enter text here") }
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        TextField(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .testTag("input"),
-                            value = value,
-                            onValueChange = { value = it }
-                        )
+            BenchmarkComposeList(data)
+        }
+    }
 
-                        LazyColumn(
-                            modifier = Modifier
-                                .testTag("myLazyColumn")
-                        ) {
-                            items(data, key = { it.contents }) { item ->
-                                EntryRow(entry = item,
-                                    Modifier
-                                        .padding(8.dp)
-                                        .clickable {
-                                            ClickTrace.onClickPerformed()
-                                            AlertDialog
-                                                .Builder(this@ComposeActivity)
-                                                .setMessage("Item clicked")
-                                                .show()
-                                        })
-                            }
+    @Composable
+    private fun BenchmarkComposeList(data: List<Entry>) {
+        MaterialTheme {
+            Box(
+                modifier = Modifier.semantics {
+                    // Allows to use testTag() for UiAutomator's resource-id.
+                    // It can be enabled high in the compose hierarchy,
+                    // so that it's enabled for the whole subtree
+                    testTagsAsResourceId = true
+                }
+            ) {
+                // Thanks to [SemanticsPropertyReceiver.testTagsAsResourceId],
+                // [Modifier.testTag]s will be propagated to resource-id
+                // and can be accessed from benchmarks.
+                var value by remember { mutableStateOf("Enter text here") }
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    TextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag("input"),
+                        value = value,
+                        onValueChange = { value = it }
+                    )
+
+                    LazyColumn(
+                        modifier = Modifier
+                            .testTag("myLazyColumn")
+                    ) {
+                        items(data, key = { it.contents }) { item ->
+                            EntryRow(entry = item,
+                                Modifier
+                                    .padding(8.dp)
+                                    .clickable {
+                                        ClickTrace.onClickPerformed()
+                                        AlertDialog
+                                            .Builder(this@ComposeActivity)
+                                            .setMessage("Item clicked")
+                                            .show()
+                                    })
                         }
                     }
                 }
