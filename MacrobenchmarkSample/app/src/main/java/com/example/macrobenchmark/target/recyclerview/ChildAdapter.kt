@@ -24,9 +24,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.tracing.trace
-import com.example.macrobenchmark.target.util.ClickTrace
 import com.example.macrobenchmark.target.R
 import com.example.macrobenchmark.target.databinding.ItemChildBinding
+import com.example.macrobenchmark.target.util.ClickTrace
 
 class ChildAdapter :
     ListAdapter<ChildItem, BindingViewHolder<ItemChildBinding>>(ChildItemDiffCallback) {

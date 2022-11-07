@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.activity
+package com.example.macrobenchmark.target.activity.clicklatency
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -48,8 +48,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.macrobenchmark.target.util.ClickTrace
 import com.example.macrobenchmark.target.recyclerview.Entry
+import com.example.macrobenchmark.target.util.ClickTrace
 
 @OptIn(ExperimentalComposeUiApi::class)
 class ComposeActivity : ComponentActivity() {
