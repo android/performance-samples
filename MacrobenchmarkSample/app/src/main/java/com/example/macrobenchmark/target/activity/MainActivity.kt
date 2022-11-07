@@ -16,11 +16,18 @@
 
 package com.example.macrobenchmark.target.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.macrobenchmark.target.util.ClickTrace
+import com.example.macrobenchmark.target.activity.clicklatency.ComposeActivity
+import com.example.macrobenchmark.target.activity.clicklatency.ListViewActivity
+import com.example.macrobenchmark.target.activity.clicklatency.NestedRecyclerActivity
+import com.example.macrobenchmark.target.activity.clicklatency.NonExportedRecyclerActivity
+import com.example.macrobenchmark.target.activity.clicklatency.ScrollViewActivity
+import com.example.macrobenchmark.target.activity.clicklatency.USE_RECYCLER_POOLS
 import com.example.macrobenchmark.target.databinding.ActivityMainBinding
+import com.example.macrobenchmark.target.util.ClickTrace
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,42 +36,45 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.launchFullyDrawnActivity.setOnClickListener {
+            launchActivityWithTrace(FullyDrawnStartupActivity::class.java)
+        }
+
         binding.launchRecyclerActivity.setOnClickListener {
-            ClickTrace.onClickPerformed()
-            val intent = Intent(it.context, NonExportedRecyclerActivity::class.java)
-            startActivity(intent)
+            launchActivityWithTrace(NonExportedRecyclerActivity::class.java)
         }
 
         binding.launchListViewActivity.setOnClickListener {
-            ClickTrace.onClickPerformed()
-            val intent = Intent(it.context, ListViewActivity::class.java)
-            startActivity(intent)
+            launchActivityWithTrace(ListViewActivity::class.java)
         }
 
         binding.launchScrollViewActivity.setOnClickListener {
-            ClickTrace.onClickPerformed()
-            val intent = Intent(it.context, ScrollViewActivity::class.java)
-            startActivity(intent)
+            launchActivityWithTrace(ScrollViewActivity::class.java)
         }
 
         binding.launchComposeList.setOnClickListener {
-            ClickTrace.onClickPerformed()
-            val intent = Intent(it.context, ComposeActivity::class.java)
-            startActivity(intent)
+            launchActivityWithTrace(ComposeActivity::class.java)
         }
 
         binding.nestedRecyclerActivity.setOnClickListener {
-            ClickTrace.onClickPerformed()
-            val intent = Intent(it.context, NestedRecyclerActivity::class.java)
-            startActivity(intent)
+            launchActivityWithTrace(NestedRecyclerActivity::class.java)
         }
 
         binding.nestedRecyclerWithPoolsActivity.setOnClickListener {
-            ClickTrace.onClickPerformed()
-            val intent = Intent(it.context, NestedRecyclerActivity::class.java).apply {
-                putExtra(USE_RECYCLER_POOLS, true)
-            }
-            startActivity(intent)
+            launchActivityWithTrace(
+                NestedRecyclerActivity::class.java, Intent().putExtra(
+                    USE_RECYCLER_POOLS, true
+                )
+            )
         }
+    }
+
+    private fun launchActivityWithTrace(targetActivity: Class<out Activity>, base: Intent? = null) {
+        ClickTrace.onClickPerformed()
+        val intent = Intent(this, targetActivity)
+        if (base != null) {
+            intent.putExtras(base)
+        }
+        startActivity(intent)
     }
 }

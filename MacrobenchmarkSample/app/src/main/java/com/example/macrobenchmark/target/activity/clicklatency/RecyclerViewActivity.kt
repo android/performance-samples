@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.activity
+package com.example.macrobenchmark.target.activity.clicklatency
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.macrobenchmark.target.databinding.ActivityRecyclerViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.recyclerview.EntryAdapter
-import com.example.macrobenchmark.target.databinding.ActivityRecyclerViewBinding
 
 open class RecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

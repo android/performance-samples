@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.activity
+package com.example.macrobenchmark.target.activity.clicklatency
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.macrobenchmark.target.util.ClickTrace
-import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.R
 import com.example.macrobenchmark.target.databinding.ActivityScrollViewBinding
+import com.example.macrobenchmark.target.recyclerview.Entry
+import com.example.macrobenchmark.target.util.ClickTrace
 
 /**
  * An activity displaying a large ScrollView.
@@ -53,8 +53,8 @@ class ScrollViewActivity : AppCompatActivity() {
             itemView.setOnClickListener {
                 ClickTrace.onClickPerformed()
                 AlertDialog.Builder(this)
-                        .setMessage("Item clicked")
-                        .show()
+                    .setMessage("Item clicked")
+                    .show()
             }
         }
     }

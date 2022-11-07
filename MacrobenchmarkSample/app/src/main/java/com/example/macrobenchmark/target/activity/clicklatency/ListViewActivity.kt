@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.activity
+package com.example.macrobenchmark.target.activity.clicklatency
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,9 +24,9 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.macrobenchmark.target.util.ClickTrace
-import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.databinding.ActivityListViewBinding
+import com.example.macrobenchmark.target.recyclerview.Entry
+import com.example.macrobenchmark.target.util.ClickTrace
 
 /**
  * An activity displaying a large ListView.
@@ -69,8 +69,8 @@ class ListViewActivity : AppCompatActivity() {
         binding.listview.setOnItemClickListener { _, _, _, _ ->
             ClickTrace.onClickPerformed()
             AlertDialog.Builder(this)
-                    .setMessage("Item clicked")
-                    .show()
+                .setMessage("Item clicked")
+                .show()
         }
 
     }

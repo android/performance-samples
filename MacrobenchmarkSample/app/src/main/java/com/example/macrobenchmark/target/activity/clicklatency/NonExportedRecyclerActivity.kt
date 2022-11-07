@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.target.activity
+package com.example.macrobenchmark.target.activity.clicklatency
 
 /**
  * The same as a [RecyclerViewActivity], but not `exported` via the `AndroidManifest.xml`.

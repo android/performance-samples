@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".activity.RecyclerViewActivity"
+            android:name=".activity.clicklatency.RecyclerViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY" />
@@ -51,7 +51,7 @@
         </activity>
 
         <activity
-            android:name=".activity.ListViewActivity"
+            android:name=".activity.clicklatency.ListViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.LIST_VIEW_ACTIVITY" />
@@ -60,7 +60,7 @@
         </activity>
 
         <activity
-            android:name=".activity.ScrollViewActivity"
+            android:name=".activity.clicklatency.ScrollViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.SCROLL_VIEW_ACTIVITY" />
@@ -78,7 +78,7 @@
         </activity>
 
         <activity
-            android:name=".activity.ComposeActivity"
+            android:name=".activity.clicklatency.ComposeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.COMPOSE_ACTIVITY" />
@@ -87,9 +87,9 @@
         </activity>
 
         <!-- non-exported activities -->
-        <activity android:name=".activity.NonExportedRecyclerActivity" />
+        <activity android:name=".activity.clicklatency.NonExportedRecyclerActivity" />
 
-        <activity android:name=".activity.NestedRecyclerActivity" />
+        <activity android:name=".activity.clicklatency.NestedRecyclerActivity" />
 
         <!-- [START macrobenchmark_setup_profileable] -->
         <!-- enable profiling by macrobenchmark -->
