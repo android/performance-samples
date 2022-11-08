@@ -16,30 +16,16 @@
 
 package com.example.macrobenchmark.target.util
 
-abstract class Login {
-    abstract suspend fun isLoggedIn(): Boolean
-    abstract suspend fun login(): Boolean
-    abstract suspend fun logout()
+data class AppLogin(var userName: String = "", var password: String = "") {
 
-    lateinit var password: String
-
-    lateinit var userName: String
-}
-
-open class AppLogin : Login() {
-
-    override suspend fun isLoggedIn(): Boolean {
+    fun isLoggedIn(): Boolean {
         // There's no verification here.
+        return canLogin()
+    }
+
+    fun canLogin(): Boolean {
         return userName.isNotEmpty() && password.isNotEmpty()
     }
 
-    override suspend fun login(): Boolean {
-        return !(userName.isEmpty() || password.isEmpty())
-    }
-
-    override suspend fun logout() {
-        userName = ""
-        password = ""
-    }
 }
 

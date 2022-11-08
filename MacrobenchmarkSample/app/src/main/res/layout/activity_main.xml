@@ -28,7 +28,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_notice" />
-
+    <Button
+        android:id="@+id/launchLoginActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchLoginActivity"
+        android:text="@string/launchLoginActivity" />
+    <Button
+        android:id="@+id/launchFullyDrawnActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/launchFullyDrawn"
+        android:text="@string/launchFullyDrawn" />
     <Button
         android:id="@+id/launchRecyclerActivity"
         android:layout_width="wrap_content"
