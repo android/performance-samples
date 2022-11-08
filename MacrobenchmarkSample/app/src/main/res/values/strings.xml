@@ -18,6 +18,8 @@
     <string name="app_notice">Macrobenchmark Target App.</string>
     <string name="recyclerDescription">A list of items</string>
     <string name="itemOptions">Item options</string>
+    <string name="launchLoginActivity">Login</string>
+    <string name="launchFullyDrawn">Fully Drawn</string>
     <string name="launchRecyclerActivity">RecyclerView</string>
     <string name="launchListViewActivity">ListView</string>
     <string name="launchScrollViewActivity">ScrollView</string>

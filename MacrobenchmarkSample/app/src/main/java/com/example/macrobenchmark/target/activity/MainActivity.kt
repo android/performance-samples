@@ -26,6 +26,7 @@ import com.example.macrobenchmark.target.activity.clicklatency.NestedRecyclerAct
 import com.example.macrobenchmark.target.activity.clicklatency.NonExportedRecyclerActivity
 import com.example.macrobenchmark.target.activity.clicklatency.ScrollViewActivity
 import com.example.macrobenchmark.target.activity.clicklatency.USE_RECYCLER_POOLS
+import com.example.macrobenchmark.target.activity.login.LoginActivity
 import com.example.macrobenchmark.target.databinding.ActivityMainBinding
 import com.example.macrobenchmark.target.util.ClickTrace
 
@@ -35,6 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.launchLoginActivity.setOnClickListener {
+            launchActivityWithTrace(LoginActivity::class.java)
+        }
 
         binding.launchFullyDrawnActivity.setOnClickListener {
             launchActivityWithTrace(FullyDrawnStartupActivity::class.java)

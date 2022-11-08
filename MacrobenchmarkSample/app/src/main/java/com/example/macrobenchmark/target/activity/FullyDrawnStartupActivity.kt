@@ -27,7 +27,7 @@ import com.example.macrobenchmark.target.util.SampleViewModel
 
 class FullyDrawnStartupActivity : ComponentActivity() {
 
-    private val sampleViewModel: SampleViewModel by viewModels<SampleViewModel>()
+    private val sampleViewModel: SampleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

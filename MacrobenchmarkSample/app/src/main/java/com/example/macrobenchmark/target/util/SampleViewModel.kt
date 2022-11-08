@@ -17,12 +17,26 @@
 package com.example.macrobenchmark.target.util
 
 import androidx.lifecycle.ViewModel
-/**
- * ViewModel for this sample
- */
-class SampleViewModel: ViewModel() {
 
-    val data: Data = RandomData()
+/** ViewModel for this sample */
+class SampleViewModel : ViewModel() {
 
-    val login: Login = AppLogin()
+    private val _data = SampleData()
+    private val _login = AppLogin()
+
+    val data: SampleData = _data
+    val login: AppLogin = _login
+
+    // TODO Use DataStore to write and read login data
+
+    /**
+     * Attempts to log in with the provided credentials.
+     * @return `true` if successful, `false` otherwise.
+     */
+    fun login(userName: String, password: String): Boolean {
+        login.userName = userName
+        login.password = password
+        return true
+    }
+
 }
