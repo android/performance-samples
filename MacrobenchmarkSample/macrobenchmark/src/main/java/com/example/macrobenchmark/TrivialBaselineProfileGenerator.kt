@@ -42,44 +42,18 @@ import org.junit.Test
  * (see [documentation](https://android.devsite.corp.google.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args) for more info)
  */
 @OptIn(ExperimentalBaselineProfilesApi::class)
-class TrivialBaselineProfileBenchmark {
+class TrivialBaselineProfileGenerator {
     // [START baseline_profile_basic]
     @get:Rule
     val baselineProfileRule = BaselineProfileRule()
 
     @Test
-    fun appStartupOnly() =
+    fun appStartupOnly() {
         baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE) {
             startActivityAndWait()
-        }
-    // [END baseline_profile_basic]
-
-    /**
-     * A more real world baseline profile collection method.
-     * The collection starts at app startup and then goes through several user journeys.
-     * This enables ahead of time compilation for these paths, making them smoother for users
-     * from the first start.
-     */
-    @Test
-    fun appStartupAndUserJourneys() {
-        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE) {
-            startActivityAndWait()
-            with(device) {
-                findObject(By.text("RECYCLERVIEW")).clickAndWait(Until.newWindow(), 500L)
-                findObject(By.res(packageName, "recycler")).run {
-                    fling(Direction.DOWN)
-                    waitForIdle()
-                    fling(Direction.UP)
-                    pressBack()
-                }
-                findObject(By.text("COMPOSE LAZYLIST")).clickAndWait(Until.newWindow(), 500L)
-                findObject(By.res("myLazyColumn")).run {
-                    fling(Direction.DOWN)
-                    waitForIdle()
-                    fling(Direction.UP)
-                    pressBack()
-                }
-            }
         }
     }
+    // [END baseline_profile_basic]
+
+
 }
