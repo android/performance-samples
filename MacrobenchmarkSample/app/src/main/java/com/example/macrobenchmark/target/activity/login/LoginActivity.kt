@@ -18,6 +18,7 @@ package com.example.macrobenchmark.target.activity.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -40,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.input.KeyboardType
@@ -49,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import com.example.macrobenchmark.target.activity.MainActivity
 import com.example.macrobenchmark.target.util.SampleViewModel
 
+private const val TAG = "LoginActivity"
+
 @OptIn(ExperimentalComposeUiApi::class)
 class LoginActivity : ComponentActivity() {
 
@@ -56,6 +60,14 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (intent.hasExtra("user") && intent.hasExtra("password")) {
+            Log.d(TAG, "onCreate: Found benchmark category")
+            intent.extras?.run {
+                Log.d(TAG, "onCreate: Using benchmark userdata")
+                sampleViewModel.login.userName = getString("user", "")
+                sampleViewModel.login.password = getString("password", "")
+            }
+        }
         setContent {
             LoginScreen()
         }
@@ -90,10 +102,12 @@ class LoginActivity : ComponentActivity() {
                     InputField(
                         title = "User: ",
                         value = userName,
+                        tag = "userName",
                         onValueChange = { userName = it })
                     InputField(
                         title = "Password: ",
                         value = password,
+                        tag = "password",
                         onValueChange = {
                             password = it
                         },
@@ -101,6 +115,7 @@ class LoginActivity : ComponentActivity() {
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                     )
                     Button(
+                        modifier = Modifier.testTag("login"),
                         enabled = userName.isNotEmpty() && password.isNotEmpty(),
                         onClick = {
                             sampleViewModel.login(userName, password)
@@ -122,6 +137,7 @@ class LoginActivity : ComponentActivity() {
     fun InputField(
         title: String,
         value: String,
+        tag: String,
         onValueChange: (String) -> Unit,
         visualTransformation: VisualTransformation = VisualTransformation.None,
         keyboardOptions: KeyboardOptions = KeyboardOptions()
@@ -129,6 +145,7 @@ class LoginActivity : ComponentActivity() {
         Surface(shape = MaterialTheme.shapes.small, modifier = Modifier.padding(4.dp)) {
             Text(text = title, modifier = Modifier.padding(start = 4.dp))
             TextField(
+                modifier = Modifier.testTag(tag),
                 value = value,
                 singleLine = true,
                 onValueChange = onValueChange,
