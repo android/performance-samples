@@ -26,6 +26,4 @@ data class AppLogin(var userName: String = "", var password: String = "") {
     fun canLogin(): Boolean {
         return userName.isNotEmpty() && password.isNotEmpty()
     }
-
 }
-

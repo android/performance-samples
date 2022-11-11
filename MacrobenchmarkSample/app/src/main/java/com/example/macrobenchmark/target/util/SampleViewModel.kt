@@ -36,6 +36,7 @@ class SampleViewModel : ViewModel() {
     fun login(userName: String, password: String): Boolean {
         login.userName = userName
         login.password = password
+        //  TODO store user data locally and load from storage.
         return true
     }
 
