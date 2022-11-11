@@ -26,6 +26,13 @@
         android:theme="@style/Theme.Macrobenchmarktarget"
         android:name=".ExampleApplication"
         >
+        <!-- [START macrobenchmark_setup_profileable] -->
+        <!-- enable profiling by macrobenchmark -->
+        <profileable
+            android:shell="true"
+            tools:targetApi="q" />
+        <!-- [END macrobenchmark_setup_profileable] -->
+
         <!--
         Activities need to be exported so the Macrobenchmarks can discover them
         under the new package visibility changes for Android 11.
@@ -42,28 +49,10 @@
         </activity>
 
         <activity
-            android:name=".activity.clicklatency.RecyclerViewActivity"
+            android:name=".activity.clicklatency.ComposeActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activity.clicklatency.ListViewActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.macrobenchmark.target.LIST_VIEW_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activity.clicklatency.ScrollViewActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.macrobenchmark.target.SCROLL_VIEW_ACTIVITY" />
+                <action android:name="com.example.macrobenchmark.target.COMPOSE_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -78,10 +67,10 @@
         </activity>
 
         <activity
-            android:name=".activity.clicklatency.ComposeActivity"
+            android:name=".activity.clicklatency.ListViewActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.example.macrobenchmark.target.COMPOSE_ACTIVITY" />
+                <action android:name="com.example.macrobenchmark.target.LIST_VIEW_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -100,12 +89,23 @@
 
         <activity android:name=".activity.clicklatency.NestedRecyclerActivity" />
 
-        <!-- [START macrobenchmark_setup_profileable] -->
-        <!-- enable profiling by macrobenchmark -->
-        <profileable
-            android:shell="true"
-            tools:targetApi="q" />
-        <!-- [END macrobenchmark_setup_profileable] -->
+        <activity
+            android:name=".activity.clicklatency.RecyclerViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.clicklatency.ScrollViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.macrobenchmark.target.SCROLL_VIEW_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 
