@@ -31,6 +31,7 @@ buildscript {
         coreVersion="1.9.0"
         coroutinesVersion = "1.6.4"
         curtainsVersion = "1.2.4"
+        dataStoreVersion = "1.0.0"
         espressoCoreVersion = "3.4.0"
         jUnitVersion = "4.13.2"
         kotlinVersion = "1.7.10"

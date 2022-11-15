@@ -50,13 +50,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.macrobenchmark.target.activity.MainActivity
 import com.example.macrobenchmark.target.util.SampleViewModel
-
-private const val TAG = "LoginActivity"
+import com.example.macrobenchmark.target.util.TAG
 
 @OptIn(ExperimentalComposeUiApi::class)
 class LoginActivity : ComponentActivity() {
 
-    private val sampleViewModel: SampleViewModel by viewModels()
+    private val sampleViewModel by viewModels<SampleViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +63,12 @@ class LoginActivity : ComponentActivity() {
             Log.d(TAG, "onCreate: Found benchmark category")
             intent.extras?.run {
                 Log.d(TAG, "onCreate: Using benchmark userdata")
-                sampleViewModel.login.userName = getString("user", "")
-                sampleViewModel.login.password = getString("password", "")
+                val userName = getString("user", "")
+                val password = getString("password", "")
+                sampleViewModel.login(userName, password)
             }
+        } else {
+            sampleViewModel.loadAppLogin()
         }
         setContent {
             LoginScreen()
@@ -76,6 +78,7 @@ class LoginActivity : ComponentActivity() {
     @Composable
     fun LoginScreen() {
         fullyDrawnReporter.addReporter()
+
         var userName by remember {
             mutableStateOf(sampleViewModel.login.userName)
         }
@@ -119,12 +122,18 @@ class LoginActivity : ComponentActivity() {
                         enabled = userName.isNotEmpty() && password.isNotEmpty(),
                         onClick = {
                             sampleViewModel.login(userName, password)
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            startActivity(
+                                Intent(
+                                    this@LoginActivity,
+                                    MainActivity::class.java
+                                )
+                            )
+                            finish()
                         }) {
                         Text("Login")
                     }
                     Text(
-                        text = "Please do not put any actual userdata here, only data for testing purposes.",
+                        text = "Do not put any actual userdata here, only data for testing purposes.",
                         modifier = Modifier.padding(4.dp)
                     )
                 }
