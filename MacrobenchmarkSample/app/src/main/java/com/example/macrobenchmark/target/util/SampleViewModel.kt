@@ -38,28 +38,36 @@ class SampleViewModel(application: Application) : AndroidViewModel(application) 
     val data: SampleData = _data
     val login = _login
 
+    init {
+        loadAppLogin()
+    }
+
     /**
      * Attempts to log in with the provided credentials.
      * @return `true` if successful, `false` otherwise.
      */
-    fun login(userName: String, password: String) {
+    suspend fun login(userName: String, password: String) {
         _login.userName = userName
         _login.password = password
 
-        viewModelScope.launch {
             val context = getApplication<Application>()
             context.dataStore.edit { settings ->
                 settings[KEY_USER] = userName
                 settings[KEY_PASSWORD] = password
                 Log.d(TAG, "Wrote AppLogin to Data Store.")
             }
+    }
+
+    fun loginSynchronous(userName: String, password: String) {
+        viewModelScope.launch {
+            login(userName, password)
         }
     }
 
     /**
      * Loads existing [AppLogin] data asynchronously.
      */
-    fun loadAppLogin() {
+    private fun loadAppLogin() {
         viewModelScope.launch {
             loadAppLoginFromPreferences().collect() {
                 _login.userName = it.userName
