@@ -32,10 +32,8 @@ class SampleViewModel(application: Application) : AndroidViewModel(application) 
     private val KEY_USER = stringPreferencesKey("user")
     private val KEY_PASSWORD = stringPreferencesKey("password")
 
-    private val _data = SampleData()
     private val _login = AppLogin()
 
-    val data: SampleData = _data
     val login = _login
 
     init {
