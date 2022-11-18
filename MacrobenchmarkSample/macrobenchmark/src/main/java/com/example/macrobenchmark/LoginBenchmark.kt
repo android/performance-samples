@@ -17,6 +17,7 @@
 package com.example.macrobenchmark
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.StartupMode
@@ -36,17 +37,19 @@ class LoginBenchmark {
 
     @Test
     fun startup_loginByIntent() {
-        val intent = Intent()
-        intent.extras?.apply {
+        val extras = Bundle().apply {
             putString("user", "benchUser")
             putString("password", "benchPassword")
         }
-        benchmarkLoginActivity(intent)
+        benchmarkLoginActivity(extras = extras)
     }
 
     @Test
     fun startup_loginInSetupBlock() {
-        benchmarkLoginActivity(setupBlock = login())
+        benchmarkLoginActivity(setupBlock = {
+            startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
+            login()
+        })
     }
 
     @Test
@@ -56,15 +59,15 @@ class LoginBenchmark {
         }
     }
 
-    private fun login(): MacrobenchmarkScope.() -> Unit = {
-        startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
+    private fun MacrobenchmarkScope.login() {
         device.findObject(By.res("userName")).text = "user"
         device.findObject(By.res("password")).text = "password"
         device.findObject(By.res("login")).click()
+        device.waitForIdle()
     }
 
     private fun benchmarkLoginActivity(
-        extras: Intent = Intent(),
+        extras: Bundle = Bundle(),
         setupBlock: MacrobenchmarkScope.() -> Unit = {},
         measureBlock: MacrobenchmarkScope.() -> Unit = {}
     ) {
@@ -76,7 +79,11 @@ class LoginBenchmark {
             iterations = 10,
             setupBlock = setupBlock,
         ) {
-            startActivityAndWait(Intent(extras).setAction("$packageName.LOGIN_ACTIVITY"))
+            startActivityAndWait(
+                Intent()
+                    .putExtras(extras)
+                    .setAction("$packageName.LOGIN_ACTIVITY")
+            )
             measureBlock()
         }
     }
