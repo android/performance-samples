@@ -28,8 +28,10 @@ import kotlinx.coroutines.launch
 /** ViewModel for this sample */
 class SampleViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val _data = SampleData()
     private val _login = AppLogin()
 
+    val data: SampleData = _data
     val login = _login
 
     init {
