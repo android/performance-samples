@@ -69,12 +69,11 @@ class LoginActivity : ComponentActivity() {
         setContent {
             LoginScreen()
         }
+        reportFullyDrawn()
     }
 
     @Composable
     fun LoginScreen() {
-        fullyDrawnReporter.addReporter()
-
         var userName by remember {
             mutableStateOf(sampleViewModel.login.userName)
         }
@@ -137,7 +136,6 @@ class LoginActivity : ComponentActivity() {
                 }
             }
         }
-        fullyDrawnReporter.removeReporter()
     }
 
     @Composable
