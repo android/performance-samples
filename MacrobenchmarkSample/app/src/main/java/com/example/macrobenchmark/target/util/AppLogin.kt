@@ -16,14 +16,4 @@
 
 package com.example.macrobenchmark.target.util
 
-data class AppLogin(var userName: String = "", var password: String = "") {
-
-    fun isLoggedIn(): Boolean {
-        // There's no verification here.
-        return canLogin()
-    }
-
-    fun canLogin(): Boolean {
-        return userName.isNotEmpty() && password.isNotEmpty()
-    }
-}
+data class AppLogin(var userName: String = "", var password: String = "")
