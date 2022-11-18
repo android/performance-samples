@@ -18,7 +18,6 @@ package com.example.macrobenchmark.target.activity.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -51,7 +50,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import com.example.macrobenchmark.target.activity.MainActivity
 import com.example.macrobenchmark.target.util.SampleViewModel
-import com.example.macrobenchmark.target.util.TAG
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -61,12 +59,10 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (intent.hasExtra("user") && intent.hasExtra("password")) {
-            Log.d(TAG, "onCreate: Found benchmark category")
-            intent.extras?.run {
-                Log.d(TAG, "onCreate: Using benchmark userdata")
-                val userName = getString("user", "")
-                val password = getString("password", "")
+        intent.extras?.run {
+            val userName = getString("user", "")
+            val password = getString("password", "")
+            if (userName.isNotEmpty() && password.isNotEmpty()) {
                 sampleViewModel.loginSynchronous(userName, password)
             }
         }
