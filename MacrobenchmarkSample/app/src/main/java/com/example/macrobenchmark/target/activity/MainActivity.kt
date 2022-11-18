@@ -38,45 +38,45 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.launchLoginActivity.setOnClickListener {
-            launchActivityWithTrace(LoginActivity::class.java)
+            launchActivityWithTrace<LoginActivity>()
         }
 
         binding.launchFullyDrawnActivity.setOnClickListener {
-            launchActivityWithTrace(FullyDrawnStartupActivity::class.java)
+            launchActivityWithTrace<FullyDrawnStartupActivity>()
         }
 
         binding.launchRecyclerActivity.setOnClickListener {
-            launchActivityWithTrace(NonExportedRecyclerActivity::class.java)
+            launchActivityWithTrace<NonExportedRecyclerActivity>()
         }
 
         binding.launchListViewActivity.setOnClickListener {
-            launchActivityWithTrace(ListViewActivity::class.java)
+            launchActivityWithTrace<ListViewActivity>()
         }
 
         binding.launchScrollViewActivity.setOnClickListener {
-            launchActivityWithTrace(ScrollViewActivity::class.java)
+            launchActivityWithTrace<ScrollViewActivity>()
         }
 
         binding.launchComposeList.setOnClickListener {
-            launchActivityWithTrace(ComposeActivity::class.java)
+            launchActivityWithTrace<ComposeActivity>()
         }
 
         binding.nestedRecyclerActivity.setOnClickListener {
-            launchActivityWithTrace(NestedRecyclerActivity::class.java)
+            launchActivityWithTrace<NestedRecyclerActivity>()
         }
 
         binding.nestedRecyclerWithPoolsActivity.setOnClickListener {
-            launchActivityWithTrace(
-                NestedRecyclerActivity::class.java, Intent().putExtra(
+            launchActivityWithTrace<NestedRecyclerActivity>(
+                Intent().putExtra(
                     USE_RECYCLER_POOLS, true
                 )
             )
         }
     }
 
-    private fun launchActivityWithTrace(targetActivity: Class<out Activity>, base: Intent? = null) {
+    private inline fun <reified T : Activity> launchActivityWithTrace(base: Intent? = null) {
         ClickTrace.onClickPerformed()
-        val intent = Intent(this, targetActivity)
+        val intent = Intent(this, T::class.java)
         if (base != null) {
             intent.putExtras(base)
         }
