@@ -19,7 +19,6 @@ package com.example.macrobenchmark.target.util
 import android.app.Application
 import android.util.Log
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -28,9 +27,6 @@ import kotlinx.coroutines.launch
 
 /** ViewModel for this sample */
 class SampleViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val KEY_USER = stringPreferencesKey("user")
-    private val KEY_PASSWORD = stringPreferencesKey("password")
 
     private val _login = AppLogin()
 
