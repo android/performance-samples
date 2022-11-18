@@ -105,12 +105,12 @@ class LoginActivity : ComponentActivity() {
                     InputField(
                         title = "User: ",
                         value = userName,
-                        tag = "userName",
+                        testTag = "userName",
                         onValueChange = { userName = it })
                     InputField(
                         title = "Password: ",
                         value = password,
-                        tag = "password",
+                        testTag = "password",
                         onValueChange = {
                             password = it
                         },
@@ -146,7 +146,7 @@ class LoginActivity : ComponentActivity() {
     fun InputField(
         title: String,
         value: String,
-        tag: String,
+        testTag: String,
         onValueChange: (String) -> Unit,
         visualTransformation: VisualTransformation = VisualTransformation.None,
         keyboardOptions: KeyboardOptions = KeyboardOptions()
@@ -154,7 +154,7 @@ class LoginActivity : ComponentActivity() {
         Surface(shape = MaterialTheme.shapes.small, modifier = Modifier.padding(4.dp)) {
             Text(text = title, modifier = Modifier.padding(start = 4.dp))
             TextField(
-                modifier = Modifier.testTag(tag),
+                modifier = Modifier.testTag(testTag),
                 value = value,
                 singleLine = true,
                 onValueChange = onValueChange,

@@ -88,8 +88,9 @@ class ComposeActivity : ComponentActivity() {
                             .fillMaxWidth()
                             .testTag("input"),
                         value = value,
-                        onValueChange = { value = it }
-                    )
+                        onValueChange = { value = it },
+                        placeholder = { Text("Enter text here") }
+                        )
 
                     LazyColumn(
                         modifier = Modifier
