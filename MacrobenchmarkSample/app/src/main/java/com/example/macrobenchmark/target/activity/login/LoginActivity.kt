@@ -48,9 +48,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import com.example.macrobenchmark.target.activity.MainActivity
 import com.example.macrobenchmark.target.util.SampleViewModel
 import com.example.macrobenchmark.target.util.TAG
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 class LoginActivity : ComponentActivity() {
@@ -65,10 +67,8 @@ class LoginActivity : ComponentActivity() {
                 Log.d(TAG, "onCreate: Using benchmark userdata")
                 val userName = getString("user", "")
                 val password = getString("password", "")
-                sampleViewModel.login(userName, password)
+                sampleViewModel.loginSynchronous(userName, password)
             }
-        } else {
-            sampleViewModel.loadAppLogin()
         }
         setContent {
             LoginScreen()
@@ -121,14 +121,16 @@ class LoginActivity : ComponentActivity() {
                         modifier = Modifier.testTag("login"),
                         enabled = userName.isNotEmpty() && password.isNotEmpty(),
                         onClick = {
-                            sampleViewModel.login(userName, password)
-                            startActivity(
-                                Intent(
-                                    this@LoginActivity,
-                                    MainActivity::class.java
+                            sampleViewModel.viewModelScope.launch {
+                                sampleViewModel.login(userName, password)
+                                startActivity(
+                                    Intent(
+                                        this@LoginActivity,
+                                        MainActivity::class.java
+                                    )
                                 )
-                            )
-                            finish()
+                                finish()
+                            }
                         }) {
                         Text("Login")
                     }
