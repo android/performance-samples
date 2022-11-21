@@ -17,7 +17,6 @@
 rootProject.name = "macrobenchmark"
 include(":app")
 include(":macrobenchmark")
-include(":shared")
 
 pluginManagement {
     repositories {

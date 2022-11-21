@@ -73,7 +73,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
     implementation(libs.compose.bom)
 
     implementation(libs.activity)
