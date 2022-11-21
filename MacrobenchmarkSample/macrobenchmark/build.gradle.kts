@@ -57,14 +57,10 @@ androidComponents {
 }
 // [END macrobenchmark_setup_variant]
 
-// [START macrobenchmark_setup_dependencies]
 dependencies {
     implementation(libs.benchmark.junit)
-//    // [START_EXCLUDE]
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
     implementation(libs.ui.automator)
     implementation(libs.kotlin.stdlib)
-    // [END_EXCLUDE]
 }
-// [END macrobenchmark_setup_dependencies]
