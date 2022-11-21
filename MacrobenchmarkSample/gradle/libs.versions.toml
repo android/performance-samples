@@ -1,9 +1,8 @@
 [versions]
-agp = "7.4.2"
+agp = "8.0.0-beta04"
 targetSdk = "33"
 minSdk = "21"
 compileSdk = "33"
-
 activity = "1.7.0-beta02"
 appcompat = "1.6.1"
 benchmark = "1.1.1"

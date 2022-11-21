@@ -16,7 +16,6 @@
 
 package com.example.macrobenchmark.baselineprofile
 
-import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -41,8 +40,8 @@ import org.junit.Test
  *
  * @see [BaselineProfileGenerator] for a more sophisticated Baseline Profile, containing user journeys.
  */
-@OptIn(ExperimentalBaselineProfilesApi::class)
-class StartupOnlyBaselineProfileGenerator {
+class TrivialBaselineProfileGenerator {
+    // [START baseline_profile_basic]
     @get:Rule
     val baselineProfileRule = BaselineProfileRule()
 
