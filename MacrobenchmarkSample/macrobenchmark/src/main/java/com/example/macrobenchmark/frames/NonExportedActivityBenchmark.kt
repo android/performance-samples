@@ -26,6 +26,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
+import com.example.macrobenchmark.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
@@ -53,7 +54,7 @@ class NonExportedActivityBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // Ensures that a new activity is created every single time
-            iterations = 5,
+            iterations = DEFAULT_ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = setupBenchmark()
         ) {

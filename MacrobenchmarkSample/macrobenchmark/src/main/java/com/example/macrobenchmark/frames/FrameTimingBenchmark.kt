@@ -25,12 +25,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
+import com.example.macrobenchmark.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-private const val ITERATIONS = 10
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -49,7 +48,7 @@ class FrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = ITERATIONS,
+            iterations = DEFAULT_ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
@@ -78,7 +77,7 @@ class FrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = ITERATIONS,
+            iterations = DEFAULT_ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
