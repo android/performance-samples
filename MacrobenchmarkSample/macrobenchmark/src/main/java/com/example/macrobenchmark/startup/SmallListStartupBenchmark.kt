@@ -21,13 +21,13 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
+import com.example.macrobenchmark.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
-private const val ITERATIONS = 5
 private const val LIST_ITEMS = 5
 
 @LargeTest
@@ -42,7 +42,7 @@ class SmallListStartupBenchmark(
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        iterations = ITERATIONS,
+        iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
         setupBlock = {
             // Press home button before each run to ensure the starting activity isn't visible.
@@ -59,7 +59,7 @@ class SmallListStartupBenchmark(
     fun startupCompose() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        iterations = ITERATIONS,
+        iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
         setupBlock = {
             // Press home button before each run to ensure the starting activity isn't visible.

@@ -23,6 +23,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
+import com.example.macrobenchmark.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
@@ -45,7 +46,7 @@ class NestedRecyclerFrameTimingBenchmarks {
             // and can represent the worst-case performance scenario.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.COLD,
-            iterations = 10,
+            iterations = DEFAULT_ITERATIONS,
             setupBlock = { navigateToNestedRvScreen(false) }
         ) { measureScrollingNestedRecycler() }
     }
@@ -59,7 +60,7 @@ class NestedRecyclerFrameTimingBenchmarks {
             // and can represent the worst-case performance scenario.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.COLD,
-            iterations = 10,
+            iterations = DEFAULT_ITERATIONS,
             setupBlock = { navigateToNestedRvScreen(true) }
         ) { measureScrollingNestedRecycler() }
     }

@@ -17,3 +17,4 @@
 package com.example.macrobenchmark
 
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
+const val DEFAULT_ITERATIONS = 10

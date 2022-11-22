@@ -28,8 +28,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-private const val ITERATIONS = 10
-
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class TextInputFrameTimingBenchmark {
@@ -45,7 +43,7 @@ class TextInputFrameTimingBenchmark {
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
             startupMode = StartupMode.WARM, // restarts activity each iteration
-            iterations = ITERATIONS,
+            iterations = DEFAULT_ITERATIONS,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
                 val intent = Intent("$packageName.COMPOSE_ACTIVITY")

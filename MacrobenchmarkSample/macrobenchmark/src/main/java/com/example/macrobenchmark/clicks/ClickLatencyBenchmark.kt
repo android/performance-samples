@@ -26,12 +26,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
+import com.example.macrobenchmark.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-private const val ITERATIONS = 10
 
 /**
  * These tests measure click handling time, i.e. the time from when a touch up event is received
@@ -53,7 +52,7 @@ class ClickLatencyBenchmark {
                 metrics = listOf(TraceSectionMetric("ClickTrace")),
                 compilationMode = CompilationMode.Full(),
                 startupMode = null,
-                iterations = ITERATIONS,
+                iterations = DEFAULT_ITERATIONS,
                 setupBlock = {
                     if (firstStart) {
                         startActivityAndWait()
@@ -76,7 +75,7 @@ class ClickLatencyBenchmark {
                 metrics = listOf(TraceSectionMetric("ClickTrace")),
                 compilationMode = CompilationMode.Full(),
                 startupMode = null,
-                iterations = ITERATIONS,
+                iterations = DEFAULT_ITERATIONS,
                 setupBlock = {
                     if (firstStart) {
                         val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
@@ -97,7 +96,7 @@ class ClickLatencyBenchmark {
                 metrics = listOf(TraceSectionMetric("ClickTrace")),
                 compilationMode = CompilationMode.Full(),
                 startupMode = null,
-                iterations = ITERATIONS,
+                iterations = DEFAULT_ITERATIONS,
                 setupBlock = {
                     if (firstStart) {
                         val intent = Intent("$packageName.COMPOSE_ACTIVITY")
@@ -118,7 +117,7 @@ class ClickLatencyBenchmark {
                 metrics = listOf(TraceSectionMetric("ClickTrace")),
                 compilationMode = CompilationMode.Full(),
                 startupMode = null,
-                iterations = ITERATIONS,
+                iterations = DEFAULT_ITERATIONS,
                 setupBlock = {
                     if (firstStart) {
                         val intent = Intent("$packageName.LIST_VIEW_ACTIVITY")
@@ -139,7 +138,7 @@ class ClickLatencyBenchmark {
                 metrics = listOf(TraceSectionMetric("ClickTrace")),
                 compilationMode = CompilationMode.Full(),
                 startupMode = null,
-                iterations = ITERATIONS,
+                iterations = DEFAULT_ITERATIONS,
                 setupBlock = {
                     if (firstStart) {
                         val intent = Intent("$packageName.SCROLL_VIEW_ACTIVITY")

@@ -76,7 +76,7 @@ class LoginBenchmark {
             metrics = listOf(StartupTimingMetric()),
             compilationMode = CompilationMode.DEFAULT,
             startupMode = StartupMode.COLD,
-            iterations = 10,
+            iterations = DEFAULT_ITERATIONS,
             setupBlock = setupBlock,
         ) {
             startActivityAndWait(

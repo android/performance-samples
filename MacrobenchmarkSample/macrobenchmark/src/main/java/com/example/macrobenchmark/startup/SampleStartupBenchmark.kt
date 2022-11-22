@@ -16,11 +16,11 @@
 
 package com.example.macrobenchmark.startup
 
-import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.example.macrobenchmark.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +37,7 @@ class SampleStartupBenchmark {
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
-        iterations = 5,
+        iterations = DEFAULT_ITERATIONS,
         setupBlock = {
             // Press home button before each run to ensure the starting activity isn't visible.
             pressHome()
