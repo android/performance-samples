@@ -1,0 +1,40 @@
+[versions]
+agp = "7.3.1"
+appcompat = "1.5.1"
+benchmark = "1.1.0"
+cardView = "1.0.0"
+constraintLayout = "2.1.4"
+core = "1.9.0"
+kotlin = "1.7.10"
+material = "1.6.1"
+recyclerView = "1.2.1"
+
+androidxTest = "1.4.0"
+espressoCore = "3.4.0"
+jUnit = "4.13.2"
+testExt = "1.1.3"
+
+[libraries]
+
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+benchmark = { group = "androidx.benchmark", name = "benchmark-junit4", version.ref = "benchmark" }
+benchmark-junit = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark" }
+cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardView" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+core = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
+espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+junit = { group = "junit", name = "junit", version.ref = "jUnit" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerView" }
+test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "testExt" }
+test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTest" }
+test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTest" }
+
+[plugins]
+
+application = { id = "com.android.application", version.ref = "agp" }
+benchmark = { id = "androidx.benchmark", version.ref = "benchmark" }
+library = { id = "com.android.library", version.ref = "agp" }
+test = { id = "com.android.test", version.ref = "agp" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
