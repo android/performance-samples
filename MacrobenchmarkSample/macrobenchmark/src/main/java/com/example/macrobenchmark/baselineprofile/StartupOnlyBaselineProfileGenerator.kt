@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark
+package com.example.macrobenchmark.baselineprofile
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.Until
+import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 
@@ -40,10 +38,11 @@ import org.junit.Test
  * To filter out the generator when running benchmarks on CI, use instrumentation argument:
  * androidx.benchmark.enabledRules=Macrobenchmark
  * (see [documentation](https://android.devsite.corp.google.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args) for more info)
+ *
+ * @see [BaselineProfileGenerator] for a more sophisticated Baseline Profile, containing user journeys.
  */
 @OptIn(ExperimentalBaselineProfilesApi::class)
-class TrivialBaselineProfileGenerator {
-    // [START baseline_profile_basic]
+class StartupOnlyBaselineProfileGenerator {
     @get:Rule
     val baselineProfileRule = BaselineProfileRule()
 
@@ -53,7 +52,4 @@ class TrivialBaselineProfileGenerator {
             startActivityAndWait()
         }
     }
-    // [END baseline_profile_basic]
-
-
 }

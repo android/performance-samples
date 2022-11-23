@@ -58,6 +58,7 @@ androidComponents {
 // [END macrobenchmark_setup_variant]
 
 dependencies {
+    implementation(project(":baseBenchmarks"))
     implementation(libs.benchmark.junit)
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
