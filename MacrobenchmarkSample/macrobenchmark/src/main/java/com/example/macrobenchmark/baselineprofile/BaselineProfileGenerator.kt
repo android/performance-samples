@@ -1,10 +1,11 @@
-package com.example.macrobenchmark
+package com.example.macrobenchmark.baselineprofile
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
+import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 

@@ -26,8 +26,8 @@ import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
-import com.example.macrobenchmark.DEFAULT_ITERATIONS
-import com.example.macrobenchmark.TARGET_PACKAGE
+import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
+import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

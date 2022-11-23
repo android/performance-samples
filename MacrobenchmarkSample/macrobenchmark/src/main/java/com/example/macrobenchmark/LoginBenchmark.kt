@@ -19,12 +19,15 @@ package com.example.macrobenchmark
 import android.content.Intent
 import android.os.Bundle
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
+import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
+import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,7 +39,7 @@ class LoginBenchmark {
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    fun startup_loginByIntent() {
+    fun loginByIntent() {
         val extras = Bundle().apply {
             putString("user", "benchUser")
             putString("password", "benchPassword")
@@ -45,7 +48,7 @@ class LoginBenchmark {
     }
 
     @Test
-    fun startup_loginInSetupBlock() {
+    fun loginInSetupBlock() {
         benchmarkLoginActivity(setupBlock = {
             startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
             login()
@@ -53,7 +56,7 @@ class LoginBenchmark {
     }
 
     @Test
-    fun statup_loginWithUiAutomator() {
+    fun loginWithUiAutomator() {
         benchmarkLoginActivity {
             login()
         }
@@ -73,7 +76,7 @@ class LoginBenchmark {
     ) {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
-            metrics = listOf(StartupTimingMetric()),
+            metrics = listOf(StartupTimingMetric(), FrameTimingMetric()),
             compilationMode = CompilationMode.DEFAULT,
             startupMode = StartupMode.COLD,
             iterations = DEFAULT_ITERATIONS,

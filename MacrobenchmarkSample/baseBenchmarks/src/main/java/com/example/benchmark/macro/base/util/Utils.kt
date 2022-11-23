@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark
+package com.example.benchmark.macro.base.util
 
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
 const val DEFAULT_ITERATIONS = 10
