@@ -28,12 +28,13 @@ android {
         versionCode = 1
         versionName = "1.0"
         minSdk = 23 // Minimum supported version for macrobenchmark
+        targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
-        viewBinding = true
         compose = true
+        viewBinding = true
     }
 
     composeOptions {
