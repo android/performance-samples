@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.macrobenchmark.baselineprofile
 
 import androidx.benchmark.macro.ExperimentalBaselineProfilesApi
@@ -46,7 +62,7 @@ class BaselineProfileGenerator {
 
             with(device) {
                 // Scrolling RecyclerView journey
-                findObject(By.text("RECYCLERVIEW")).clickAndWait(Until.newWindow(), 1_000)
+                findObject(By.text("RecyclerView")).clickAndWait(Until.newWindow(), 1_000)
                 findObject(By.res(packageName, "recycler")).also {
                     it.fling(Direction.DOWN)
                     it.fling(Direction.UP)
@@ -54,7 +70,7 @@ class BaselineProfileGenerator {
                 pressBack()
 
                 // Scrolling LazyColumn journey
-                findObject(By.text("COMPOSE LAZYLIST")).clickAndWait(Until.newWindow(), 1_000)
+                findObject(By.text("Compose")).clickAndWait(Until.newWindow(), 1_000)
                 findObject(By.res("myLazyColumn")).also {
                     it.fling(Direction.DOWN)
                     it.fling(Direction.UP)
