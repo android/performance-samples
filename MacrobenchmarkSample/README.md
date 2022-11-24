@@ -4,15 +4,20 @@ This sample project shows how to use the Jetpack Macrobenchmark library.
 
 See the [Macrobenchmark guide](https://developer.android.com/studio/profile/macrobenchmark-intro) for more information on the library.
 
-### Samples
+### Code Samples
 
-The sample project includes the following:
+The sample project includes a variety of benchmarks to help getting started with the API.
 
-* [SampleStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/startup/SampleStartupBenchmark.kt) measures the application startup time for a trivial `Activity` with a single `TextView`.
+Learn about Baseline Profile generation with classes in the
+[baselineprofile](macrobenchmark/src/main/java/com/example/macrobenchmark/baselineprofile) folder.
 
-* [SmallListStartupBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/startup/SmallListStartupBenchmark.kt) measures the application startup time for an `Activity` with a `RecyclerView` and an `Activity` with a Compose `LazyColumn`.
+You can also explore [startup](macrobenchmark/src/main/java/com/example/macrobenchmark/startup) and
+[frame timing](macrobenchmark/src/main/java/com/example/macrobenchmark/frames) metrics.
 
-* [FrameTimingBenchmark](macrobenchmark/src/main/java/com/example/macrobenchmark/frames/FrameTimingBenchmark.kt) scrolls a simple `RecyclerView` and Compose `LazyColumn`, measuring frame timing / jank.
+Further, the [baseBenchmarks](baseBenchmarks) library offers a drop in benchmarks, which can be
+used in production apps to get started with macrobenchmarking.
+You can copy & paste the library, then adjust the [package name](baseBenchmarks/src/main/java/com/example/benchmark/macro/base/util/Utils.kt)
+to match the app under test and see results quickly.
 
 ### Running
 
