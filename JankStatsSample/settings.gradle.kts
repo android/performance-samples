@@ -14,7 +14,19 @@
  * limitations under the License.
  */
 
-plugins {
-    alias(libs.plugins.application) apply false
-    alias(libs.plugins.kotlin) apply false
+rootProject.name = "JankStats Sample"
+include(":app")
+
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
