@@ -74,7 +74,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.compose.bom)
+    val composeBom = platform(libs.compose.bom)
+    implementation(composeBom)
 
     implementation(libs.activity)
     implementation(libs.appcompat)
