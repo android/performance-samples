@@ -1,0 +1,52 @@
+# Copyright 2022 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[versions]
+
+agp = "7.3.1"
+appcompat = "1.7.0-alpha01"
+compose = "1.2.1"
+composeBom = "2022.11.00"
+coroutines = "1.6.4"
+constraint_layout = "2.1.4"
+core = "1.9.0"
+jankstats = "1.0.0-alpha03"
+kotlin = "1.7.10"
+material = "1.7.0"
+navigation = "2.5.3"
+tracing = "1.1.0"
+
+[libraries]
+
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "appcompat" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+compose-activity = { group = "androidx.activity", name = "activity-compose" }
+compose-material = { group = "androidx.compose.material", name = "material" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling"}
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraint_layout" }
+jankstats = { group = "androidx.metrics", name = "metrics-performance", version.ref = "jankstats" }
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material"}
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation"}
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation"}
+tracing = { group = "androidx.tracing", name = "tracing-ktx", version.ref = "tracing"}
+
+[plugins]
+
+application = { id = "com.android.application", version.ref = "agp" }
+test = { id = "com.android.test", version.ref = "agp" }
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
