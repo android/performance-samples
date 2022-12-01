@@ -1,0 +1,82 @@
+name: Generate Baseline Profiles
+
+on:
+  push:
+    branches: [ main, tm/bp-generator-automation ]
+  workflow_dispatch:
+
+jobs:
+  # This job checks for any file changed within MacrobenchmarkSample/ folder
+  # to distinguish if the build check for Macrobenchmark is needed to be run.
+  # It sets the outputs.macrobenchmark to true/false based on the changes.
+  # In the next build job, it checks for needs.changes.outputs.macrobenchmark == 'true' 
+  # or skips the job otherwise.
+  #  changes:
+  #    if: github.repository_owner == 'android'
+  #    runs-on: macos-latest
+  #    # Set job outputs to values from filter step to be able to use it in next job
+  #    outputs:
+  #      macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
+  #    steps:
+  #      - name: Checkout
+  #        uses: actions/checkout@v2
+  #        with:
+  #          fetch-depth: 1
+  #      - uses: dorny/paths-filter@v2
+  #        id: filter
+  #        with:
+  #          filters: |
+  #            macrobenchmark:
+  #              - 'MacrobenchmarkSample/**'
+
+  baseline-profile:
+    #    needs: changes
+    #    # Only run action for the main repo & not forks and if change is in macrobenchmark sample
+    #    if: github.repository_owner == 'android' && needs.changes.outputs.macrobenchmark == 'true'
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: ./MacrobenchmarkSample
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        id: setup-java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Run generator with GMD
+        run: >
+          ./gradlew :macrobenchmark:pixel6Api31BenchmarkAndroidTest
+          -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+          -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
+
+      - name: Apply the generated rules
+        run: >
+          # Currently we can only apply one profile
+          cp macrobenchmark/build/outputs/managed_device_android_test_additional_output/BaselineProfileGenerator_appStartupAndUserJourneys-baseline-prof.txt app/src/main/baseline-prof.txt
+          # TODO just to verify it's there
+          ls -l app/src/main
+
+      # TODO optionally we could commit the file
+
+      # Upload all the generated profiles to artifacts
+      - name: Upload generated profiles
+        uses: actions/upload-artifact@v3
+        with:
+          name: baseline-profiles
+          path: macrobenchmark/build/managed_device_android_test_additional_output/*-baseline-prof.txt
+
+      # If you generate the rules before producing your production app, you need to build it here with the profile.
+      # We use benchmark variant, because release variant is not specified,
+      # but generally this is where you want to generate your production version of your app
+      - name: Build production app
+        run: >
+          ./gradlew assembleBenchmark
