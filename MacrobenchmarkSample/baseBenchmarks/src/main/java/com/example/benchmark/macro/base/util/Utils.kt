@@ -16,5 +16,28 @@
 
 package com.example.benchmark.macro.base.util
 
+import androidx.test.uiautomator.BySelector
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiObject2
+import java.io.ByteArrayOutputStream
+
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
 const val DEFAULT_ITERATIONS = 10
+
+fun UiDevice.findObjectOrFail(selector: BySelector, dumpHierarchy: Boolean = true): UiObject2 {
+    val element = findObject(selector)
+    if (element == null) {
+        org.junit.Assert.fail("Object not on screen ($selector)")
+        if (dumpHierarchy) {
+            dumpWindowHierarchy()
+        }
+    }
+    return element
+}
+
+
+fun UiDevice.dumpWindowHierarchy(): String {
+    val output = ByteArrayOutputStream()
+    dumpWindowHierarchy(output)
+    return output.toString()
+}

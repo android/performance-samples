@@ -22,6 +22,7 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import com.example.benchmark.macro.base.util.findObjectOrFail
 import org.junit.Rule
 import org.junit.Test
 
@@ -60,25 +61,23 @@ class BaselineProfileGenerator {
             // App startup journey
             startActivityAndWait()
 
-            with(device) {
-                // Scrolling RecyclerView journey
-                findObject(By.text("RecyclerView")).clickAndWait(Until.newWindow(), 1_000)
-                findObject(By.res(packageName, "recycler")).also {
-                    it.setGestureMargin(device.displayWidth / 10)
-                    it.fling(Direction.DOWN)
-                    it.fling(Direction.UP)
-                }
-                pressBack()
-
-                // Scrolling LazyColumn journey
-                findObject(By.text("Compose")).clickAndWait(Until.newWindow(), 1_000)
-                findObject(By.res("myLazyColumn")).also {
-                    it.setGestureMargin(device.displayWidth / 10)
-                    it.fling(Direction.DOWN)
-                    it.fling(Direction.UP)
-                }
-                pressBack()
+            // Scrolling RecyclerView journey
+            device.findObjectOrFail(By.text("RecyclerView")).clickAndWait(Until.newWindow(), 1_000)
+            device.findObjectOrFail(By.res(packageName, "recycler")).also {
+                it.setGestureMargin(device.displayWidth / 10)
+                it.fling(Direction.DOWN)
+                it.fling(Direction.UP)
             }
+            device.pressBack()
+
+            // Scrolling LazyColumn journey
+            device.findObjectOrFail(By.text("Compose")).clickAndWait(Until.newWindow(), 1_000)
+            device.findObjectOrFail(By.res("myLazyColumn")).also {
+                it.setGestureMargin(device.displayWidth / 10)
+                it.fling(Direction.DOWN)
+                it.fling(Direction.UP)
+            }
+            device.pressBack()
         }
     }
 }
