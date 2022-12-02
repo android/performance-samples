@@ -61,6 +61,9 @@ class BaselineProfileGenerator {
             // App startup journey
             startActivityAndWait()
 
+            // TODO: just to verify it works
+            return@collectBaselineProfile
+
             device.wait(Until.hasObject(By.text("RecyclerView")), 10_000)
 
             // Scrolling RecyclerView journey
