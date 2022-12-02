@@ -64,6 +64,7 @@ class BaselineProfileGenerator {
                 // Scrolling RecyclerView journey
                 findObject(By.text("RecyclerView")).clickAndWait(Until.newWindow(), 1_000)
                 findObject(By.res(packageName, "recycler")).also {
+                    it.setGestureMargin(device.displayWidth / 10)
                     it.fling(Direction.DOWN)
                     it.fling(Direction.UP)
                 }
@@ -72,6 +73,7 @@ class BaselineProfileGenerator {
                 // Scrolling LazyColumn journey
                 findObject(By.text("Compose")).clickAndWait(Until.newWindow(), 1_000)
                 findObject(By.res("myLazyColumn")).also {
+                    it.setGestureMargin(device.displayWidth / 10)
                     it.fling(Direction.DOWN)
                     it.fling(Direction.UP)
                 }
