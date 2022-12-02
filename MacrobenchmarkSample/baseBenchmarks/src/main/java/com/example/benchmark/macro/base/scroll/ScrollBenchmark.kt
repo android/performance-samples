@@ -88,6 +88,7 @@ class ScrollBenchmark {
             if (scrollableObject == null) {
                 fail("No scrollable view found in hierarchy")
             }
+            scrollableObject.setGestureMargin(device.displayWidth / 10)
             scrollableObject?.apply {
                 repeat(2) {
                     fling(Direction.DOWN)
