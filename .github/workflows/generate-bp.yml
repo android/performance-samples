@@ -79,8 +79,8 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: logcat
-          path: ./macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat-*
+          name: "Logcat"
+          path: ./macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat**.txt
 
       # Currently we can only apply one profile
       # Generated profiles are automatically pulled from the device and put into the:
@@ -99,8 +99,8 @@ jobs:
       - name: Upload generated profiles
         uses: actions/upload-artifact@v3
         with:
-          name: baseline-profiles
-          path: macrobenchmark/build/outputs/managed_device_android_test_additional_output/*-baseline-prof.txt
+          name: "Baseline Profiles"
+          path: macrobenchmark/build/outputs/managed_device_android_test_additional_output/**-baseline-prof.txt
 
       # If you generate the rules before producing your production app, you need to build it here with the profile.
       # We use benchmark variant, because release variant is not specified,
@@ -108,3 +108,10 @@ jobs:
       - name: Build production app
         run: >
           ./gradlew assembleBenchmark
+          
+      - name: Upload app with Baseline Profile
+        uses: actions/upload-artifact@v3
+        with:
+          name: "Production App"
+          path: app/build/outputs/apk/benchmark/*.apk
+      
