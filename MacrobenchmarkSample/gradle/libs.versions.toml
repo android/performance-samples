@@ -1,5 +1,5 @@
 [versions]
-agp = "8.0.0-alpha09"
+agp = "7.4.0-rc01"
 targetSdk = "33"
 minSdk = "21"
 compileSdk = "33"
