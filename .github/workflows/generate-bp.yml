@@ -72,7 +72,7 @@ jobs:
         if: always()
         with:
           name: "Logcat"
-          path: MacrobenchmarkSample/macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat**.txt
+          path: MacrobenchmarkSample/macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat-*.txt
 
       # Currently we can only apply one profile
       # Generated profiles are automatically pulled from the device and put into the:
@@ -83,7 +83,6 @@ jobs:
           cp \
             macrobenchmark/build/outputs/managed_device_android_test_additional_output/pixel6Api31/BaselineProfileGenerator_appStartupAndUserJourneys-baseline-prof.txt \
             app/src/main/baseline-prof.txt
-          ls -l app/src/main
 
       # TODO optionally we could commit the file
 
@@ -92,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "Baseline Profiles"
-          path: MacrobenchmarkSample/macrobenchmark/build/outputs/managed_device_android_test_additional_output/**-baseline-prof.txt
+          path: MacrobenchmarkSample/macrobenchmark/build/outputs/managed_device_android_test_additional_output/pixel6Api31/*-baseline-prof.txt
 
       # If you generate the rules before producing your production app, you need to build it here with the profile.
       # We use benchmark variant, because release variant is not specified,
