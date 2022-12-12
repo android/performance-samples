@@ -58,17 +58,12 @@ jobs:
         working-directory: ./
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-        # Building the app here to distinguish if the build fails or the generator fails
-        # This task would be called automatically from the next one, but this way it will be picked from cache anyway
-      - name: Build benchmark app
-        run: ./gradlew assembleBenchmark
-
         # Runs all Baseline Profiles generators on Gradle Managed Device
         # If the module contains both benchmarks and generators, we need to filter just the generators,
         # because benchmarks should be run on a physical device and thus would fail by default.
       - name: Run generator with GMD
         run: >
-          ./gradlew :macrobenchmark:pixel6Api31BenchmarkAndroidTest
+          ./gradlew :macrobenchmark:cleanManagedDevices :macrobenchmark:pixel6Api31BenchmarkAndroidTest
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
 
