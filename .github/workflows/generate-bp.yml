@@ -72,15 +72,12 @@ jobs:
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
 
-      - run: ls -l ./macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/
-        if: always()
-
       - name: Upload Logcat logs
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: "Logcat"
-          path: ./macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat**.txt
+          path: MacrobenchmarkSample/macrobenchmark/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat**.txt
 
       # Currently we can only apply one profile
       # Generated profiles are automatically pulled from the device and put into the:
@@ -100,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "Baseline Profiles"
-          path: macrobenchmark/build/outputs/managed_device_android_test_additional_output/**-baseline-prof.txt
+          path: MacrobenchmarkSample/macrobenchmark/build/outputs/managed_device_android_test_additional_output/**-baseline-prof.txt
 
       # If you generate the rules before producing your production app, you need to build it here with the profile.
       # We use benchmark variant, because release variant is not specified,
@@ -113,5 +110,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "Production App"
-          path: app/build/outputs/apk/benchmark/*.apk
+          path: MacrobenchmarkSample/app/build/outputs/apk/benchmark/*.apk
       
