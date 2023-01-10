@@ -16,8 +16,8 @@
   "dependencies": {
     "@google-cloud/monitoring": "^2.3.5",
     "@google-cloud/storage": "^5.18.0",
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.16.0"
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^3.24.1"
   },
   "devDependencies": {
     "typescript": "^4.1.3",
