@@ -24,6 +24,7 @@ import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
+import androidx.test.filters.Suppress
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
@@ -38,6 +39,8 @@ import org.junit.runner.RunWith
  * Scrolls down and up in the default activity.
  */
 @RunWith(AndroidJUnit4::class)
+// These tests are only useful for apps that have a scrollable view in the benchmarked activity.
+@Suppress
 class ScrollBenchmark {
 
     @get:Rule

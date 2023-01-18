@@ -28,6 +28,7 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import junit.framework.TestCase.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -178,8 +179,13 @@ class ClickLatencyBenchmark {
     }
 
     private fun MacrobenchmarkScope.clickOnId(resourceId: String) {
+        val selector = By.res(packageName, resourceId)
+        if (!device.wait(Until.hasObject(selector), 2_500)) {
+            fail("Did not find object with id $resourceId")
+        }
+
         device
-            .findObject(By.res(packageName, resourceId))
+            .findObject(selector)
             .click()
         // Chill to ensure we capture the end of the click span in the trace.
         Thread.sleep(100)

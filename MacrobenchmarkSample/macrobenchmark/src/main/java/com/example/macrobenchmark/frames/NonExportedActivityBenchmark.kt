@@ -28,6 +28,7 @@ import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
 import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import junit.framework.TestCase.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -78,9 +79,11 @@ class NonExportedActivityBenchmark {
         // click a button to launch the target activity.
         // While we use resourceId here to find the button, you could also use
         // accessibility info or button text content.
-        val launchRecyclerActivity = device.findObject(
-            By.res(packageName, "launchRecyclerActivity")
-        )
+        val selector = By.res(packageName, "launchRecyclerActivity")
+        if (!device.wait(Until.hasObject(selector), 5_500)) {
+            fail("Could not find resource in time")
+        }
+        val launchRecyclerActivity = device.findObject(selector)
         launchRecyclerActivity.click()
 
         // wait until the activity is shown
