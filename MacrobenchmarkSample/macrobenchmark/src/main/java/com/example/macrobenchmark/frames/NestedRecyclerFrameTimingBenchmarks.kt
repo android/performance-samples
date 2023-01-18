@@ -25,6 +25,7 @@ import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
 import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import junit.framework.TestCase.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -71,9 +72,13 @@ class NestedRecyclerFrameTimingBenchmarks {
         // navigate to the activity
         val buttonId =
             if (useRecyclerViewPool) "nestedRecyclerWithPoolsActivity" else "nestedRecyclerActivity"
+        val selector = By.res(packageName, buttonId)
+        if (!device.wait(Until.hasObject(selector), 5_000)) {
+            fail("Failed to find button $buttonId in time")
+        }
 
         device
-            .findObject(By.res(packageName, buttonId))
+            .findObject(selector)
             .click()
 
         // wait until the activity is shown

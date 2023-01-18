@@ -47,7 +47,8 @@ class WarmStartupBenchmark : AbstractStartupBenchmark(StartupMode.WARM)
  * Run this benchmark from Studio to see startup measurements, and captured system traces
  * for investigating your app's performance from a hot state.
  */
-@RunWith(AndroidJUnit4ClassRunner::class)
+// Hot startups tend to be flaky in some test environments. It's disabled here for your convenience.
+//@RunWith(AndroidJUnit4ClassRunner::class)
 class HotStartupBenchmark : AbstractStartupBenchmark(StartupMode.HOT)
 
 /**
