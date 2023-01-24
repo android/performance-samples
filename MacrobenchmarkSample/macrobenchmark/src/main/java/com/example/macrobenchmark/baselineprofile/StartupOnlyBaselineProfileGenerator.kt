@@ -37,7 +37,7 @@ import org.junit.Test
  *
  * To filter out the generator when running benchmarks on CI, use instrumentation argument:
  * androidx.benchmark.enabledRules=Macrobenchmark
- * (see [documentation](https://android.devsite.corp.google.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args) for more info)
+ * (see [documentation](https://d.android.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args) for more info)
  *
  * @see [BaselineProfileGenerator] for a more sophisticated Baseline Profile, containing user journeys.
  */
