@@ -16,6 +16,7 @@
 
 package com.example.macrobenchmark.baselineprofile
 
+import androidx.benchmark.macro.ExperimentalStableBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
@@ -53,8 +54,11 @@ class BaselineProfileGenerator {
      * from the first start.
      */
     @Test
+    @ExperimentalStableBaselineProfilesApi
     fun appStartupAndUserJourneys() {
-        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE) {
+        baselineProfileRule.collectStableBaselineProfile(
+            packageName = TARGET_PACKAGE,
+            maxIterations = 10) {
             // App startup journey
             startActivityAndWait()
 

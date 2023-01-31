@@ -16,6 +16,7 @@
 
 package com.example.macrobenchmark.baselineprofile
 
+import androidx.benchmark.macro.ExperimentalStableBaselineProfilesApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -46,8 +47,11 @@ class TrivialBaselineProfileGenerator {
     val baselineProfileRule = BaselineProfileRule()
 
     @Test
+    @ExperimentalStableBaselineProfilesApi
     fun appStartupOnly() {
-        baselineProfileRule.collectBaselineProfile(packageName = TARGET_PACKAGE) {
+        baselineProfileRule.collectStableBaselineProfile(
+            packageName = TARGET_PACKAGE,
+            maxIterations = 10) {
             startActivityAndWait()
         }
     }
