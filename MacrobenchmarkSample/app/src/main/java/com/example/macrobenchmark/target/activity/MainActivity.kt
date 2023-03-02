@@ -19,6 +19,7 @@ package com.example.macrobenchmark.target.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -33,6 +34,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
+import androidx.profileinstaller.ProfileVerifier
 import com.example.macrobenchmark.target.activity.clicklatency.ComposeActivity
 import com.example.macrobenchmark.target.activity.clicklatency.ListViewActivity
 import com.example.macrobenchmark.target.activity.clicklatency.NestedRecyclerActivity
@@ -41,6 +44,12 @@ import com.example.macrobenchmark.target.activity.clicklatency.ScrollViewActivit
 import com.example.macrobenchmark.target.activity.clicklatency.USE_RECYCLER_POOLS
 import com.example.macrobenchmark.target.activity.login.LoginActivity
 import com.example.macrobenchmark.target.util.ClickTrace
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.guava.await
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
 
@@ -52,8 +61,10 @@ class MainActivity : ComponentActivity() {
                 ActivityList()
             }
         }
+        lifecycleScope.launch {
+            logCompilationStatus()
+        }
     }
-
 
     @Composable
     fun ActivityList() {
@@ -114,5 +125,23 @@ class MainActivity : ComponentActivity() {
             intent.putExtras(base)
         }
         startActivity(intent)
+    }
+
+    /**
+     * Logs the app's Baseline Profile Compilation Status using [ProfileVerifier].
+     */
+    private suspend fun logCompilationStatus() {
+        withContext(Dispatchers.IO) {
+            val status = ProfileVerifier.getCompilationStatusAsync().await()
+            Log.d(TAG, "ProfileInstaller status code: ${status.profileInstallResultCode}")
+            Log.d(
+                TAG,
+                when {
+                    status.isCompiledWithProfile -> "ProfileInstaller: is compiled with profile"
+                    status.hasProfileEnqueuedForCompilation() -> "ProfileInstaller: Enqueued for compilation"
+                    else -> "Profile not compiled or enqueued"
+                }
+            )
+        }
     }
 }
