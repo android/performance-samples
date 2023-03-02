@@ -38,7 +38,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 
     // [START macrobenchmark_setup_app_build_type]
@@ -90,7 +90,7 @@ dependencies {
     implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.stdlib)
     implementation(libs.lifecycle)
-    implementation(libs.profile.installer)
+    implementation(libs.profileinstaller)
     implementation(libs.squareup.curtains)
     implementation(libs.tracing)
     implementation(libs.viewmodel)
