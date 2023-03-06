@@ -41,13 +41,13 @@ import org.junit.Test
  *
  * @see [BaselineProfileGenerator] for a more sophisticated Baseline Profile, containing user journeys.
  */
+@OptIn(ExperimentalStableBaselineProfilesApi::class)
 class TrivialBaselineProfileGenerator {
     // [START baseline_profile_basic]
     @get:Rule
     val baselineProfileRule = BaselineProfileRule()
 
     @Test
-    @ExperimentalStableBaselineProfilesApi
     fun appStartupOnly() {
         baselineProfileRule.collectStableBaselineProfile(
             packageName = TARGET_PACKAGE,

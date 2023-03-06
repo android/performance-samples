@@ -42,6 +42,7 @@ import org.junit.Test
  * androidx.benchmark.enabledRules=Macrobenchmark
  * (see [documentation](https://d.android.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args) for more info)
  */
+@OptIn(ExperimentalStableBaselineProfilesApi::class)
 class BaselineProfileGenerator {
 
     @get:Rule
@@ -54,7 +55,6 @@ class BaselineProfileGenerator {
      * from the first start.
      */
     @Test
-    @ExperimentalStableBaselineProfilesApi
     fun appStartupAndUserJourneys() {
         baselineProfileRule.collectStableBaselineProfile(
             packageName = TARGET_PACKAGE,
