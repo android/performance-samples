@@ -45,9 +45,9 @@ issue tracker link available in the sample README file.
 [WorkManagerSample](https://github.com/googlesamples/android-architecture-components/tree/master/WorkManagerSample)
 - Example of benchmarking asynchronously scheduled background work
 
-License 
--------
+### License 
 
+```
 Copyright 2022 The Android Open Source Project, Inc.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.
@@ -62,3 +62,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied.  See the License for the specific language governing permissions and limitations under the
 License.
+```
