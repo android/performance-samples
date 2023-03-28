@@ -17,6 +17,7 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("androidx.baselineprofile") version "1.2.0-alpha12"
 }
 
 android {
@@ -97,4 +98,6 @@ dependencies {
     implementation(libs.tracing)
     implementation(libs.viewmodel)
     androidTestImplementation(libs.benchmark.junit)
+
+    baselineProfile(project(":macrobenchmark"))
 }

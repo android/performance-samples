@@ -3,6 +3,7 @@ import com.android.build.api.dsl.ManagedVirtualDevice
 plugins {
     id("com.android.test")
     id("kotlin-android")
+    id("androidx.baselineprofile") version "1.2.0-alpha12"
 }
 
 // [START macrobenchmark_setup_android]
@@ -17,6 +18,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    targetProjectPath = ":app"
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -25,15 +28,11 @@ android {
         jvmTarget = "17"
     }
 
-    testOptions {
-        managedDevices {
-            devices {
-                create<ManagedVirtualDevice>("pixel6Api31") {
-                    device = "Pixel 6"
-                    apiLevel = 31
-                    systemImageSource = "aosp"
-                }
-            }
+    testOptions.managedDevices.devices {
+        create<ManagedVirtualDevice>("pixel6Api31") {
+            device = "Pixel 6"
+            apiLevel = 31
+            systemImageSource = "aosp"
         }
     }
     // [END_EXCLUDE]
@@ -72,4 +71,15 @@ dependencies {
     implementation(libs.espresso)
     implementation(libs.ui.automator)
     implementation(libs.kotlin.stdlib)
+}
+
+baselineProfile {
+
+    // This specifies the managed devices to use that you run the tests on. The default
+    // is none.
+    managedDevices += "pixel6Api31"
+
+    // This enables using connected devices to generate profiles. The default is true.
+    // When using connected devices, they must be rooted or API 33 and higher.
+    useConnectedDevices = false
 }

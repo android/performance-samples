@@ -6,7 +6,7 @@ compileSdk = "33"
 
 activity = "1.7.0-beta02"
 appcompat = "1.6.1"
-benchmark = "1.2.0-alpha10"
+benchmark = "1.2.0-alpha12"
 composeBom = "2023.01.00"
 constraintLayout = "2.1.4"
 core = "1.9.0"
@@ -53,6 +53,7 @@ viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", ve
 [plugins]
 
 application = { id = "com.android.application", version.ref = "agp" }
+baselineprofile = { id = "androidx.benchmark", version.ref = "benchmark"}
 library = { id = "com.android.library", version.ref = "agp" }
 test = { id = "com.android.test", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
