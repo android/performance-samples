@@ -27,6 +27,8 @@ With this, more than one profile file can be created, stored and updated.
 This makes Baseline Profiles easier to maintain and allows shipping more granular profiles, without
 the need to re-generate a full Baseline Profile for minor changes.
 
+Also, baseline profile generators are now in separate classes. One for each user journey and a separate one for app startup.
+
 ### Running
 
 Open the `MacrobenchmarkSample` project in Android Studio Bumblebee or later, and run benchmarks as you usually would run tests: Ctrl-Shift-F10 (Mac: Ctrl-Shift-R)

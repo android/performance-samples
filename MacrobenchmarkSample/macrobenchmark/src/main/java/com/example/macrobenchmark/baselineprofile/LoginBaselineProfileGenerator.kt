@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,17 @@
 
 package com.example.macrobenchmark.baselineprofile
 
+import android.content.Intent
 import androidx.benchmark.macro.MacrobenchmarkScope
+import androidx.test.uiautomator.By
 
-/**
- * This baseline profile generator creates a baseline profile only for the app startup.
- */
-class StartupOnlyBaselineProfileGenerator: BaselineProfileGeneratorScaffold() {
+class LoginBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
 
     override fun MacrobenchmarkScope.profileBlock() {
-        startActivityAndWait()
+        startActivityAndWait(Intent().setAction("$packageName.LOGIN_ACTIVITY"))
+        device.findObject(By.res("userName")).text = "user"
+        device.findObject(By.res("password")).text = "password"
+        device.findObject(By.res("login")).click()
+        device.waitForIdle()
     }
 }

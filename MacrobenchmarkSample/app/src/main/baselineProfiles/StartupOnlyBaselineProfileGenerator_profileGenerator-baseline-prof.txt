@@ -1624,7 +1624,7 @@ PLandroidx/compose/runtime/SlotWriter;->node(I)Ljava/lang/Object;
 HSPLandroidx/compose/runtime/SlotWriter;->parent(I)I
 PLandroidx/compose/runtime/SlotWriter;->parent(I)I
 HSPLandroidx/compose/runtime/SlotWriter;->parent([II)I
-HPLandroidx/compose/runtime/SlotWriter;->parent([II)I
+PLandroidx/compose/runtime/SlotWriter;->parent([II)I
 HSPLandroidx/compose/runtime/SlotWriter;->recalculateMarks()V
 PLandroidx/compose/runtime/SlotWriter;->recalculateMarks()V
 PLandroidx/compose/runtime/SlotWriter;->removeGroup()Z
@@ -5523,7 +5523,6 @@ HSPLkotlin/UnsignedKt;->Size(FF)J
 PLkotlin/UnsignedKt;->Size(FF)J
 HSPLkotlin/UnsignedKt;->TextRange(II)J
 PLkotlin/UnsignedKt;->TextRange(II)J
-PLkotlin/UnsignedKt;->binarySearch([II)I
 PLkotlin/UnsignedKt;->cancel$default(Lkotlinx/coroutines/CoroutineScope;)V
 HSPLkotlin/UnsignedKt;->ceilToIntPx(F)I
 PLkotlin/UnsignedKt;->ceilToIntPx(F)I
@@ -6023,7 +6022,6 @@ HSPLkotlin/random/RandomKt;->set-impl(Landroidx/compose/runtime/Composer;Ljava/l
 PLkotlin/random/RandomKt;->set-impl(Landroidx/compose/runtime/Composer;Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)V
 HSPLkotlin/random/RandomKt;->shrink-Kibmq7A(FJ)J
 PLkotlin/random/RandomKt;->shrink-Kibmq7A(FJ)J
-PLkotlin/random/RandomKt;->unboxState(Ljava/lang/Object;)Ljava/lang/Object;
 Lkotlin/reflect/KCallable;
 Lkotlin/reflect/KClass;
 Lkotlin/reflect/KFunction;
@@ -6990,7 +6988,7 @@ PLkotlinx/coroutines/internal/LockFreeLinkedListNode;->remove$1()Z
 HSPLkotlinx/coroutines/internal/LockFreeLinkedListNode;->removeOrNext()Lkotlinx/coroutines/internal/LockFreeLinkedListNode;
 HPLkotlinx/coroutines/internal/LockFreeLinkedListNode;->removeOrNext()Lkotlinx/coroutines/internal/LockFreeLinkedListNode;
 HSPLkotlinx/coroutines/internal/LockFreeLinkedListNode;->tryCondAddNext(Lkotlinx/coroutines/internal/LockFreeLinkedListNode;Lkotlinx/coroutines/internal/LockFreeLinkedListNode;Lkotlinx/coroutines/internal/LockFreeLinkedListNode$CondAddOp;)I
-HPLkotlinx/coroutines/internal/LockFreeLinkedListNode;->tryCondAddNext(Lkotlinx/coroutines/internal/LockFreeLinkedListNode;Lkotlinx/coroutines/internal/LockFreeLinkedListNode;Lkotlinx/coroutines/internal/LockFreeLinkedListNode$CondAddOp;)I
+PLkotlinx/coroutines/internal/LockFreeLinkedListNode;->tryCondAddNext(Lkotlinx/coroutines/internal/LockFreeLinkedListNode;Lkotlinx/coroutines/internal/LockFreeLinkedListNode;Lkotlinx/coroutines/internal/LockFreeLinkedListNode$CondAddOp;)I
 Lkotlinx/coroutines/internal/LockFreeLinkedListNode$CondAddOp;
 HSPLkotlinx/coroutines/internal/LockFreeLinkedListNode$CondAddOp;-><init>(Lkotlinx/coroutines/internal/LockFreeLinkedListNode;)V
 PLkotlinx/coroutines/internal/LockFreeLinkedListNode$CondAddOp;-><init>(Lkotlinx/coroutines/internal/LockFreeLinkedListNode;)V
