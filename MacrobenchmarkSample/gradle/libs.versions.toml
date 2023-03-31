@@ -6,7 +6,7 @@ compileSdk = "33"
 
 activity = "1.7.0-beta02"
 appcompat = "1.6.1"
-benchmark = "1.2.0-alpha12"
+benchmark = "1.2.0-SNAPSHOT"
 composeBom = "2023.01.00"
 constraintLayout = "2.1.4"
 core = "1.9.0"

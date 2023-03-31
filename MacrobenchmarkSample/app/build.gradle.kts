@@ -17,7 +17,8 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("androidx.baselineprofile") version "1.2.0-alpha12"
+    id("androidx.baselineprofile") version "1.2.0-SNAPSHOT"
+    //     alias(libs.plugins.baselineprofile)
 }
 
 android {
