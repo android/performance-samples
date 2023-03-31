@@ -100,5 +100,5 @@ dependencies {
     implementation(libs.viewmodel)
     androidTestImplementation(libs.benchmark.junit)
 
-    baselineProfile(project(":macrobenchmark"))
+    baselineProfile(project(":baselineProfile"))
 }

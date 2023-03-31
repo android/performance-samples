@@ -38,3 +38,4 @@ dependencyResolutionManagement {
 
     }
 }
+include(":baselineProfile")

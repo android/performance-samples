@@ -3,8 +3,6 @@ import com.android.build.api.dsl.ManagedVirtualDevice
 plugins {
     id("com.android.test")
     id("kotlin-android")
-    id("androidx.baselineprofile") version "1.2.0-SNAPSHOT"
-//    alias(libs.plugins.baselineprofile)
 }
 
 // [START macrobenchmark_setup_android]
@@ -57,12 +55,12 @@ android {
 // [END macrobenchmark_setup_android]
 
 //// [START macrobenchmark_setup_variant]
-//androidComponents {
-//    beforeVariants(selector().all()) {
-//        // enable only the benchmark buildType, since we only want to measure close to release performance
-//        it.enable = it.buildType == "benchmark"
-//    }
-//}
+androidComponents {
+    beforeVariants(selector().all()) {
+        // enable only the benchmark buildType, since we only want to measure close to release performance
+        it.enable = it.buildType == "benchmark"
+    }
+}
 //// [END macrobenchmark_setup_variant]
 
 dependencies {
@@ -72,15 +70,4 @@ dependencies {
     implementation(libs.espresso)
     implementation(libs.ui.automator)
     implementation(libs.kotlin.stdlib)
-}
-
-baselineProfile {
-
-    // This specifies the managed devices to use that you run the tests on. The default
-    // is none.
-    managedDevices += "pixel6Api31"
-
-    // This enables using connected devices to generate profiles. The default is true.
-    // When using connected devices, they must be rooted or API 33 and higher.
-    useConnectedDevices = false
 }

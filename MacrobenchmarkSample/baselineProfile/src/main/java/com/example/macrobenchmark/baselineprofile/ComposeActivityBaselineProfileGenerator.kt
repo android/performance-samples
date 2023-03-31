@@ -21,7 +21,6 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
