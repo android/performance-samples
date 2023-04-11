@@ -53,7 +53,7 @@ viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", ve
 [plugins]
 
 application = { id = "com.android.application", version.ref = "agp" }
-baselineprofile = { id = "androidx.benchmark", version.ref = "benchmark"}
+baselineprofile = { id = "androidx.baselineprofile", version.ref = "benchmark"}
 library = { id = "com.android.library", version.ref = "agp" }
 test = { id = "com.android.test", version.ref = "agp" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

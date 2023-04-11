@@ -17,8 +17,8 @@
 plugins {
     id("com.android.test")
     id("kotlin-android")
-    id("androidx.baselineprofile") version "1.2.0-alpha13"
-//    alias(libs.plugins.baselineprofile)
+//    id("androidx.baselineprofile") version "1.2.0-alpha13"
+    alias(libs.plugins.baselineprofile)
 
 }
 
