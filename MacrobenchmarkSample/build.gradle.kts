@@ -21,18 +21,3 @@ plugins {
     alias(libs.plugins.kotlin) apply false
     alias(libs.plugins.baselineprofile) apply false
 }
-
-
-//  TODO: Remove once Compose compiler supports Kotlin 1.8.0.
-allprojects {
-    afterEvaluate {
-        tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-            kotlinOptions {
-                freeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=1.8.0"
-                )
-            }
-        }
-    }
-}
