@@ -25,7 +25,6 @@ This sample shows how to use the Benchmark library to benchmark code and UI from
 ### Important Notes
 
 * Make sure your device's screen is on before running benchmarks
-* Don't forget to checkout submodules: `git submodule update --init --recursive`
 
 ## [JankStats sample](JankStatsSample)
 
@@ -45,7 +44,7 @@ issue tracker link available in the sample README file.
 [WorkManagerSample](https://github.com/googlesamples/android-architecture-components/tree/master/WorkManagerSample)
 - Example of benchmarking asynchronously scheduled background work
 
-### License 
+## License 
 
 ```
 Copyright 2022 The Android Open Source Project, Inc.
