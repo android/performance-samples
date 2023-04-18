@@ -11,7 +11,7 @@ This sample shows how to use the Macrobenchmark library for testing application 
 performance cases, such as scrolling a `RecyclerView` or `LazyColumn` to measure jank.
 
 **Baseline Profiles** can be generated with the Macrobenchmark library. This sample contains
-[code to generate a baseline profile](MacrobenchmarkSample/macrobenchmark/src/main/java/com/example/macrobenchmark/TrivialBaselineProfileBenchmark.kt).
+[code to generate a baseline profile](MacrobenchmarkSample/macrobenchmark/src/main/java/com/example/macrobenchmark/baselineprofile/BaselineProfileGenerator.kt).
 
 The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab.yml) to run
 Macrobenchmarks on Firebase Test Lab. For more information refer to the [README.md](MacrobenchmarkSample/ftl/README.md).
@@ -25,7 +25,6 @@ This sample shows how to use the Benchmark library to benchmark code and UI from
 ### Important Notes
 
 * Make sure your device's screen is on before running benchmarks
-* Don't forget to checkout submodules: `git submodule update --init --recursive`
 
 ## [JankStats sample](JankStatsSample)
 
@@ -45,9 +44,9 @@ issue tracker link available in the sample README file.
 [WorkManagerSample](https://github.com/googlesamples/android-architecture-components/tree/master/WorkManagerSample)
 - Example of benchmarking asynchronously scheduled background work
 
-License 
--------
+## License 
 
+```
 Copyright 2022 The Android Open Source Project, Inc.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.
@@ -62,3 +61,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied.  See the License for the specific language governing permissions and limitations under the
 License.
+```
