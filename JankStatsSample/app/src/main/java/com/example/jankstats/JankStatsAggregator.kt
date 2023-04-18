@@ -42,7 +42,7 @@ class JankStatsAggregator(
     private val listener = JankStats.OnFrameListener { frameData ->
         ++numFrames
         if (frameData.isJank) {
-            jankReport.add(frameData)
+            jankReport.add(frameData.copy())
             if (jankReport.size >= REPORT_BUFFER_LIMIT) {
                 issueJankReport("Max buffer size reached")
             }
