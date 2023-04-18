@@ -19,7 +19,7 @@ jobs:
       macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 1
     - uses: dorny/paths-filter@v2
@@ -36,15 +36,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 1
     
       - name: Setup JDK
         id: setup-java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
-          java-version: "11"
+          java-version: '17'
+          distribution: 'zulu'
             
       - name: Build Macrobenchmark Sample
         uses: eskatos/gradle-command-action@v1
