@@ -26,21 +26,15 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class RecyclerViewActivityBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
 
-
     override fun MacrobenchmarkScope.profileBlock() {
         // Start into the RecyclerViewActivity
-        startActivityAndWait(
-            Intent()
-                .setAction("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY")
-        )
+        startActivityAndWait(Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY"))
 
         // Scrolling RecyclerView journey
-        with(device) {
-            findObject(By.res(packageName, "recycler")).also {
-                it.setGestureMargin(device.displayWidth / 10)
-                it.fling(Direction.DOWN)
-                it.fling(Direction.UP)
-            }
+        device.findObject(By.res(packageName, "recycler")).also {
+            it.setGestureMargin(device.displayWidth / 10)
+            it.fling(Direction.DOWN)
+            it.fling(Direction.UP)
         }
 
     }

@@ -26,22 +26,15 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ComposeActivityBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
 
-
     override fun MacrobenchmarkScope.profileBlock() {
         // Start into the Compose Activity
-        startActivityAndWait(
-            Intent()
-                .setAction("$TARGET_PACKAGE.COMPOSE_ACTIVITY")
-        )
+        startActivityAndWait(Intent("$TARGET_PACKAGE.COMPOSE_ACTIVITY"))
 
         // Scrolling through the Compose journey
-        with(device) {
-            findObject(By.res("myLazyColumn")).also {
-                it.setGestureMargin(device.displayWidth / 10)
-                it.fling(Direction.DOWN)
-                it.fling(Direction.UP)
-            }
+        device.findObject(By.res("myLazyColumn")).also {
+            it.setGestureMargin(device.displayWidth / 10)
+            it.fling(Direction.DOWN)
+            it.fling(Direction.UP)
         }
-
     }
 }
