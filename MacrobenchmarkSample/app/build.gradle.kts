@@ -51,6 +51,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // In real app, this would use its own release keystore
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         create("benchmark") {

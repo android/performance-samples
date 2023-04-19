@@ -1,0 +1,98 @@
+name: Generate Baseline Profiles
+
+on:
+  push:
+    branches: [ main, bpgp-ci ] # TODO remove custom branch once verified it's working
+  workflow_dispatch:
+
+jobs:
+  # This job checks for any file changed within MacrobenchmarkSample/ folder
+  # to distinguish if the build check for Macrobenchmark is needed to be run.
+  # It sets the outputs.macrobenchmark to true/false based on the changes.
+  # In the next build job, it checks for needs.changes.outputs.macrobenchmark == 'true' 
+  # or skips the job otherwise.
+  #  changes:
+  #    if: github.repository_owner == 'android'
+  #    runs-on: macos-latest
+  #    # Set job outputs to values from filter step to be able to use it in next job
+  #    outputs:
+  #      macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
+  #    steps:
+  #      - name: Checkout
+  #        uses: actions/checkout@v2
+  #        with:
+  #          fetch-depth: 1
+  #      - uses: dorny/paths-filter@v2
+  #        id: filter
+  #        with:
+  #          filters: |
+  #            macrobenchmark:
+  #              - 'MacrobenchmarkSample/**'
+
+  baseline-profile:
+    #    needs: changes
+    #    # Only run action for the main repo & not forks and if change is in macrobenchmark sample
+    #    if: github.repository_owner == 'android' && needs.changes.outputs.macrobenchmark == 'true'
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: ./MacrobenchmarkSample
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        id: setup-java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Copy CI gradle.properties
+        working-directory: ./
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+        # Runs all Baseline Profiles generators on Gradle Managed Device
+        # If the module contains both benchmarks and generators, we need to filter just the generators,
+        # because benchmarks should be run on a physical device and thus would fail by default.
+      - name: Run generator with GMD
+        run: >
+          ./gradlew :baselineProfile:cleanManagedDevices :app:generateBaselineProfile
+          -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+          -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
+
+      - name: Upload Logcat logs
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: "Logcat"
+          path: MacrobenchmarkSample/baselineProfile/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat-*.txt
+
+      # TODO optionally we could commit the file
+
+      # Upload all the generated profiles to artifacts
+      - name: Upload generated profiles
+        uses: actions/upload-artifact@v3
+        with:
+          name: "Baseline Profiles"
+          path: MacrobenchmarkSample/app/src/release/generated/baselineProfile/*.txt
+
+      # If you generate the rules before producing your production app, you need to build it here with the profile.
+      # We use benchmark variant, because release variant is not specified,
+      # but generally this is where you want to generate your production version of your app
+      - name: Build production app
+        run: >
+          ./gradlew assembleRelease
+          
+      - name: Upload app with Baseline Profile
+        uses: actions/upload-artifact@v3
+        with:
+          name: "Production App"
+          path: MacrobenchmarkSample/app/build/outputs/apk/release/*.apk
+      
