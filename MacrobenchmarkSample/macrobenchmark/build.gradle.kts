@@ -1,8 +1,8 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
 
 plugins {
-    id("com.android.test")
-    id("kotlin-android")
+    alias(libs.plugins.test)
+    alias(libs.plugins.kotlin)
 }
 
 // [START macrobenchmark_setup_android]
@@ -12,7 +12,7 @@ android {
     namespace = "com.example.macrobenchmark"
 
     defaultConfig {
-        minSdk = 23 // Minimum supported version for macrobenchmark
+        minSdk = 23 // Minimum supported version for Macrobenchmark
         targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -69,5 +69,4 @@ dependencies {
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
     implementation(libs.ui.automator)
-    implementation(libs.kotlin.stdlib)
 }

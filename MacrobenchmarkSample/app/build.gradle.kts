@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    alias(libs.plugins.application)
+    alias(libs.plugins.kotlin)
     alias(libs.plugins.baselineprofile)
 }
 
@@ -28,7 +28,7 @@ android {
         applicationId = "com.example.macrobenchmark.target"
         versionCode = 1
         versionName = "1.0"
-        minSdk = 23 // Minimum supported version for macrobenchmark
+        minSdk = 21
         targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

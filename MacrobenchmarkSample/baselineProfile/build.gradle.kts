@@ -15,8 +15,8 @@
  */
 
 plugins {
-    id("com.android.test")
-    id("kotlin-android")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.test)
     alias(libs.plugins.baselineprofile)
 
 }
@@ -26,15 +26,17 @@ android {
     compileSdk = 33
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     defaultConfig {
+        // Minimum supported version for Baseline Profiles.
+        // On lower APIs, apps are fully AOT compile, therefore Baseline Profiles aren't needed.
         minSdk = 24
         targetSdk = 33
 
@@ -49,27 +51,7 @@ android {
         }
     }
 
-    buildTypes {
-        // This benchmark buildType is used for benchmarking, and should function like your
-        // release build (for example, with minification on). It"s signed with a debug key
-        // for easy local/CI testing.
-        create("benchmark") {
-            isDebuggable = true
-            signingConfig = getByName("debug").signingConfig
-            matchingFallbacks += listOf("release")
-        }
-    }
-
     targetProjectPath = ":app"
-    experimentalProperties["android.experimental.self-instrumenting"] = true
-}
-
-dependencies {
-    implementation(libs.benchmark.junit)
-    implementation(libs.androidx.junit)
-    implementation(libs.espresso)
-    implementation(libs.ui.automator)
-    implementation(libs.kotlin.stdlib)
 }
 
 baselineProfile {
@@ -82,3 +64,11 @@ baselineProfile {
     // When using connected devices, they must be rooted or API 33 and higher.
     useConnectedDevices = false
 }
+
+dependencies {
+    implementation(libs.benchmark.junit)
+    implementation(libs.androidx.junit)
+    implementation(libs.espresso)
+    implementation(libs.ui.automator)
+}
+
