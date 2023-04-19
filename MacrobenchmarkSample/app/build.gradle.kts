@@ -94,7 +94,6 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.coroutines.guava)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.lifecycle)
     implementation(libs.profileinstaller)
     implementation(libs.squareup.curtains)
