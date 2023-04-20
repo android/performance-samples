@@ -25,7 +25,7 @@ import androidx.test.uiautomator.Until
 import java.io.ByteArrayOutputStream
 
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
-const val DEFAULT_ITERATIONS = 2
+const val DEFAULT_ITERATIONS = 10
 
 fun UiDevice.findOrFail(
     selector: BySelector,

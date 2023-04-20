@@ -31,7 +31,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
@@ -53,10 +57,15 @@ private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
 
+    @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column {
+            Column(
+                modifier = Modifier.semantics {
+                    testTagsAsResourceId = true
+                }
+            ) {
                 TopAppBar(title = { Text(text = "Benchmark Sample Target App") })
                 ActivityList()
             }
@@ -94,10 +103,16 @@ class MainActivity : ComponentActivity() {
             BenchmarkActivityButton(name = "RecyclerView") {
                 launchActivityWithTrace<NonExportedRecyclerActivity>()
             }
-            BenchmarkActivityButton(name = "Nested RecyclerView") {
+            BenchmarkActivityButton(
+                name = "Nested RecyclerView",
+                "nestedRecyclerActivity"
+            ) {
                 launchActivityWithTrace<NestedRecyclerActivity>()
             }
-            BenchmarkActivityButton(name = "Nested RecyclerView with Pools") {
+            BenchmarkActivityButton(
+                name = "Nested RecyclerView with Pools",
+                "nestedRecyclerWithPoolsActivity"
+            ) {
                 launchActivityWithTrace<NestedRecyclerActivity>(
                     Intent().putExtra(
                         USE_RECYCLER_POOLS, true
@@ -108,9 +123,9 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun BenchmarkActivityButton(name: String, onClick: () -> Unit) {
+    fun BenchmarkActivityButton(name: String, testTag: String = "", onClick: () -> Unit) {
         TextButton(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(8.dp).testTag(testTag),
             onClick = onClick,
             border = BorderStroke(1.dp, MaterialTheme.colors.primary)
         ) {
