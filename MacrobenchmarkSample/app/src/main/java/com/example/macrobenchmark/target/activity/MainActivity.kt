@@ -100,7 +100,10 @@ class MainActivity : ComponentActivity() {
             BenchmarkActivityButton(name = "Fully Drawn") {
                 launchActivityWithTrace<FullyDrawnStartupActivity>()
             }
-            BenchmarkActivityButton(name = "RecyclerView") {
+            BenchmarkActivityButton(
+                name = "RecyclerView",
+                "launchRecyclerActivity"
+            ) {
                 launchActivityWithTrace<NonExportedRecyclerActivity>()
             }
             BenchmarkActivityButton(
@@ -125,7 +128,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun BenchmarkActivityButton(name: String, testTag: String = "", onClick: () -> Unit) {
         TextButton(
-            modifier = Modifier.padding(8.dp).testTag(testTag),
+            modifier = Modifier
+                .padding(8.dp)
+                .testTag(testTag),
             onClick = onClick,
             border = BorderStroke(1.dp, MaterialTheme.colors.primary)
         ) {
