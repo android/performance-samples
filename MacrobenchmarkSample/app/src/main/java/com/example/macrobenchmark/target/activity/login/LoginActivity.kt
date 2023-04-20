@@ -19,7 +19,7 @@ package com.example.macrobenchmark.target.activity.login
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.ReportDrawnWhen
+import androidx.activity.compose.ReportDrawn
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
@@ -136,9 +136,8 @@ class LoginActivity : ComponentActivity() {
                 }
             }
         }
-        ReportDrawnWhen {
-            true // This will be replaced with an API without the need for a parameter soon.
-        }
+
+        ReportDrawn()
     }
 
     @Composable
