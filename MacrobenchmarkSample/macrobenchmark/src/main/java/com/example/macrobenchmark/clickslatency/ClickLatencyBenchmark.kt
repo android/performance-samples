@@ -179,7 +179,7 @@ class ClickLatencyBenchmark {
     }
 
     private fun MacrobenchmarkScope.clickOnId(resourceId: String) {
-        val selector = By.res(packageName, resourceId)
+        val selector = By.res(resourceId)
         if (!device.wait(Until.hasObject(selector), 2_500)) {
             fail("Did not find object with id $resourceId")
         }

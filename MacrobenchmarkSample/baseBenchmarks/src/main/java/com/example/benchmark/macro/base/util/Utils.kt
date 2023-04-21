@@ -16,5 +16,58 @@
 
 package com.example.benchmark.macro.base.util
 
+import android.util.Log
+import androidx.test.uiautomator.BySelector
+import androidx.test.uiautomator.SearchCondition
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiObject2
+import androidx.test.uiautomator.Until
+import java.io.ByteArrayOutputStream
+
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
 const val DEFAULT_ITERATIONS = 10
+
+fun UiDevice.findOrFail(
+    selector: BySelector,
+    message: String? = null,
+    dumpHierarchy: Boolean = true
+): UiObject2 {
+    val element = findObject(selector)
+    if (element == null) {
+        if (dumpHierarchy) {
+            Log.d("Benchmark", getWindowHierarchy())
+        }
+        throw AssertionError(message ?: "Object not on screen ($selector)")
+    }
+    return element
+}
+
+fun UiDevice.waitOrFail(
+    searchCondition: SearchCondition<Boolean>,
+    timeout: Long,
+    message: String? = null,
+    dumpHierarchy: Boolean = true
+) {
+    if (!wait(searchCondition, timeout)) {
+        if (dumpHierarchy) {
+            Log.d("Benchmark", getWindowHierarchy())
+        }
+        throw AssertionError(message ?: "Object not on screen")
+    }
+}
+
+fun UiDevice.waitAndFind(
+    selector: BySelector,
+    timeout: Long = 5_000,
+    message: String? = null,
+    dumpHierarchy: Boolean = true
+): UiObject2 {
+    waitOrFail(Until.hasObject(selector), timeout, message, dumpHierarchy)
+    return findOrFail(selector, message, dumpHierarchy)
+}
+
+fun UiDevice.getWindowHierarchy(): String {
+    val output = ByteArrayOutputStream()
+    dumpWindowHierarchy(output)
+    return output.toString()
+}

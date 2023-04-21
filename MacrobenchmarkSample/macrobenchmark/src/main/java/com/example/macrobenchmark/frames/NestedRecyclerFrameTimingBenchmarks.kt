@@ -25,7 +25,7 @@ import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
 import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
-import junit.framework.TestCase.fail
+import com.example.benchmark.macro.base.util.waitAndFind
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -43,10 +43,7 @@ class NestedRecyclerFrameTimingBenchmarks {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
-            // CompilationMode.None + StartupMode.Cold clears compilation on each iteration,
-            // and can represent the worst-case performance scenario.
-            compilationMode = CompilationMode.None(),
-            startupMode = StartupMode.COLD,
+            startupMode = StartupMode.WARM,
             iterations = DEFAULT_ITERATIONS,
             setupBlock = { navigateToNestedRvScreen(false) }
         ) { measureScrollingNestedRecycler() }
@@ -57,10 +54,7 @@ class NestedRecyclerFrameTimingBenchmarks {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
-            // CompilationMode.None + StartupMode.Cold clears compilation on each iteration,
-            // and can represent the worst-case performance scenario.
-            compilationMode = CompilationMode.None(),
-            startupMode = StartupMode.COLD,
+            startupMode = StartupMode.WARM,
             iterations = DEFAULT_ITERATIONS,
             setupBlock = { navigateToNestedRvScreen(true) }
         ) { measureScrollingNestedRecycler() }
@@ -70,16 +64,11 @@ class NestedRecyclerFrameTimingBenchmarks {
         startActivityAndWait()
 
         // navigate to the activity
-        val buttonId =
-            if (useRecyclerViewPool) "nestedRecyclerWithPoolsActivity" else "nestedRecyclerActivity"
-        val selector = By.res(packageName, buttonId)
-        if (!device.wait(Until.hasObject(selector), 5_000)) {
-            fail("Failed to find button $buttonId in time")
-        }
+        val selector =
+            By.res(if (useRecyclerViewPool) "nestedRecyclerWithPoolsActivity" else "nestedRecyclerActivity")
 
-        device
-            .findObject(selector)
-            .click()
+        val button = device.waitAndFind(selector)
+        button.click()
 
         // wait until the activity is shown
         device.wait(
