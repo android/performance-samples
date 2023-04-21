@@ -20,6 +20,8 @@ import androidx.benchmark.macro.ExperimentalStableBaselineProfilesApi
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.uiautomator.Tracer
+import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,6 +35,15 @@ abstract class BaselineProfileGeneratorScaffold {
 
     @get:Rule
     val rule = BaselineProfileRule()
+
+
+    companion object {
+        @BeforeClass
+        @JvmStatic
+        fun beforeClass() {
+            Tracer.getInstance().setOutputMode(Tracer.Mode.LOGCAT)
+        }
+    }
 
     /**
      * Generate a baseline profile in this function.

@@ -19,6 +19,7 @@ package com.example.benchmark.macro.base.util
 import android.util.Log
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.SearchCondition
+import androidx.test.uiautomator.Tracer
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
@@ -29,15 +30,14 @@ const val DEFAULT_ITERATIONS = 10
 
 fun UiDevice.findOrFail(
     selector: BySelector,
-    message: String? = null,
-    dumpHierarchy: Boolean = true
+    message: String? = null
 ): UiObject2 {
+    Tracer.trace(selector)
     val element = findObject(selector)
     if (element == null) {
-        if (dumpHierarchy) {
-            Log.d("Benchmark", getWindowHierarchy())
-        }
-        throw AssertionError(message ?: "Object not on screen ($selector)")
+        val hierarchy = getWindowHierarchy()
+        Log.d("Benchmark", hierarchy)
+        throw AssertionError((message ?: "Object not on screen ($selector)") + "\n$hierarchy")
     }
     return element
 }
@@ -45,25 +45,23 @@ fun UiDevice.findOrFail(
 fun UiDevice.waitOrFail(
     searchCondition: SearchCondition<Boolean>,
     timeout: Long,
-    message: String? = null,
-    dumpHierarchy: Boolean = true
+    message: String? = null
 ) {
     if (!wait(searchCondition, timeout)) {
-        if (dumpHierarchy) {
-            Log.d("Benchmark", getWindowHierarchy())
-        }
-        throw AssertionError(message ?: "Object not on screen")
+        val hierarchy = getWindowHierarchy()
+        Log.d("Benchmark", hierarchy)
+        throw AssertionError((message ?: "Object not on screen") + "\n$hierarchy")
     }
 }
 
 fun UiDevice.waitAndFind(
     selector: BySelector,
     timeout: Long = 5_000,
-    message: String? = null,
-    dumpHierarchy: Boolean = true
+    message: String? = null
 ): UiObject2 {
-    waitOrFail(Until.hasObject(selector), timeout, message, dumpHierarchy)
-    return findOrFail(selector, message, dumpHierarchy)
+    Tracer.trace(selector)
+    waitOrFail(Until.hasObject(selector), timeout, message)
+    return findOrFail(selector, message)
 }
 
 fun UiDevice.getWindowHierarchy(): String {
