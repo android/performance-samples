@@ -21,6 +21,8 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
+import com.example.benchmark.macro.base.util.waitAndFind
+import com.example.benchmark.macro.base.util.waitOrFail
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
@@ -31,7 +33,7 @@ class ComposeActivityBaselineProfileGenerator : BaselineProfileGeneratorScaffold
         startActivityAndWait(Intent("$TARGET_PACKAGE.COMPOSE_ACTIVITY"))
 
         // Scrolling through the Compose journey
-        device.findObject(By.res("myLazyColumn")).also {
+        device.waitAndFind(By.res("myLazyColumn")).also {
             it.setGestureMargin(device.displayWidth / 10)
             it.fling(Direction.DOWN)
             it.fling(Direction.UP)
