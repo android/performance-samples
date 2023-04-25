@@ -63,7 +63,7 @@ jobs:
         # because benchmarks should be run on a physical device and thus would fail by default.
       - name: Run generator with GMD
         run: >
-          ./gradlew cleanManagedDevices --unused-only :app:generateBaselineProfile
+          ./gradlew :baselineProfile:cleanManagedDevices :app:generateBaselineProfile
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
 
