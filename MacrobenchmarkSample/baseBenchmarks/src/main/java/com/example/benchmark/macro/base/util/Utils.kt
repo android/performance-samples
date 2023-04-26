@@ -28,9 +28,13 @@ import java.io.ByteArrayOutputStream
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
 const val DEFAULT_ITERATIONS = 10
 
+/**
+ * Finds an element by [selector].
+ * If not found, fails with [AssertionError] and dumps the window hierarchy.
+ */
 fun UiDevice.findOrFail(
     selector: BySelector,
-    message: String? = null
+    message: String? = null,
 ): UiObject2 {
     Tracer.trace(selector)
     val element = findObject(selector)
@@ -42,10 +46,15 @@ fun UiDevice.findOrFail(
     return element
 }
 
+/**
+ * Waits until a [searchCondition] evaluates to true.
+ * If not found within [timeout], fails with [AssertionError] and dumps the window hierarchy.
+ * For example, wait [Until.hasObject] to wait until an element is present on screen.
+ */
 fun UiDevice.waitOrFail(
     searchCondition: SearchCondition<Boolean>,
     timeout: Long,
-    message: String? = null
+    message: String? = null,
 ) {
     if (!wait(searchCondition, timeout)) {
         val hierarchy = getWindowHierarchy()
@@ -54,16 +63,23 @@ fun UiDevice.waitOrFail(
     }
 }
 
+/**
+ * Combines waiting for an element and returning it.
+ * If an object is not present, it throws [AssertionError] and dumps the window hierarchy.
+ */
 fun UiDevice.waitAndFind(
     selector: BySelector,
     timeout: Long = 5_000,
-    message: String? = null
+    message: String? = null,
 ): UiObject2 {
     Tracer.trace(selector)
     waitOrFail(Until.hasObject(selector), timeout, message)
     return findOrFail(selector, message)
 }
 
+/**
+ * Simplifies dumping window hierarchy
+ */
 fun UiDevice.getWindowHierarchy(): String {
     val output = ByteArrayOutputStream()
     dumpWindowHierarchy(output)
