@@ -67,19 +67,6 @@ jobs:
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
 
-      # Create a PR with the generated Baseline Profiles
-      - uses: actions/checkout@v3
-      - name: Create PR with generated profiles
-        uses: peter-evans/create-pull-request@v5
-        with:
-          commit-message: 'Update baseline profiles'
-          committer: BP Bot <noreply@github.com>
-          author: BP Bot <noreply@github.com>
-          title: 'Update baseline profiles'
-          body: 'Updates baseline profiles'
-          reviewers: ${{ github.actor }}
-          branch: bot/update-baseline-profiles
-
       - name: Upload Logcat logs
         uses: actions/upload-artifact@v3
         if: always()
@@ -93,6 +80,19 @@ jobs:
         with:
           name: "Baseline Profiles"
           path: MacrobenchmarkSample/app/src/release/generated/baselineProfiles/*.txt
+
+      # Create a PR with the generated Baseline Profiles
+      - uses: actions/checkout@v3
+      - name: Create PR with generated profiles
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'Update baseline profiles'
+          committer: BP Bot <noreply@github.com>
+          author: BP Bot <noreply@github.com>
+          title: 'Update baseline profiles'
+          body: 'Updates baseline profiles'
+          reviewers: ${{ github.actor }}
+          branch: bot/update-baseline-profiles
 
       # If you generate the rules before producing your production app, you need to build it here with the profile.
       # We use benchmark variant, because release variant is not specified,
