@@ -82,7 +82,6 @@ jobs:
           path: MacrobenchmarkSample/app/src/release/generated/baselineProfiles/*.txt
 
       # Create a PR with the generated Baseline Profiles
-      - uses: actions/checkout@v3
       - name: Create PR with generated profiles
         uses: peter-evans/create-pull-request@v5
         with:
