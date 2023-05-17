@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "Baseline Profiles"
-          path: MacrobenchmarkSample/app/src/release/generated/baselineProfile/*.txt
+          path: MacrobenchmarkSample/app/src/release/generated/baselineProfiles/*.txt
 
       # If you generate the rules before producing your production app, you need to build it here with the profile.
       # We use benchmark variant, because release variant is not specified,
