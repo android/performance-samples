@@ -67,6 +67,7 @@ jobs:
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
 
+      # Create a PR with the generated Baseline Profiles
       - uses: actions/checkout@v3
       - name: Create PR with generated profiles
         uses: peter-evans/create-pull-request@v5
@@ -85,8 +86,6 @@ jobs:
         with:
           name: "Logcat"
           path: MacrobenchmarkSample/baselineProfile/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat-*.txt
-
-      # TODO optionally we could commit the file
 
       # Upload all the generated profiles to artifacts
       - name: Upload generated profiles
