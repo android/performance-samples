@@ -30,7 +30,7 @@ jobs:
   baseline-profile:
     #    needs: changes
     #    # Only run action for the main repo & not forks and if change is in macrobenchmark sample
-    if: github.repository_owner == 'android' && (needs.changes.outputs.macrobenchmark == 'true' || github.event_name == 'workflow_dispatch')
+    # if: github.repository_owner == 'android' && (needs.changes.outputs.macrobenchmark == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: macos-latest
     timeout-minutes: 60
     defaults:
