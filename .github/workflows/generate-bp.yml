@@ -11,28 +11,26 @@ jobs:
   # It sets the outputs.macrobenchmark to true/false based on the changes.
   # In the next build job, it checks for needs.changes.outputs.macrobenchmark == 'true' 
   # or skips the job otherwise.
-  #  changes:
-  #    if: github.repository_owner == 'android'
-  #    runs-on: macos-latest
-  #    # Set job outputs to values from filter step to be able to use it in next job
-  #    outputs:
-  #      macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
-  #    steps:
-  #      - name: Checkout
-  #        uses: actions/checkout@v2
-  #        with:
-  #          fetch-depth: 1
-  #      - uses: dorny/paths-filter@v2
-  #        id: filter
-  #        with:
-  #          filters: |
-  #            macrobenchmark:
-  #              - 'MacrobenchmarkSample/**'
+  changes:
+    if: github.repository_owner == 'android'
+    runs-on: macos-latest
+    # Set job outputs to values from filter step to be able to use it in next job
+    outputs:
+      macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            macrobenchmark:
+              - 'MacrobenchmarkSample/**'
 
   baseline-profile:
     #    needs: changes
     #    # Only run action for the main repo & not forks and if change is in macrobenchmark sample
-    #    if: github.repository_owner == 'android' && needs.changes.outputs.macrobenchmark == 'true'
+    if: github.repository_owner == 'android' && (needs.changes.outputs.macrobenchmark == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: macos-latest
     timeout-minutes: 60
     defaults:
