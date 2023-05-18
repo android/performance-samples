@@ -85,10 +85,10 @@ jobs:
       - name: Create PR with generated profiles
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: 'Update baseline profiles'
-          committer: BP Bot <noreply@github.com>
-          author: BP Bot <noreply@github.com>
-          title: 'Update baseline profiles'
+          commit-message: '[Generated] Baseline Profiles'
+          committer: BP Bot <android-devrel-github-bot@google.com>
+          author: BP Bot <android-devrel-github-bot@google.com>
+          title: '[Generated] Baseline Profiles'
           body: 'Updates baseline profiles'
           reviewers: ${{ github.actor }}
           branch: bot/update-baseline-profiles
