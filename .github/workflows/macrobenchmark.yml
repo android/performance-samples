@@ -54,4 +54,4 @@ jobs:
           gradle-home-cache-cleanup: true
           
       - name: Build Macrobenchmark Sample
-        run: ./gradlew build -x test
+        run: ./gradlew assemble -x test
