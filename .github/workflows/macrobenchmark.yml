@@ -15,7 +15,7 @@ jobs:
   # or skips the job otherwise.
   changes:
     if: github.repository_owner == 'android' 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     # Set job outputs to values from filter step to be able to use it in next job
     outputs:
       macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
