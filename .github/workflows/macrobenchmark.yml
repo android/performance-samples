@@ -33,7 +33,7 @@ jobs:
     needs: changes
     # Only run action for the main repo & not forks and if change is in macrobenchmark sample
     if: github.repository_owner == 'android' && (needs.changes.outputs.macrobenchmark == 'true' || github.event_name == 'workflow_dispatch')
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: ./MacrobenchmarkSample
@@ -54,4 +54,4 @@ jobs:
           gradle-home-cache-cleanup: true
           
       - name: Build Macrobenchmark Sample
-        run: ./gradlew assemble
+        run: ./gradlew build -x test
