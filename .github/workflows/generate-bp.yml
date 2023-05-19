@@ -17,7 +17,7 @@ jobs:
   # or skips the job otherwise.
   changes:
     if: github.repository_owner == 'android'
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     # Set job outputs to values from filter step to be able to use it in next job
     outputs:
       macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
@@ -32,7 +32,7 @@ jobs:
               - 'MacrobenchmarkSample/**'
 
   baseline-profile:
-    #    needs: changes
+    needs: changes
     #    # Only run action for the main repo & not forks and if change is in macrobenchmark sample
     if: github.repository_owner == 'android' && (needs.changes.outputs.macrobenchmark == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: macos-latest
