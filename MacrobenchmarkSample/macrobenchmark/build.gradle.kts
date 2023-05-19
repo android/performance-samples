@@ -20,11 +20,11 @@ android {
     targetProjectPath = ":app"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     testOptions.managedDevices.devices {
@@ -54,14 +54,14 @@ android {
 }
 // [END macrobenchmark_setup_android]
 
-//// [START macrobenchmark_setup_variant]
+// [START macrobenchmark_setup_variant]
 androidComponents {
     beforeVariants(selector().all()) {
         // enable only the benchmark buildType, since we only want to measure close to release performance
         it.enable = it.buildType == "benchmark"
     }
 }
-//// [END macrobenchmark_setup_variant]
+// [END macrobenchmark_setup_variant]
 
 dependencies {
     implementation(project(":baseBenchmarks"))
