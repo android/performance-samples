@@ -5,6 +5,10 @@ on:
     branches: [ main, bpgp-ci ] # TODO remove custom branch once verified it's working
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # This job checks for any file changed within MacrobenchmarkSample/ folder
   # to distinguish if the build check for Macrobenchmark is needed to be run.
