@@ -56,12 +56,15 @@ jobs:
         working-directory: ./
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
+      - name: Clean GMD
+        run: ./gradlew cleanManagedDevices --unused-only
+
         # Runs all Baseline Profiles generators on Gradle Managed Device
         # If the module contains both benchmarks and generators, we need to filter just the generators,
         # because benchmarks should be run on a physical device and thus would fail by default.
       - name: Run generator with GMD
         run: >
-          ./gradlew cleanManagedDevices :app:generateBaselineProfile
+          ./gradlew :app:generateBaselineProfile
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
 
