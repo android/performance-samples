@@ -21,9 +21,7 @@ jobs:
       macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 1
+      uses: actions/checkout@v3
     - uses: dorny/paths-filter@v2
       id: filter
       with:
@@ -34,13 +32,14 @@ jobs:
   build:
     needs: changes
     # Only run action for the main repo & not forks and if change is in macrobenchmark sample
-    if: github.repository_owner == 'android' && needs.changes.outputs.macrobenchmark == 'true' 
+    if: github.repository_owner == 'android' && (needs.changes.outputs.macrobenchmark == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./MacrobenchmarkSample
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
     
       - name: Setup JDK
         id: setup-java
@@ -49,12 +48,14 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Build Macrobenchmark Sample
-        uses: eskatos/gradle-command-action@v1
-        env:
-          JAVA_HOME: ${{ steps.setup-java.outputs.path }}
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
-          build-root-directory: ${{ github.workspace }}/MacrobenchmarkSample
-          gradle-executable: ${{ github.workspace }}/MacrobenchmarkSample/gradlew
-          wrapper-directory: ${{ github.workspace }}/MacrobenchmarkSample/gradle/wrapper
+          gradle-home-cache-cleanup: true
+          
+      - name: Copy CI gradle.properties
+        working-directory: ./
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+        
+      - name: Build Macrobenchmark Sample
+        run: ./gradlew assemble
