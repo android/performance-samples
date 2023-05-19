@@ -67,7 +67,10 @@ jobs:
         # If the module contains both benchmarks and generators, we need to filter just the generators,
         # because benchmarks should be run on a physical device and thus would fail by default.
       - name: Run generator with GMD
-        run: >
+        uses: nick-fields/retry@v2
+        with:
+        max_attempts: 2
+        command: >
           ./gradlew :app:generateBaselineProfile
           -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
           -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
