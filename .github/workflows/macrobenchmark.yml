@@ -54,4 +54,7 @@ jobs:
           gradle-home-cache-cleanup: true
           
       - name: Build Macrobenchmark Sample
-        run: ./gradlew build -x test
+        run: >
+          ./gradlew assemble \
+            -x :baselineProfile:pixel6Api31NonMinifiedReleaseAndroidTest \
+            -x :baselineProfile:collectNonMinifiedReleaseBaselineProfile
