@@ -15,7 +15,7 @@ jobs:
   # or skips the job otherwise.
   changes:
     if: github.repository_owner == 'android' 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     # Set job outputs to values from filter step to be able to use it in next job
     outputs:
       macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
@@ -54,4 +54,7 @@ jobs:
           gradle-home-cache-cleanup: true
           
       - name: Build Macrobenchmark Sample
-        run: ./gradlew assemble -x test
+        run: >
+          ./gradlew assemble \
+            -x :baselineProfile:pixel6Api31NonMinifiedReleaseAndroidTest \
+            -x :baselineProfile:collectNonMinifiedReleaseBaselineProfile
