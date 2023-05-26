@@ -24,6 +24,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
+import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
@@ -40,7 +41,7 @@ class FullyDrawnStartupBenchmark {
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
         startupMode = StartupMode.COLD,
-        iterations = 1//DEFAULT_ITERATIONS,
+        iterations = DEFAULT_ITERATIONS,
     ) {
         val intent = Intent("$TARGET_PACKAGE.FULLY_DRAWN_STARTUP_ACTIVITY")
 
