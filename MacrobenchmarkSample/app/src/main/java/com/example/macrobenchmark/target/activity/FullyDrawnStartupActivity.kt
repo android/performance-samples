@@ -18,11 +18,17 @@ package com.example.macrobenchmark.target.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.ReportDrawnAfter
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.example.macrobenchmark.target.util.SampleViewModel
 
 class FullyDrawnStartupActivity : ComponentActivity() {
@@ -32,15 +38,21 @@ class FullyDrawnStartupActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TextBlock("Compose Macrobenchmark Target")
-            ReportDrawnAfter {
-                sampleViewModel.data.isReady()
+            var isLoaded by remember { mutableStateOf(false) }
+            ReportDrawnWhen { isLoaded }
+
+            LaunchedEffect(Unit) {
+                isLoaded = sampleViewModel.data.isReady()
+            }
+
+            Column {
+                Text("Compose Macrobenchmark Target")
+                if (!isLoaded) {
+                    CircularProgressIndicator()
+                } else {
+                    Text("Fully Drawn")
+                }
             }
         }
-    }
-
-    @Composable
-    fun TextBlock(text: String) {
-        Text(text)
     }
 }
