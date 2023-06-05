@@ -1,5 +1,6 @@
 [versions]
 agp = "8.0.0"
+rules = "1.5.0"
 targetSdk = "33"
 minSdk = "21"
 compileSdk = "33"
@@ -26,6 +27,7 @@ tracing = "1.1.0"
 uiAutomator = "2.2.0"
 
 [libraries]
+androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "jUnit" }
