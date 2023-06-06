@@ -23,7 +23,7 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import org.junit.Assert
 
 /**
- * Because the app under test is different from the one running the instrumentation test,
+ * Because the app under test runs in a different process from the one running the instrumentation test,
  * the permission has to be granted manually by either:
  *
  * - tapping the Allow button
