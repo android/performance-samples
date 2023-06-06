@@ -56,15 +56,6 @@ android {
 }
 // [END macrobenchmark_setup_android]
 
-// [START macrobenchmark_setup_variant]
-androidComponents {
-    beforeVariants(selector().all()) {
-        // enable only the benchmark buildType, since we only want to measure close to release performance
-        it.enable = it.buildType == "benchmark"
-    }
-}
-// [END macrobenchmark_setup_variant]
-
 dependencies {
     implementation(project(":baseBenchmarks"))
     implementation(libs.benchmark.junit)

@@ -77,9 +77,9 @@ class NonExportedActivityBenchmark {
         startActivityAndWait()
 
         // click a button to launch the target activity.
-        // While we use resourceId here to find the button, you could also use
-        // accessibility info or button text content.
-        val selector = By.res(packageName, "launchRecyclerActivity")
+        // While we use button text  here to find the button, you could also use
+        // accessibility info or resourceId.
+        val selector = By.text("RecyclerView")
         if (!device.wait(Until.hasObject(selector), 5_500)) {
             fail("Could not find resource in time")
         }
