@@ -43,7 +43,7 @@ abstract class BaselineProfileGeneratorScaffold {
     @OptIn(ExperimentalStableBaselineProfilesApi::class)
     @Test
     fun profileGenerator() {
-        rule.collectStableBaselineProfile(
+        rule.collect(
             packageName = TARGET_PACKAGE,
             maxIterations = 10
         ) {
