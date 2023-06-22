@@ -1,8 +1,8 @@
 [versions]
 agp = "8.0.0"
-targetSdk = "33"
+targetSdk = "34"
 minSdk = "21"
-compileSdk = "33"
+compileSdk = "34"
 
 activity = "1.7.1"
 appcompat = "1.6.1"

@@ -32,7 +32,7 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 abstract class BaselineProfileGeneratorScaffold {
-    
+
     @get:Rule
     val rule = BaselineProfileRule()
 
