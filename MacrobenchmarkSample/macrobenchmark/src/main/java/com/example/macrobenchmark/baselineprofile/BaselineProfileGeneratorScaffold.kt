@@ -30,11 +30,9 @@ import org.junit.runner.RunWith
  * A scaffold for creating a baseline profile user journey. Implementing classes can
  * start generating a profile directly by implementing [MacrobenchmarkScope.profileBlock].
  */
-
 @RunWith(AndroidJUnit4::class)
 abstract class BaselineProfileGeneratorScaffold {
-
-
+    
     @get:Rule
     val rule = BaselineProfileRule()
 
