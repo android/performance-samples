@@ -11,7 +11,7 @@ This sample shows how to use the Macrobenchmark library for testing application 
 performance cases, such as scrolling a `RecyclerView` or `LazyColumn` to measure jank.
 
 **Baseline Profiles** can be generated with the Macrobenchmark library. This sample contains
-[code to generate a baseline profile](MacrobenchmarkSample/macrobenchmark/src/main/java/com/example/macrobenchmark/baselineprofile/BaselineProfileGenerator.kt).
+[code to generate a baseline profile](MacrobenchmarkSample/macrobenchmark/src/main/java/com/example/macrobenchmark/baselineprofile/).
 
 The sample also includes a [GitHub workflow](.github/workflows/firebase_test_lab.yml) to run
 Macrobenchmarks on Firebase Test Lab. For more information refer to the [README.md](MacrobenchmarkSample/ftl/README.md).
