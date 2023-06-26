@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.espresso)
     implementation(libs.ui.automator)
     implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.rules)
 }
