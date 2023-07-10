@@ -83,7 +83,7 @@ class ScrollBenchmark {
                 StartupTimingMetric(),
                 FrameTimingMetric()
             ),
-            compilationMode = CompilationMode.Full(),
+            compilationMode = compilationMode,
             startupMode = null,
             iterations = DEFAULT_ITERATIONS,
             setupBlock = {
