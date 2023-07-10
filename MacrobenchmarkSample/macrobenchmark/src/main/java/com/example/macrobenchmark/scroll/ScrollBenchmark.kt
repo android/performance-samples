@@ -52,26 +52,6 @@ class ScrollBenchmark {
     fun defaultCompilation() = scroll(CompilationMode.DEFAULT)
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
-    fun partialBaselineProfileDisabled() =
-        scroll(
-            CompilationMode.Partial(
-                baselineProfileMode = BaselineProfileMode.Disable,
-                warmupIterations = 3
-            )
-        )
-
-    @Test
-    @SdkSuppress(minSdkVersion = 24)
-    fun partialBaselineProfileRequired() =
-        scroll(
-            CompilationMode.Partial(
-                baselineProfileMode = BaselineProfileMode.Require,
-                warmupIterations = 3
-            )
-        )
-
-    @Test
     fun full() = scroll(CompilationMode.Full())
 
     private fun scroll(compilationMode: CompilationMode) {
