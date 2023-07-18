@@ -28,6 +28,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
 import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
 import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import com.example.macrobenchmark.permissions.allowNotifications
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -62,6 +63,16 @@ class LoginBenchmark {
         }
     }
 
+    @Test
+    fun loginInAfterPermissionsGranted() {
+        benchmarkLoginActivity(setupBlock = {
+            allowNotifications()
+
+            startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
+            login()
+        })
+    }
+
     private fun MacrobenchmarkScope.login() {
         device.findObject(By.res("userName")).text = "user"
         device.findObject(By.res("password")).text = "password"
@@ -90,5 +101,4 @@ class LoginBenchmark {
             measureBlock()
         }
     }
-
 }

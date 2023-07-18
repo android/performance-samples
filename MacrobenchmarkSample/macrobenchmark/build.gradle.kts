@@ -8,12 +8,12 @@ plugins {
 // [START macrobenchmark_setup_android]
 android {
     // [START_EXCLUDE]
-    compileSdk = 33
+    compileSdk = 34
     namespace = "com.example.macrobenchmark"
 
     defaultConfig {
-        minSdk = 23 // Minimum supported version for Macrobenchmark
-        targetSdk = 33
+        minSdk = 23 // Minimum supported version for macrobenchmark
+        targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -54,19 +54,12 @@ android {
 }
 // [END macrobenchmark_setup_android]
 
-// [START macrobenchmark_setup_variant]
-androidComponents {
-    beforeVariants(selector().all()) {
-        // enable only the benchmark buildType, since we only want to measure close to release performance
-        it.enable = it.buildType == "benchmark"
-    }
-}
-// [END macrobenchmark_setup_variant]
-
 dependencies {
     implementation(project(":baseBenchmarks"))
     implementation(libs.benchmark.junit)
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
     implementation(libs.ui.automator)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.androidx.rules)
 }

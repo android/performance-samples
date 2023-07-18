@@ -16,18 +16,17 @@
 
 package com.example.macrobenchmark.target.util
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Random
 
 /** Pretending to load data from a remote source */
 class SampleData {
     private val random = Random()
     suspend fun isReady(): Boolean {
-        CoroutineScope(Dispatchers.Default).launch {
-            delay(random.nextInt(500).toLong())
+        withContext(Dispatchers.Default) {
+            delay(1000 + random.nextInt(1000).toLong())
         }
         return true
     }
