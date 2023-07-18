@@ -60,6 +60,4 @@ dependencies {
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
     implementation(libs.ui.automator)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.androidx.rules)
 }
