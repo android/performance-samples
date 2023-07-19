@@ -34,7 +34,7 @@ class RecyclerViewActivityBaselineProfileGenerator : BaselineProfileGeneratorSca
 
         // Scrolling RecyclerView journey
         device.findObject(By.res(packageName, "recycler")).also {
-            it.setGestureMargin(device.displayWidth / 5)
+            it.setGestureMargin(device.displayWidth / 10)
             it.fling(Direction.DOWN)
             it.fling(Direction.UP)
         }
