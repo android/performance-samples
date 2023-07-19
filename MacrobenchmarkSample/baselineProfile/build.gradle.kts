@@ -23,7 +23,7 @@ plugins {
 
 android {
     namespace = "com.example.benchmark.baselinprofile"
-    compileSdk = 33
+    compileSdk = 34
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -38,7 +38,7 @@ android {
         // Minimum supported version for Baseline Profiles.
         // On lower APIs, apps are fully AOT compile, therefore Baseline Profiles aren't needed.
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
