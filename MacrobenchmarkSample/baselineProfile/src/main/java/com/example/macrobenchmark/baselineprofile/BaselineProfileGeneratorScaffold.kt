@@ -16,7 +16,8 @@
 
 package com.example.macrobenchmark.baselineprofile
 
-import androidx.benchmark.macro.ExperimentalStableBaselineProfilesApi
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -50,10 +51,9 @@ abstract class BaselineProfileGeneratorScaffold {
      */
     abstract fun MacrobenchmarkScope.profileBlock()
 
-    @OptIn(ExperimentalStableBaselineProfilesApi::class)
     @Test
     fun profileGenerator() {
-        rule.collectStableBaselineProfile(
+        rule.collect(
             packageName = TARGET_PACKAGE,
             maxIterations = 10
         ) {

@@ -90,7 +90,7 @@ class NestedRecyclerFrameTimingBenchmarks {
             val nestedRecyclerToScroll = visibleNestedRecyclers[1]
 
             // Set gesture margin to avoid triggering gesture navigation with input events from automation.
-            nestedRecyclerToScroll.setGestureMargin(device.displayWidth / 5)
+            nestedRecyclerToScroll.setGestureMargin(device.displayWidth / 3)
 
             // swipe horizontally
             nestedRecyclerToScroll.fling(Direction.RIGHT)
