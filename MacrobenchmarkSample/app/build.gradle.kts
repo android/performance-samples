@@ -15,8 +15,9 @@
  */
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    alias(libs.plugins.application)
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -24,7 +25,7 @@ android {
     namespace = "com.example.macrobenchmark.target"
 
     defaultConfig {
-        applicationId ="com.example.macrobenchmark.target"
+        applicationId = "com.example.macrobenchmark.target"
         versionCode = 1
         versionName = "1.0"
         minSdk = 23 // Minimum supported version for macrobenchmark
@@ -46,7 +47,10 @@ android {
         val release = getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         create("benchmark") {
@@ -62,11 +66,11 @@ android {
     // [END macrobenchmark_setup_app_build_type]
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-opt-in=kotlin.RequiresOptIn"
         )
@@ -90,11 +94,12 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.coroutines.guava)
-    implementation(libs.kotlin.stdlib)
     implementation(libs.lifecycle)
     implementation(libs.profileinstaller)
     implementation(libs.squareup.curtains)
     implementation(libs.tracing)
     implementation(libs.viewmodel)
     androidTestImplementation(libs.benchmark.junit)
+
+    baselineProfile(project(":baselineProfile"))
 }

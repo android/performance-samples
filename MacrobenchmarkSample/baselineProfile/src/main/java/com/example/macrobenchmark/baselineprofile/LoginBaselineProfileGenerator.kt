@@ -23,7 +23,7 @@ import androidx.test.uiautomator.By
 class LoginBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
 
     override fun MacrobenchmarkScope.profileBlock() {
-        startActivityAndWait(Intent().setAction("$packageName.LOGIN_ACTIVITY"))
+        startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
         device.findObject(By.res("userName")).text = "user"
         device.findObject(By.res("password")).text = "password"
         device.findObject(By.res("login")).click()

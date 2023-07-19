@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-rootProject.name = "macrobenchmark"
-include(":app")
-include(":baseBenchmarks")
-include(":macrobenchmark")
+package com.example.macrobenchmark.baselineprofile
 
+import androidx.benchmark.macro.MacrobenchmarkScope
 
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
+/**
+ * This baseline profile generator creates a baseline profile only for the app startup.
+ */
+class StartupOnlyBaselineProfileGenerator: BaselineProfileGeneratorScaffold() {
+
+    override fun MacrobenchmarkScope.profileBlock() {
+        startActivityAndWait()
     }
 }
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-include(":baselineProfile")

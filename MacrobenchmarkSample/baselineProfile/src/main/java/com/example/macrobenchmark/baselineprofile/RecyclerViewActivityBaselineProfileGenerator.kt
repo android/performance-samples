@@ -21,27 +21,20 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import com.example.benchmark.macro.base.util.TARGET_PACKAGE
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class ComposeActivityBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
-
+class RecyclerViewActivityBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
 
     override fun MacrobenchmarkScope.profileBlock() {
-        // Start into the Compose Activity
-        startActivityAndWait(
-            Intent()
-                .setAction("$TARGET_PACKAGE.COMPOSE_ACTIVITY")
-        )
+        // Start into the RecyclerViewActivity
+        startActivityAndWait(Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY"))
 
-        // Scrolling through the Compose journey
-        with(device) {
-            findObject(By.res("myLazyColumn")).also {
-                it.setGestureMargin(device.displayWidth / 10)
-                it.fling(Direction.DOWN)
-                it.fling(Direction.UP)
-            }
+        // Scrolling RecyclerView journey
+        device.findObject(By.res(packageName, "recycler")).also {
+            it.setGestureMargin(device.displayWidth / 10)
+            it.fling(Direction.DOWN)
+            it.fling(Direction.UP)
         }
 
     }

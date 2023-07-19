@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright 2022 The Android Open Source Project
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
+        android:name=".ExampleApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_notice"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Macrobenchmarktarget"
-        android:name=".ExampleApplication"
-        >
-        <!-- [START macrobenchmark_setup_profileable] -->
-        <!-- enable profiling by macrobenchmark -->
+        android:theme="@style/Theme.Macrobenchmarktarget">
         <profileable
             android:shell="true"
-            tools:targetApi="q" />
+            tools:targetApi="29,q" />
         <!-- [END macrobenchmark_setup_profileable] -->
-
         <!--
         Activities need to be exported so the Macrobenchmarks can discover them
         under the new package visibility changes for Android 11.
@@ -50,66 +30,62 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.clicklatency.ComposeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.COMPOSE_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.FullyDrawnStartupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.FULLY_DRAWN_STARTUP_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.clicklatency.ListViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.LIST_VIEW_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.LOGIN_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-
-        <!-- non-exported activities -->
+        </activity> <!-- non-exported activities -->
         <activity android:name=".activity.clicklatency.NonExportedRecyclerActivity" />
-
         <activity android:name=".activity.clicklatency.NestedRecyclerActivity" />
-
         <activity
             android:name=".activity.clicklatency.RecyclerViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.RECYCLER_VIEW_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.clicklatency.ScrollViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.example.macrobenchmark.target.SCROLL_VIEW_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

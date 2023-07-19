@@ -1,8 +1,8 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
 
 plugins {
-    id("com.android.test")
-    id("kotlin-android")
+    alias(libs.plugins.test)
+    alias(libs.plugins.kotlin)
 }
 
 // [START macrobenchmark_setup_android]
@@ -17,23 +17,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    targetProjectPath = ":app"
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    testOptions {
-        managedDevices {
-            devices {
-                create<ManagedVirtualDevice>("pixel6Api31") {
-                    device = "Pixel 6"
-                    apiLevel = 31
-                    systemImageSource = "aosp"
-                }
-            }
+    testOptions.managedDevices.devices {
+        create<ManagedVirtualDevice>("pixel6Api31") {
+            device = "Pixel 6"
+            apiLevel = 31
+            systemImageSource = "aosp"
         }
     }
     // [END_EXCLUDE]
@@ -62,6 +60,4 @@ dependencies {
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
     implementation(libs.ui.automator)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.androidx.rules)
 }
