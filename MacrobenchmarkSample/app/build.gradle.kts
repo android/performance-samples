@@ -28,7 +28,7 @@ android {
         applicationId = "com.example.macrobenchmark.target"
         versionCode = 1
         versionName = "1.0"
-        minSdk = 23 // Minimum supported version for macrobenchmark
+        minSdk = 21 // Minimum SDK for target application can be lower than for benchmarks.
         targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
