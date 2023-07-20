@@ -30,11 +30,12 @@ import org.junit.runner.RunWith
  * start generating a profile directly by implementing [MacrobenchmarkScope.profileBlock].
  */
 @RunWith(AndroidJUnit4::class)
+@RequiresApi(Build.VERSION_CODES.P)
 abstract class BaselineProfileGeneratorScaffold {
 
     @get:Rule
     val rule = BaselineProfileRule()
-
+    
     /**
      * Generate a baseline profile in this function.
      */

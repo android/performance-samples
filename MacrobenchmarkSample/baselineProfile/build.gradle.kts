@@ -66,6 +66,7 @@ baselineProfile {
 }
 
 dependencies {
+    implementation(project(":baseBenchmarks"))
     implementation(libs.benchmark.junit)
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
