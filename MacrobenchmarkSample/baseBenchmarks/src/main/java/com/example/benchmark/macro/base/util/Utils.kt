@@ -19,7 +19,6 @@ package com.example.benchmark.macro.base.util
 import android.util.Log
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.SearchCondition
-import androidx.test.uiautomator.Tracer
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
@@ -36,7 +35,6 @@ fun UiDevice.findOrFail(
     selector: BySelector,
     message: String? = null,
 ): UiObject2 {
-    Tracer.trace(selector)
     val element = findObject(selector)
     if (element == null) {
         val hierarchy = getWindowHierarchy()
@@ -72,7 +70,6 @@ fun UiDevice.waitAndFind(
     timeout: Long = 5_000,
     message: String? = null,
 ): UiObject2 {
-    Tracer.trace(selector)
     waitOrFail(Until.hasObject(selector), timeout, message)
     return findOrFail(selector, message)
 }
