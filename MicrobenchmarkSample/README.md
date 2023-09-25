@@ -41,7 +41,7 @@ Open the project in Android Studio Arctic Fox 2020.3.1 or later, and run benchma
 
 Alternatively, run from command line with:
 ```
-./gradlew benchmark:cC
+./gradlew benchmark:connectedCheck
 ```
 
 ### Locking Clocks

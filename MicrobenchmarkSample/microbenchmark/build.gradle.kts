@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
 
         // Set this argument to capture profiling information, instead of measuring performance.
         // Can be one of:
@@ -33,9 +33,15 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_18.toString()
+    }
+
     namespace = "com.example.benchmark"
 }
 
