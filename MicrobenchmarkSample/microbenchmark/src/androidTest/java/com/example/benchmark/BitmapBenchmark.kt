@@ -18,6 +18,8 @@ package com.example.benchmark
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.benchmark.ExperimentalBenchmarkConfigApi
+import androidx.benchmark.MicrobenchmarkConfig
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -33,8 +35,11 @@ private const val JETPACK = "images/jetpack.png"
 @RunWith(AndroidJUnit4::class)
 class BitmapBenchmark {
 
+    @OptIn(ExperimentalBenchmarkConfigApi::class)
     @get:Rule
-    val benchmarkRule = BenchmarkRule()
+    val benchmarkRule = BenchmarkRule(
+        MicrobenchmarkConfig(shouldEnableTraceAppTag = true, shouldEnablePerfettoSdkTracing =  true)
+    )
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
