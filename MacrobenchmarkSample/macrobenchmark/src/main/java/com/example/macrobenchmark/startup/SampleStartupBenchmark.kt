@@ -16,7 +16,10 @@
 
 package com.example.macrobenchmark.startup
 
+import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.StartupTimingMetric
+import androidx.benchmark.macro.TraceSectionMetric
+import androidx.benchmark.macro.TraceSectionMetric.Mode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -33,10 +36,17 @@ class SampleStartupBenchmark {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
+    @OptIn(ExperimentalMetricApi::class)
     @Test
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
-        metrics = listOf(StartupTimingMetric()),
+        metrics = listOf(
+            StartupTimingMetric(),
+            TraceSectionMetric("activityStart", Mode.First),
+            TraceSectionMetric("activityResume", Mode.First),
+            TraceSectionMetric("Choreographer#doFrame %", Mode.Sum),
+
+            ),
         iterations = DEFAULT_ITERATIONS,
         setupBlock = {
             // Press home button before each run to ensure the starting activity isn't visible.

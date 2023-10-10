@@ -1,11 +1,11 @@
 [versions]
-agp = "8.1.0"
+agp = "8.1.2"
 appcompat = "1.6.1"
-benchmark = "1.2.0-beta02"
+benchmark = "1.2.0-rc01"
 cardView = "1.0.0"
 constraintLayout = "2.1.4"
-core = "1.10.1"
-kotlin = "1.8.22"
+core = "1.12.0"
+kotlin = "1.9.0"
 material = "1.9.0"
 recyclerView = "1.3.1"
 
@@ -13,6 +13,7 @@ androidxTest = "1.5.2"
 androidxTestRules = "1.5.0"
 espressoCore = "3.5.1"
 jUnit = "4.13.2"
+perfetto = "1.0.0-rc01"
 testExt = "1.1.5"
 
 [libraries]
@@ -26,6 +27,8 @@ espresso = { group = "androidx.test.espresso", name = "espresso-core", version.r
 junit = { group = "junit", name = "junit", version.ref = "jUnit" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+perfetto-binary = { group = "androidx.tracing", name = "tracing-perfetto-binary", version.ref = "perfetto"}
+perfetto-tracing = { group = "androidx.tracing", name = "tracing-perfetto", version.ref = "perfetto"}
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerView" }
 test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "testExt" }
 test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }

@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.kotlin.stdlib)
     implementation(libs.recyclerview)
+    implementation(libs.perfetto.binary)
+    implementation(libs.perfetto.tracing)
 
     androidTestImplementation(libs.espresso)
     androidTestImplementation(libs.test.ext)
