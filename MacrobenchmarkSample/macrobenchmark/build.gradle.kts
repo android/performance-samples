@@ -16,7 +16,7 @@
 
 import com.android.build.api.dsl.ManagedVirtualDevice
 
-plugins {
+plugins {\
     id("kotlin-android")
     alias(libs.plugins.test)
     alias(libs.plugins.kotlin)
