@@ -16,7 +16,6 @@
 
 rootProject.name = "macrobenchmark"
 include(":app")
-include(":baseBenchmarks")
 include(":macrobenchmark")
 
 
@@ -34,4 +33,3 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
-include(":baselineProfile")
