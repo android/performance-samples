@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.frames
+package com.example.macrobenchmark.benchmark.frames
 
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
@@ -26,8 +26,8 @@ import androidx.test.filters.LargeTest
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
-import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
-import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
+import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import junit.framework.TestCase.fail
 import org.junit.Rule
 import org.junit.Test

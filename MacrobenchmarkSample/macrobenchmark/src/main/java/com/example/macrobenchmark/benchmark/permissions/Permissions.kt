@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.permissions
+package com.example.macrobenchmark.benchmark.permissions
 
 import android.Manifest.permission
 import android.os.Build.VERSION.SDK_INT

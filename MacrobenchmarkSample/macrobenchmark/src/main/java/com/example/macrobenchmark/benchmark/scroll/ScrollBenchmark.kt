@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.scroll
+package com.example.macrobenchmark.benchmark.scroll
 
 import android.content.Intent
-import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -25,13 +24,12 @@ import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import androidx.test.filters.SdkSuppress
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.Until
-import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
-import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
+import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test

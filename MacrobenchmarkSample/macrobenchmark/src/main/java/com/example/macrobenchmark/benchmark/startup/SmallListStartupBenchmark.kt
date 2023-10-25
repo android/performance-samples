@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.example.macrobenchmark.startup
+package com.example.macrobenchmark.benchmark.startup
 
 import android.content.Intent
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
-import com.example.benchmark.macro.base.util.DEFAULT_ITERATIONS
-import com.example.benchmark.macro.base.util.TARGET_PACKAGE
+import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
+import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
