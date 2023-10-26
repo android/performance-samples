@@ -56,5 +56,5 @@ jobs:
       - name: Build Macrobenchmark Sample
         run: >
           ./gradlew assemble \
-            -x :baselineProfile:pixel6Api31NonMinifiedReleaseAndroidTest \
-            -x :baselineProfile:collectNonMinifiedReleaseBaselineProfile
+            -x :macrobenchmark:pixel6Api31NonMinifiedReleaseAndroidTest \
+            -x :macrobenchmark:collectNonMinifiedReleaseBaselineProfile
