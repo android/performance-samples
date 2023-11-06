@@ -57,4 +57,9 @@ jobs:
         run: >
           ./gradlew assemble \
             -x :macrobenchmark:pixel6Api31NonMinifiedReleaseAndroidTest \
-            -x :macrobenchmark:collectNonMinifiedReleaseBaselineProfile
+            -x :macrobenchmark:collectNonMinifiedReleaseBaselineProfile \
+            -Pandroidx.benchmark.enabledRules=BaselineProfile \
+            -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" \
+            -Pandroid.experimental.testOptions.managedDevices.setupTimeoutMinutes=180 \
+            -Pandroid.experimental.androidTest.numManagedDeviceShards=1 \
+            -Pandroid.experimental.testOptions.managedDevices.maxConcurrentDevices=1
