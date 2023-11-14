@@ -21,8 +21,8 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import com.example.benchmark.macro.base.util.findOrFail
-import com.example.benchmark.macro.base.util.waitAndFind
+import com.example.macrobenchmark.benchmark.util.findOrFail
+import com.example.macrobenchmark.benchmark.util.waitAndFind
 import org.junit.Ignore
 import org.junit.runner.RunWith
 

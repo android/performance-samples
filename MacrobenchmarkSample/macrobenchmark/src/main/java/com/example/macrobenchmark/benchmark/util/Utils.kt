@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.benchmark.macro.base.util
+package com.example.macrobenchmark.benchmark.util
 
 import android.util.Log
 import androidx.test.uiautomator.BySelector
