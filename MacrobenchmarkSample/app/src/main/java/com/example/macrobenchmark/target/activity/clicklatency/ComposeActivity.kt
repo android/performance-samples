@@ -48,6 +48,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tracing.trace
 import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.util.ClickTrace
 
@@ -90,15 +91,16 @@ class ComposeActivity : ComponentActivity() {
                         value = value,
                         onValueChange = { value = it },
                         placeholder = { Text("Enter text here") }
-                        )
+                    )
 
                     LazyColumn(
                         modifier = Modifier
                             .testTag("myLazyColumn")
                     ) {
                         items(data, key = { it.contents }) { item ->
-                            EntryRow(entry = item,
-                                Modifier
+                            EntryRow(
+                                entry = item,
+                                modifier = Modifier
                                     .padding(8.dp)
                                     .clickable {
                                         ClickTrace.onClickPerformed()
@@ -106,7 +108,8 @@ class ComposeActivity : ComponentActivity() {
                                             .Builder(this@ComposeActivity)
                                             .setMessage("Item clicked")
                                             .show()
-                                    })
+                                    }
+                            )
                         }
                     }
                 }
@@ -124,7 +127,7 @@ class ComposeActivity : ComponentActivity() {
 }
 
 @Composable
-private fun EntryRow(entry: Entry, modifier: Modifier = Modifier) {
+private fun EntryRow(entry: Entry, modifier: Modifier = Modifier) = trace("EntryRow") {
     Card(modifier = modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(

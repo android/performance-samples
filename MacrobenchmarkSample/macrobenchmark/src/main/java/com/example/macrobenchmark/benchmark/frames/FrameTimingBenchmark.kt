@@ -19,8 +19,10 @@ package com.example.macrobenchmark.benchmark.frames
 import android.content.Intent
 import android.graphics.Point
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
+import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -68,12 +70,25 @@ class FrameTimingBenchmark {
     }
     // [END macrobenchmark_control_your_app]
 
+    @OptIn(ExperimentalMetricApi::class)
     @Test
     fun scrollComposeList() {
         benchmarkRule.measureRepeated(
             // [START_EXCLUDE]
             packageName = TARGET_PACKAGE,
-            metrics = listOf(FrameTimingMetric()),
+            metrics = listOf(
+                FrameTimingMetric(),
+                // Measure custom trace sections by name EntryRow (which is added to the EntryRow composable).
+                // Mode.Sum measure combined duration and also how many times it occurred in the trace.
+                // This way, you can estimate whether a composable recomposes more than it should.
+                TraceSectionMetric("EntryRow", TraceSectionMetric.Mode.Sum),
+                // This trace section takes into account the SQL wildcard character %,
+                // which can find trace sections without knowing the full name.
+                // This way, you can measure composables produced by the composition tracing
+                // and measure how long they took and how many times they recomposed.
+                // WARNING: This metric only shows results when running with composition tracing, otherwise it won't be visible in the outputs.
+                TraceSectionMetric("%.EntryRow%", TraceSectionMetric.Mode.Sum),
+            ),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
             compilationMode = CompilationMode.None(),
