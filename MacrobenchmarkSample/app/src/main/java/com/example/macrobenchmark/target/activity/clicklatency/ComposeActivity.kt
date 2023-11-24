@@ -127,7 +127,7 @@ class ComposeActivity : ComponentActivity() {
 }
 
 @Composable
-private fun EntryRow(entry: Entry, modifier: Modifier = Modifier) = trace("EntryRow") {
+private fun EntryRow(entry: Entry, modifier: Modifier = Modifier) = trace("EntryRowCustomTrace") {
     Card(modifier = modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(

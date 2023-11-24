@@ -81,13 +81,13 @@ class FrameTimingBenchmark {
                 // Measure custom trace sections by name EntryRow (which is added to the EntryRow composable).
                 // Mode.Sum measure combined duration and also how many times it occurred in the trace.
                 // This way, you can estimate whether a composable recomposes more than it should.
-                TraceSectionMetric("EntryRow", TraceSectionMetric.Mode.Sum),
+                TraceSectionMetric("EntryRowCustomTrace", TraceSectionMetric.Mode.Sum),
                 // This trace section takes into account the SQL wildcard character %,
                 // which can find trace sections without knowing the full name.
                 // This way, you can measure composables produced by the composition tracing
                 // and measure how long they took and how many times they recomposed.
                 // WARNING: This metric only shows results when running with composition tracing, otherwise it won't be visible in the outputs.
-                TraceSectionMetric("%.EntryRow%", TraceSectionMetric.Mode.Sum),
+                TraceSectionMetric("%EntryRow (%", TraceSectionMetric.Mode.Sum),
             ),
             // Try switching to different compilation modes to see the effect
             // it has on frame timing metrics.
