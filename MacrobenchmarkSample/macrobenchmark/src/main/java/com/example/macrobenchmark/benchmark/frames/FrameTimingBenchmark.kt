@@ -17,6 +17,7 @@
 package com.example.macrobenchmark.benchmark.frames
 
 import android.content.Intent
+import android.graphics.Point
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
@@ -100,7 +101,7 @@ class FrameTimingBenchmark {
             column.setGestureMargin(device.displayWidth / 5)
 
             // Scroll down several times
-            repeat(3) { column.fling(Direction.DOWN) }
+            repeat(1) { column.drag(Point(column.visibleCenter.x, column.visibleBounds.top)) }
         }
     }
 }
