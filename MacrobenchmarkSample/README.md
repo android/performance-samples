@@ -38,6 +38,18 @@ Alternatively, run the benchmarks from terminal with:
 ./gradlew macrobenchmark:cC
 ```
 
+### Macrobenchmark with Composition Tracing
+Composition Tracing allows to run system tracing with information on when all Composables (re)compose.
+This gives you insights on where the UI spends majority of the time and helps you find jank.
+
+To set up composition tracing for your app, follow our [documentation](https://developer.android.com/jetpack/compose/tooling/tracing).
+To get composition tracing when running a macrobenchmark, you also need to use `androidx.benchmark.perfettoSdkTracing.enable=true` instrumentation argument.
+
+You can check the `Scroll List With Composition Tracing` run configuration that is part of the project, 
+which runs the scroll compose list benchmark while also recording the information on composition.
+
+![System trace with composition tracing](media/composition-tracing.png)
+
 ### Reporting Issues
 
 You can report an [Issue with the sample](https://github.com/googlesamples/android-performance/issues) using this repository. If you find an issue with the Macrobenchmark library, report it using the [Issue Tracker](https://issuetracker.google.com/issues/new?component=975669&template=1519452).
