@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
+    implementation(libs.compose.runtime.tracing)
     implementation(libs.constraintlayout)
     implementation(libs.concurrentfutures)
     implementation(libs.core)

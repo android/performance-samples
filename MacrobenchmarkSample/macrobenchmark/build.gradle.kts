@@ -91,4 +91,10 @@ dependencies {
     implementation(libs.androidx.junit)
     implementation(libs.espresso)
     implementation(libs.ui.automator)
+
+    // Adds dependencies to enable running Composition Tracing from Macrobenchmarks.
+    // These dependencies are already included with Macrobenchmark, but we have them here to specify the version.
+    // For more information on Composition Tracing, check https://developer.android.com/jetpack/compose/tooling/tracing.
+    implementation(libs.tracing.perfetto)
+    implementation(libs.tracing.perfetto.binary)
 }
