@@ -63,51 +63,14 @@ jobs:
       - name: Clean GMD
         run: ./gradlew cleanManagedDevices --unused-only
 
-        # Runs all Baseline Profiles generators on Gradle Managed Device
-        # If the module contains both benchmarks and generators, we need to filter just the generators,
-        # because benchmarks should be run on a physical device and thus would fail by default.
-      - name: Run generator with GMD
-        uses: nick-fields/retry@v2
-        with:
-        max_attempts: 2
-        command: >
-          ./gradlew :app:generateBaselineProfile
-          -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
-          -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
-
-      - name: Upload Logcat logs
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: "Logcat"
-          path: MacrobenchmarkSample/baselineProfile/build/outputs/androidTest-results/managedDevice/pixel6Api31/logcat-*.txt
-
-      # Upload all the generated profiles to artifacts
-      - name: Upload generated profiles
-        uses: actions/upload-artifact@v3
-        with:
-          name: "Baseline Profiles"
-          path: MacrobenchmarkSample/app/src/release/generated/baselineProfiles/*.txt
-
-      # Create a PR with the generated Baseline Profiles
-      - name: Create PR with generated profiles
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.ANDROID_DEVREL_BOT_TOKEN }}
-          commit-message: '[Generated] Baseline Profiles'
-          committer: BP Bot <android-devrel-github-bot@google.com>
-          author: BP Bot <android-devrel-github-bot@google.com>
-          title: '[Generated] Baseline Profiles'
-          body: 'Updates baseline profiles'
-          reviewers: ${{ github.actor }}
-          branch: bot/update-baseline-profiles
-
-      # If you generate the rules before producing your production app, you need to build it here with the profile.
-      # We use benchmark variant, because release variant is not specified,
-      # but generally this is where you want to generate your production version of your app
+      # With the baseline profile Gradle plugin, release variants generate baseline profiles.
       - name: Build production app
-        run: >
-          ./gradlew assembleRelease
+        run: ./gradlew assembleRelease
+             -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules=BaselineProfile
+             -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+             -Pandroid.experimental.testOptions.managedDevices.emulator.showKernelLogging=true
+             -Pandroid.experimental.androidTest.numManagedDeviceShards=1
+             -Pandroid.experimental.testOptions.managedDevices.maxConcurrentDevices=1
           
       - name: Upload app with Baseline Profile
         uses: actions/upload-artifact@v3
