@@ -32,7 +32,7 @@ android {
     defaultConfig {
         // Minimum supported version for Baseline Profiles.
         // On lower APIs, apps are fully AOT compile, therefore Baseline Profiles aren't needed.
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
