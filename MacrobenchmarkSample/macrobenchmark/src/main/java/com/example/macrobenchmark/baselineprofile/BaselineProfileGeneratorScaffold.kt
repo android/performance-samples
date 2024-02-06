@@ -16,8 +16,6 @@
 
 package com.example.macrobenchmark.baselineprofile
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -30,7 +28,6 @@ import org.junit.runner.RunWith
  * start generating a profile directly by implementing [MacrobenchmarkScope.profileBlock].
  */
 @RunWith(AndroidJUnit4::class)
-@RequiresApi(Build.VERSION_CODES.P)
 abstract class BaselineProfileGeneratorScaffold {
 
     @get:Rule
@@ -45,7 +42,8 @@ abstract class BaselineProfileGeneratorScaffold {
     fun profileGenerator() {
         rule.collect(
             packageName = TARGET_PACKAGE,
-            maxIterations = 10
+            maxIterations = 15,
+            stableIterations = 3
         ) {
             profileBlock()
         }
