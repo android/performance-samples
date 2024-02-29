@@ -60,18 +60,6 @@ android {
     targetProjectPath = ":app"
     // Enable the benchmark to run separately from the app process
     experimentalProperties["android.experimental.self-instrumenting"] = true
-
-    buildTypes {
-        // declare a build type to match the target app"s build type
-        create("benchmark") {
-            isDebuggable = true
-            signingConfig = signingConfigs.getByName("debug")
-            // [START_EXCLUDE silent]
-            // Selects release buildType if the benchmark buildType not available in other modules.
-            matchingFallbacks.add("release")
-            // [END_EXCLUDE]
-        }
-    }
 }
 // [END macrobenchmark_setup_android]
 
