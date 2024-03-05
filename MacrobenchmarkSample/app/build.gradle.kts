@@ -44,7 +44,7 @@ android {
 
     // [START macrobenchmark_setup_app_build_type]
     buildTypes {
-        val release = getByName("release") {
+        getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
