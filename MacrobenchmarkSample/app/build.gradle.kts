@@ -54,16 +54,6 @@ android {
             // In real app, this would use its own release keystore
             signingConfig = signingConfigs.getByName("debug")
         }
-
-        create("benchmark") {
-            initWith(release)
-            signingConfig = signingConfigs.getByName("debug")
-            // [START_EXCLUDE silent]
-            // Selects release buildType if the benchmark buildType not available in other modules.
-            matchingFallbacks.add("release")
-            // [END_EXCLUDE]
-            proguardFiles("benchmark-rules.pro")
-        }
     }
     // [END macrobenchmark_setup_app_build_type]
 
