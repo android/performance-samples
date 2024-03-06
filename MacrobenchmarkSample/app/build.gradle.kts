@@ -28,7 +28,7 @@ android {
         applicationId = "com.example.macrobenchmark.target"
         versionCode = 1
         versionName = "1.0"
-        minSdk = 21 // Minimum SDK for target application can be lower than for benchmarks.
+        minSdk = 24
         targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,7 +44,7 @@ android {
 
     // [START macrobenchmark_setup_app_build_type]
     buildTypes {
-        val release = getByName("release") {
+        getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -53,16 +53,6 @@ android {
             )
             // In real app, this would use its own release keystore
             signingConfig = signingConfigs.getByName("debug")
-        }
-
-        create("benchmark") {
-            initWith(release)
-            signingConfig = signingConfigs.getByName("debug")
-            // [START_EXCLUDE silent]
-            // Selects release buildType if the benchmark buildType not available in other modules.
-            matchingFallbacks.add("release")
-            // [END_EXCLUDE]
-            proguardFiles("benchmark-rules.pro")
         }
     }
     // [END macrobenchmark_setup_app_build_type]
