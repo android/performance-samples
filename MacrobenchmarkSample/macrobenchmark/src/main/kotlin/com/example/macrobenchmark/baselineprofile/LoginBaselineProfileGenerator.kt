@@ -37,6 +37,7 @@ class LoginBaselineProfileGenerator {
             maxIterations = 15,
             stableIterations = 3
         ) {
+            device.clearData(this)
             startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
             device.findObject(By.res("userName")).text = "user"
             device.findObject(By.res("password")).text = "password"
