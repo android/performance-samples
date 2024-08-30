@@ -16,6 +16,7 @@
 
 plugins {
     alias(libs.plugins.application)
+    alias(libs.plugins.compose)
     alias(libs.plugins.kotlin)
     alias(libs.plugins.baselineprofile)
 }
@@ -36,10 +37,6 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     // [START macrobenchmark_setup_app_build_type]
