@@ -17,16 +17,31 @@
 package com.example.macrobenchmark.baselineprofile
 
 import android.content.Intent
-import androidx.benchmark.macro.MacrobenchmarkScope
+import androidx.benchmark.macro.junit4.BaselineProfileRule
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.uiautomator.By
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-class LoginBaselineProfileGenerator : BaselineProfileGeneratorScaffold() {
+@RunWith(AndroidJUnit4ClassRunner::class)
+class LoginBaselineProfileGenerator {
 
-    override fun MacrobenchmarkScope.profileBlock() {
-        startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
-        device.findObject(By.res("userName")).text = "user"
-        device.findObject(By.res("password")).text = "password"
-        device.findObject(By.res("login")).click()
-        device.waitForIdle()
+    @get:Rule
+    val rule = BaselineProfileRule()
+
+    @Test
+    fun generate() {
+        rule.collect(
+            packageName = TARGET_PACKAGE,
+            maxIterations = 15,
+            stableIterations = 3
+        ) {
+            startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
+            device.findObject(By.res("userName")).text = "user"
+            device.findObject(By.res("password")).text = "password"
+            device.findObject(By.res("login")).click()
+            device.waitForIdle()
+        }
     }
 }
