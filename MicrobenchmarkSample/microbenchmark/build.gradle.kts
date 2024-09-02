@@ -10,7 +10,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
 
         // Set this argument to capture profiling information, instead of measuring performance.
         // Can be one of:
