@@ -2,10 +2,8 @@ name: Builds Macrobenchmarks
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, 'labeled']
   push:
     branches: [ macrobenchmark, main ]
-  workflow_dispatch:
 
 jobs:
   # This job checks for any file changed within MacrobenchmarkSample/ folder 
