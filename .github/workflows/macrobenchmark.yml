@@ -19,8 +19,8 @@ jobs:
       macrobenchmark: ${{ steps.filter.outputs.macrobenchmark }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
-    - uses: dorny/paths-filter@v2
+      uses: actions/checkout@v4
+    - uses: dorny/paths-filter@v3
       id: filter
       with:
         filters: |
@@ -37,7 +37,7 @@ jobs:
         working-directory: ./MacrobenchmarkSample
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
     
       - name: Setup JDK
         id: setup-java
