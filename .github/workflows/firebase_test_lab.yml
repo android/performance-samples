@@ -70,7 +70,7 @@ jobs:
       - name: Install Cloud SDK Beta components
         run: gcloud components install beta
       
-      - name: Run Macro Benchmarks
+      - name: Run Benchmarks
         run: |
           gcloud beta firebase test android run \
             --type instrumentation \
@@ -80,5 +80,19 @@ jobs:
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
             --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true,androidx.benchmark.enabledRules=Macrobenchmark \
-            --num-uniform-shards 3 \
+            --num-uniform-shards 6 \
             --timeout 30m
+
+      - name: Generate Baseline Profiles
+        run: |
+          gcloud beta firebase test android run \
+            --type instrumentation \
+            --app ${{ github.workspace }}/MacrobenchmarkSample/app/build/outputs/apk/benchmarkRelease/app-benchmarkRelease.apk \
+            --test ${{ github.workspace }}/MacrobenchmarkSample/macrobenchmark/build/outputs/apk/benchmarkRelease/macrobenchmark-benchmarkRelease.apk \
+            --device model=lynx,version=33,locale=en,orientation=portrait \
+            --directories-to-pull /sdcard/Download \
+            --results-bucket gs://macrobenchmark-results \
+            --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true,androidx.benchmark.enabledRules=BaselineProfile \
+            --num-uniform-shards 2 \
+            --timeout 30m
+
