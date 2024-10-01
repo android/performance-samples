@@ -139,7 +139,6 @@
 "@grpc/grpc-js@~1.8.0":
   version "1.8.22"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.8.22.tgz#847930c9af46e14df05b57fc12325db140ceff1d"
-
 "@google-cloud/storage@^7.7.0":
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/storage/-/storage-7.9.0.tgz#d9da66c1aae8d35b4cde67963c85a1bc671a391b"
@@ -414,13 +413,9 @@ bignumber.js@^9.0.0:
   version "9.0.2"
   resolved "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.2.tgz"
 
-bluebird@^3.7.2:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
-
-body-parser@1.20.3:
-  version "1.20.3"
-  resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.20.3.tgz#1953431221c6fb5cd63c4b36d53fab0928e548c6"
+body-parser@1.20.1:
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.20.1.tgz#b1812a8912c195cd371a3ee5e66faa2338a5c668"
   dependencies:
     bytes "3.1.2"
     content-type "~1.0.5"
@@ -608,20 +603,6 @@ ent@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/ent/-/ent-2.2.0.tgz"
 
-entities@~2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/entities/-/entities-2.1.0.tgz#992d3129cf7df6870b96c57858c249a120f8b8b5"
-
-es-define-property@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/es-define-property/-/es-define-property-1.0.0.tgz#c7faefbdff8b2696cf5f46921edfb77cc4ba3845"
-  dependencies:
-    get-intrinsic "^1.2.4"
-
-es-errors@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/es-errors/-/es-errors-1.3.0.tgz#05f75a25dab98e4fb1dcd5e1472c0546d5057c8f"
-
 escalade@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz"
@@ -760,13 +741,9 @@ fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
 
-fs.realpath@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
-
-function-bind@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.2.tgz#2c02d864d97f3ea6c8830c464cbd11ab6eab7a1c"
+function-bind@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
 functional-red-black-tree@^1.0.1:
   version "1.0.1"
@@ -867,16 +844,6 @@ google-p12-pem@^4.0.0:
   dependencies:
     node-forge "^1.3.1"
 
-gopd@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.0.1.tgz#29ff76de69dac7489b7c0918a5788e56477c332c"
-  dependencies:
-    get-intrinsic "^1.1.3"
-
-graceful-fs@^4.1.9:
-  version "4.2.10"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
-
 gtoken@^6.1.0:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/gtoken/-/gtoken-6.1.2.tgz#aeb7bdb019ff4c3ba3ac100bbe7b6e74dce0e8bc"
@@ -973,6 +940,34 @@ is-stream@^2.0.0:
 jose@^4.14.6:
   version "4.15.5"
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.15.5.tgz#6475d0f467ecd3c630a1b5dadd2735a7288df706"
+  dependencies:
+    "@panva/asn1.js" "^1.0.0"
+
+js2xmlparser@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/js2xmlparser/-/js2xmlparser-4.0.2.tgz#2a1fdf01e90585ef2ae872a01bc169c6a8d5e60a"
+  dependencies:
+    xmlcreate "^2.0.4"
+
+jsdoc@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/jsdoc/-/jsdoc-4.0.2.tgz#a1273beba964cf433ddf7a70c23fd02c3c60296e"
+  dependencies:
+    "@babel/parser" "^7.20.15"
+    "@jsdoc/salty" "^0.2.1"
+    "@types/markdown-it" "^12.2.3"
+    bluebird "^3.7.2"
+    catharsis "^0.9.0"
+    escape-string-regexp "^2.0.0"
+    js2xmlparser "^4.0.2"
+    klaw "^3.0.0"
+    markdown-it "^12.3.2"
+    markdown-it-anchor "^8.4.1"
+    marked "^4.0.10"
+    mkdirp "^1.0.4"
+    requizzle "^0.2.3"
+    strip-json-comments "^3.1.0"
+    underscore "~1.13.2"
 
 json-bigint@^1.0.0:
   version "1.0.0"
