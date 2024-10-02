@@ -60,7 +60,7 @@ jobs:
           wrapper-directory: ${{ github.workspace }}/MacrobenchmarkSample/gradle/wrapper
 
       - name: 'Authenticate Cloud SDK'
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
