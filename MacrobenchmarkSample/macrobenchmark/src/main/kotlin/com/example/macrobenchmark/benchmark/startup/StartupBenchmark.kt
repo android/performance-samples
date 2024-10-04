@@ -16,12 +16,15 @@
 
 package com.example.macrobenchmark.benchmark.startup
 
+import androidx.benchmark.ExperimentalBenchmarkConfigApi
+import androidx.benchmark.ExperimentalConfig
+import androidx.benchmark.StartupInsightsConfig
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
-import androidx.test.filters.SdkSuppress
+import androidx.benchmark.perfetto.ExperimentalPerfettoCaptureApi
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
@@ -55,16 +58,15 @@ class HotStartupBenchmark : AbstractStartupBenchmark(StartupMode.HOT)
  * Base class for benchmarks with different startup modes.
  * Enables app startups from various states of baseline profile or [CompilationMode]s.
  */
+@OptIn(ExperimentalBenchmarkConfigApi::class, ExperimentalPerfettoCaptureApi::class)
 abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
     @get:Rule
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun startupNoCompilation() = startup(CompilationMode.None())
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun startupPartialCompilation() = startup(
         CompilationMode.Partial(
             baselineProfileMode = BaselineProfileMode.Disable,
@@ -73,7 +75,6 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
     )
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun startupPartialWithBaselineProfiles() =
         startup(CompilationMode.Partial(baselineProfileMode = BaselineProfileMode.Require))
 
@@ -83,6 +84,7 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
     private fun startup(compilationMode: CompilationMode) = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
+        experimentalConfig = ExperimentalConfig(startupInsightsConfig = StartupInsightsConfig(true)),
         compilationMode = compilationMode,
         iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
