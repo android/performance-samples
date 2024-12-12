@@ -18,21 +18,26 @@ package com.example.macrobenchmark.benchmark
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.benchmark.ExperimentalBenchmarkConfigApi
+import androidx.benchmark.ExperimentalConfig
+import androidx.benchmark.StartupInsightsConfig
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+import androidx.benchmark.perfetto.ExperimentalPerfettoCaptureApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.By
+import com.example.macrobenchmark.benchmark.permissions.allowNotifications
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import com.example.macrobenchmark.benchmark.permissions.allowNotifications
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@OptIn(ExperimentalBenchmarkConfigApi::class, ExperimentalPerfettoCaptureApi::class)
 @RunWith(AndroidJUnit4::class)
 class LoginBenchmark {
 
@@ -89,6 +94,7 @@ class LoginBenchmark {
             packageName = TARGET_PACKAGE,
             metrics = listOf(StartupTimingMetric(), FrameTimingMetric()),
             compilationMode = CompilationMode.DEFAULT,
+            experimentalConfig = ExperimentalConfig(startupInsightsConfig = StartupInsightsConfig(true)),
             startupMode = StartupMode.COLD,
             iterations = DEFAULT_ITERATIONS,
             setupBlock = setupBlock,
