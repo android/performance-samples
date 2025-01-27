@@ -14,18 +14,18 @@
 
 [versions]
 
-agp = "7.3.1"
-appcompat = "1.7.0-alpha01"
+agp = "8.8.0"
+appcompat = "1.10.0"
 compose = "1.2.1"
-composeBom = "2022.11.00"
-coroutines = "1.6.4"
-constraint_layout = "2.1.4"
+composeBom = "2025.01.00"
+coroutines = "1.10.1"
+constraint_layout = "2.2.0"
 core = "1.9.0"
-jankstats = "1.0.0-alpha03"
-kotlin = "1.7.10"
-material = "1.7.0"
-navigation = "2.5.3"
-tracing = "1.1.0"
+jankstats = "1.0.0-beta01"
+kotlin = "2.1.10"
+material = "1.12.0"
+navigation = "2.8.5"
+tracing = "1.2.0"
 
 [libraries]
 
