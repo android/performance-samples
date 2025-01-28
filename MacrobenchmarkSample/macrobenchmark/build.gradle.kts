@@ -26,14 +26,14 @@ plugins {
 // [START macrobenchmark_setup_android]
 android {
     // [START_EXCLUDE]
-    compileSdk = 34
+    compileSdk = 35
     namespace = "com.example.macrobenchmark"
 
     defaultConfig {
         // Minimum supported version for Baseline Profiles.
         // On lower APIs, apps are fully AOT compile, therefore Baseline Profiles aren't needed.
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

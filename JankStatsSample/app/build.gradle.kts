@@ -16,11 +16,12 @@
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 35
 
     buildFeatures {
         viewBinding = true
@@ -30,7 +31,7 @@ android {
     defaultConfig {
         applicationId = "com.example.jankstats"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
