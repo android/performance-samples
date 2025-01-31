@@ -42,13 +42,13 @@ jobs:
     
       - name: Setup JDK
         id: setup-java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'zulu'
             
       - name: Build Macrobenchmark Sample
-        uses: eskatos/gradle-command-action@v1
+        uses: eskatos/gradle-command-action@v3
         env:
           JAVA_HOME: ${{ steps.setup-java.outputs.path }}
         with:
