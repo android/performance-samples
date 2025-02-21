@@ -52,7 +52,7 @@ android {
         jvmTarget = "11"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     namespace = "com.example.jankstats"
 }
