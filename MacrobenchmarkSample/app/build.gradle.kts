@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     namespace = "com.example.macrobenchmark.target"
 
     defaultConfig {
@@ -30,7 +30,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
