@@ -17,14 +17,14 @@
 agp = "8.9.0"
 appcompat = "1.7.0"
 activity = "1.10.1"
-composeBom = "2025.02.00"
+composeBom = "2025.03.00"
 coroutines = "1.10.1"
 constraint_layout = "2.2.1"
 core = "1.9.0"
-jankstats = "1.0.0-beta01"
+jankstats = "1.0.0-beta02"
 kotlin = "2.1.10"
 material = "1.12.0"
-navigation = "2.8.8"
+navigation = "2.8.9"
 tracing = "1.2.0"
 
 [libraries]
