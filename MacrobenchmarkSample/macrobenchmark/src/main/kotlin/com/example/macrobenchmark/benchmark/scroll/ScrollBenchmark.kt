@@ -25,12 +25,10 @@ import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,7 +51,6 @@ class ScrollBenchmark {
     fun full() = scroll(CompilationMode.Full())
 
     private fun scroll(compilationMode: CompilationMode) {
-        var firstStart = true
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(
@@ -64,27 +61,20 @@ class ScrollBenchmark {
             compilationMode = compilationMode,
             startupMode = null,
             iterations = DEFAULT_ITERATIONS,
-            setupBlock = {
-                if (firstStart) {
-                    val intent = Intent("$packageName.SCROLL_VIEW_ACTIVITY")
-                    startActivityAndWait(intent)
-                    firstStart = false
-                }
-            }
         ) {
-            device.wait(Until.hasObject(By.scrollable(true)), 5_000)
+            uiAutomator {
+                startIntent(Intent("$packageName.SCROLL_VIEW_ACTIVITY"))
+                val scrollableObject = onView { isScrollable }
 
-            val scrollableObject = device.findObject(By.scrollable(true))
-            if (scrollableObject == null) {
-                TestCase.fail("No scrollable view found in hierarchy")
-            }
-            scrollableObject.setGestureMargin(device.displayWidth / 10)
-            scrollableObject?.apply {
-                repeat(2) {
-                    fling(Direction.DOWN)
-                }
-                repeat(2) {
-                    fling(Direction.UP)
+                scrollableObject.setGestureMargin(device.displayWidth / 10)
+
+                scrollableObject.apply {
+                    repeat(2) {
+                        fling(Direction.DOWN)
+                    }
+                    repeat(2) {
+                        fling(Direction.UP)
+                    }
                 }
             }
         }

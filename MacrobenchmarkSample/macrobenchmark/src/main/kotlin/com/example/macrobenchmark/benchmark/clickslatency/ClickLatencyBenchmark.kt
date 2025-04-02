@@ -19,16 +19,14 @@ package com.example.macrobenchmark.benchmark.clickslatency;
 import android.content.Intent
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
-import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.UiAutomatorTestScope
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import junit.framework.TestCase.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,147 +45,93 @@ class ClickLatencyBenchmark {
 
     @Test
     fun simpleViewClick() {
-        var firstStart = true
         benchmarkRule.measureRepeated(
-                packageName = TARGET_PACKAGE,
-                metrics = listOf(TraceSectionMetric("ClickTrace")),
-                compilationMode = CompilationMode.Full(),
-                startupMode = null,
-                iterations = DEFAULT_ITERATIONS,
-                setupBlock = {
-                    if (firstStart) {
-                        startActivityAndWait()
-                        firstStart = false
-                    }
-                }
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(TraceSectionMetric("ClickTrace")),
+            compilationMode = CompilationMode.Full(),
+            startupMode = null,
+            iterations = DEFAULT_ITERATIONS,
         ) {
-            clickOnId("launchRecyclerActivity")
-            waitForTextShown("RecyclerView Sample")
-            device.pressBack()
-            waitForTextGone("RecyclerView Sample")
+            uiAutomator {
+                startApp()
+                val title = "RecyclerView Sample"
+                onView { viewIdResourceName == "launchRecyclerActivity" }.click()
+                onView { text == title && isVisibleToUser }
+                pressBack()
+                onView { text == title && !isVisibleToUser }
+            }
         }
     }
 
     @Test
     fun recyclerViewClick() {
-        var firstStart = true
         benchmarkRule.measureRepeated(
-                packageName = TARGET_PACKAGE,
-                metrics = listOf(TraceSectionMetric("ClickTrace")),
-                compilationMode = CompilationMode.Full(),
-                startupMode = null,
-                iterations = DEFAULT_ITERATIONS,
-                setupBlock = {
-                    if (firstStart) {
-                        val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
-                        startActivityAndWait(intent)
-                        firstStart = false
-                    }
-                }
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(TraceSectionMetric("ClickTrace")),
+            compilationMode = CompilationMode.Full(),
+            startupMode = null,
+            iterations = DEFAULT_ITERATIONS,
         ) {
-            clickOnFirstItem()
+            uiAutomator {
+                startIntent(Intent("$packageName.RECYCLER_VIEW_ACTIVITY"))
+                clickOnFirstItem()
+            }
         }
     }
 
     @Test
     fun composeLazyColumnClick() {
-        var firstStart = true
         benchmarkRule.measureRepeated(
-                packageName = TARGET_PACKAGE,
-                metrics = listOf(TraceSectionMetric("ClickTrace")),
-                compilationMode = CompilationMode.Full(),
-                startupMode = null,
-                iterations = DEFAULT_ITERATIONS,
-                setupBlock = {
-                    if (firstStart) {
-                        val intent = Intent("$packageName.COMPOSE_ACTIVITY")
-                        startActivityAndWait(intent)
-                        firstStart = false
-                    }
-                }
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(TraceSectionMetric("ClickTrace")),
+            compilationMode = CompilationMode.Full(),
+            startupMode = null,
+            iterations = DEFAULT_ITERATIONS,
         ) {
-            clickOnFirstItem()
+            uiAutomator {
+                startIntent(Intent("$packageName.COMPOSE_ACTIVITY"))
+                clickOnFirstItem()
+            }
         }
     }
 
     @Test
     fun listViewClick() {
-        var firstStart = true
         benchmarkRule.measureRepeated(
-                packageName = TARGET_PACKAGE,
-                metrics = listOf(TraceSectionMetric("ClickTrace")),
-                compilationMode = CompilationMode.Full(),
-                startupMode = null,
-                iterations = DEFAULT_ITERATIONS,
-                setupBlock = {
-                    if (firstStart) {
-                        val intent = Intent("$packageName.LIST_VIEW_ACTIVITY")
-                        startActivityAndWait(intent)
-                        firstStart = false
-                    }
-                }
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(TraceSectionMetric("ClickTrace")),
+            compilationMode = CompilationMode.Full(),
+            startupMode = null,
+            iterations = DEFAULT_ITERATIONS,
         ) {
-            clickOnFirstItem()
+            uiAutomator {
+                startIntent(Intent("$packageName.LIST_VIEW_ACTIVITY"))
+                clickOnFirstItem()
+            }
         }
     }
 
     @Test
     fun scrollViewClick() {
-        var firstStart = true
         benchmarkRule.measureRepeated(
-                packageName = TARGET_PACKAGE,
-                metrics = listOf(TraceSectionMetric("ClickTrace")),
-                compilationMode = CompilationMode.Full(),
-                startupMode = null,
-                iterations = DEFAULT_ITERATIONS,
-                setupBlock = {
-                    if (firstStart) {
-                        val intent = Intent("$packageName.SCROLL_VIEW_ACTIVITY")
-                        startActivityAndWait(intent)
-                        firstStart = false
-                    }
-                }
+            packageName = TARGET_PACKAGE,
+            metrics = listOf(TraceSectionMetric("ClickTrace")),
+            compilationMode = CompilationMode.Full(),
+            startupMode = null,
+            iterations = DEFAULT_ITERATIONS,
         ) {
-            clickOnFirstItem()
+            uiAutomator {
+                startIntent(Intent("$packageName.SCROLL_VIEW_ACTIVITY"))
+                clickOnFirstItem()
+            }
         }
     }
 
-    private fun MacrobenchmarkScope.clickOnFirstItem() {
-        clickOnText("Item 0")
-        waitForTextShown("Item clicked")
-        // Dismiss dialog
-        device.pressBack()
-        waitForTextGone("Item clicked")
-    }
-
-    private fun MacrobenchmarkScope.waitForTextShown(text: String) {
-        check(device.wait(Until.hasObject(By.text(text)), 500)) {
-            "View showing '$text' not found after waiting 500 ms."
-        }
-    }
-
-    private fun MacrobenchmarkScope.waitForTextGone(text: String) {
-        check(device.wait(Until.gone(By.text(text)), 500)) {
-            "View showing '$text' not found after waiting 500 ms."
-        }
-    }
-
-    private fun MacrobenchmarkScope.clickOnText(text: String) {
-        device
-            .findObject(By.text(text))
-            .click()
-    }
-
-    private fun MacrobenchmarkScope.clickOnId(resourceId: String) {
-        val selector = By.res(resourceId)
-        if (!device.wait(Until.hasObject(selector), 2_500)) {
-            fail("Did not find object with id $resourceId")
-        }
-
-        device
-            .findObject(selector)
-            .click()
-        // Chill to ensure we capture the end of the click span in the trace.
-        Thread.sleep(100)
+    private fun UiAutomatorTestScope.clickOnFirstItem() {
+        onView { text == "Item 0" }.click()
+        onView { text == "Item clicked" && isVisibleToUser }
+        pressBack()
+        onView { text == "Item clicked" && !isVisibleToUser }
     }
 }
+

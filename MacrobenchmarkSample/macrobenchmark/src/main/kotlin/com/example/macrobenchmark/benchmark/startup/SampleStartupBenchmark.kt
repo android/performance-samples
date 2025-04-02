@@ -20,6 +20,7 @@ import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -44,7 +45,9 @@ class SampleStartupBenchmark {
         }
     ) {
         // starts default launch activity
-        startActivityAndWait()
+        uiAutomator {
+            startApp()
+        }
     }
 }
 // [END macrobenchmark_startup]

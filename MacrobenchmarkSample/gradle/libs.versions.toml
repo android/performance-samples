@@ -19,7 +19,7 @@ profileInstaller = "1.4.1"
 runtimeTracing = "1.7.8"
 tracing = "1.3.0-beta01"
 tracingPerfetto = "1.0.0"
-uiAutomator = "2.3.0"
+uiAutomator = "2.4.0-SNAPSHOT"
 
 [libraries]
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
