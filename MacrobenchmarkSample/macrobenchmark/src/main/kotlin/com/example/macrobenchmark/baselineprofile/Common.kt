@@ -16,18 +16,14 @@
 
 package com.example.macrobenchmark.baselineprofile
 
-import androidx.benchmark.macro.MacrobenchmarkScope
-import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiAutomatorTestScope
 
 const val TARGET_PACKAGE = "com.example.macrobenchmark.target"
 
 /**
- * Clears the application data for the package specified in the [MacrobenchmarkScope].
- * @param scope The [MacrobenchmarkScope] providing information about the benchmark,
- * including the package name of the app under test.
+ * Clears the application data for the launcher package.
  */
-fun UiDevice.clearData(scope: MacrobenchmarkScope) {
-    val command = "pm clear ${scope.packageName}"
-    val output = executeShellCommand(command)
-//    Assert.assertEquals("Success", output)
+fun UiAutomatorTestScope.clearData() {
+    val command = "pm clear $TARGET_PACKAGE"
+    uiDevice.executeShellCommand(command)
 }

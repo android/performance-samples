@@ -18,6 +18,7 @@ package com.example.macrobenchmark.baselineprofile
 
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.uiautomator.uiAutomator
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -41,7 +42,9 @@ class StartupProfileGenerator {
             stableIterations = 3,
             includeInStartupProfile = true
         ) {
-            startActivityAndWait()
+            uiAutomator {
+                startApp()
+            }
         }
     }
 }
