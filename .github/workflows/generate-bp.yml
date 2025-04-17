@@ -3,6 +3,8 @@ name: Generate Baseline Profiles
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 concurrency:
@@ -77,4 +79,3 @@ jobs:
         with:
           name: "Production App"
           path: MacrobenchmarkSample/app/build/outputs/apk/release/*.apk
-      
