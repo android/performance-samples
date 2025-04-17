@@ -3,6 +3,8 @@ name: Runs Macro Benchmarks on Firebase Test Lab
 on:
   push:
     branches: [ macrobenchmark, main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -95,4 +97,3 @@ jobs:
             --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true,androidx.benchmark.enabledRules=BaselineProfile \
             --num-uniform-shards 2 \
             --timeout 30m
-
