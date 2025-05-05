@@ -1,9 +1,9 @@
 name: Generate Baseline Profiles
 
 on:
+  # We ONLY want to build baseline profiles for pushes on main.
+  # Do not trigger on "pull_request" because it takes too much time and resources.
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
