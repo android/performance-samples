@@ -19,6 +19,7 @@ package com.example.macrobenchmark.target.activity.clicklatency
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,6 +57,7 @@ import com.example.macrobenchmark.target.util.ClickTrace
 @OptIn(ExperimentalComposeUiApi::class)
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         // This argument allows the Macrobenchmark tests control the content being tested.
@@ -77,7 +80,7 @@ class ComposeActivity : ComponentActivity() {
                     // It can be enabled high in the compose hierarchy,
                     // so that it's enabled for the whole subtree
                     testTagsAsResourceId = true
-                }
+                }.safeDrawingPadding()
             ) {
                 // Thanks to [SemanticsPropertyReceiver.testTagsAsResourceId],
                 // [Modifier.testTag]s will be propagated to resource-id

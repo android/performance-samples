@@ -17,7 +17,11 @@
 package com.example.macrobenchmark.target.activity.clicklatency
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.macrobenchmark.target.databinding.ActivityRecyclerViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
@@ -25,10 +29,27 @@ import com.example.macrobenchmark.target.recyclerview.EntryAdapter
 
 open class RecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         title = "RecyclerView Sample"
         val binding = ActivityRecyclerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.recycler) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            // Apply the insets as padding to the RecyclerView
+            view.updatePadding(
+                left = insets.left,
+                top = insets.top,     // Padding for the status bar
+                right = insets.right,
+                bottom = insets.bottom // Padding for the navigation bar
+            )
+
+            // Return the insets to signal that they have been consumed
+            WindowInsetsCompat.CONSUMED
+        }
+
 
         // This argument allows the Macrobenchmark tests control the content being tested.
         // In your app, you could use this approach to navigate to a consistent UI.

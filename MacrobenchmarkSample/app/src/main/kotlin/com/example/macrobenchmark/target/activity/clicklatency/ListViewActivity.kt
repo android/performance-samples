@@ -22,8 +22,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.example.macrobenchmark.target.databinding.ActivityListViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.util.ClickTrace
@@ -34,10 +38,28 @@ import com.example.macrobenchmark.target.util.ClickTrace
 class ListViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         title = "ListView Sample"
         val binding = ActivityListViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.listview) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            // Apply the insets as padding to the RecyclerView
+            view.updatePadding(
+                left = insets.left,
+                top = insets.top,     // Padding for the status bar
+                right = insets.right,
+                bottom = insets.bottom // Padding for the navigation bar
+            )
+
+            // Return the insets to signal that they have been consumed
+            WindowInsetsCompat.CONSUMED
+        }
+
+
         val itemCount = intent.getIntExtra(RecyclerViewActivity.EXTRA_ITEM_COUNT, 1000)
 
         val items = List(itemCount) {

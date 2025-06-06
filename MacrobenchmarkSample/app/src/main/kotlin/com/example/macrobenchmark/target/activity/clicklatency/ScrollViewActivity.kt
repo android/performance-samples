@@ -19,8 +19,12 @@ package com.example.macrobenchmark.target.activity.clicklatency
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.example.macrobenchmark.target.R
 import com.example.macrobenchmark.target.databinding.ActivityScrollViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
@@ -32,10 +36,26 @@ import com.example.macrobenchmark.target.util.ClickTrace
 class ScrollViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         title = "ScrollView Sample"
         val binding = ActivityScrollViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            // Apply the insets as padding to the RecyclerView
+            view.updatePadding(
+                left = insets.left,
+                top = insets.top,     // Padding for the status bar
+                right = insets.right,
+                bottom = insets.bottom // Padding for the navigation bar
+            )
+
+            // Return the insets to signal that they have been consumed
+            WindowInsetsCompat.CONSUMED
+        }
         val itemCount = intent.getIntExtra(RecyclerViewActivity.EXTRA_ITEM_COUNT, 1000)
 
         val items = List(itemCount) {
