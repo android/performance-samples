@@ -95,5 +95,5 @@ jobs:
             --directories-to-pull /sdcard/Download \
             --results-bucket gs://macrobenchmark-results \
             --environment-variables clearPackageData=true,additionalTestOutputDir=/sdcard/Download,no-isolated-storage=true,androidx.benchmark.enabledRules=BaselineProfile \
-            --num-uniform-shards 2 \
+            --num-uniform-shards 1 \
             --timeout 30m
