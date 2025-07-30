@@ -21,8 +21,8 @@ import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
-import androidx.test.filters.SdkSuppress
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -60,11 +60,9 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun startupNoCompilation() = startup(CompilationMode.None())
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun startupPartialCompilation() = startup(
         CompilationMode.Partial(
             baselineProfileMode = BaselineProfileMode.Disable,
@@ -73,7 +71,6 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
     )
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun startupPartialWithBaselineProfiles() =
         startup(CompilationMode.Partial(baselineProfileMode = BaselineProfileMode.Require))
 
@@ -90,6 +87,8 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
             pressHome()
         }
     ) {
-        startActivityAndWait()
+        uiAutomator {
+            startApp(TARGET_PACKAGE)
+        }
     }
 }

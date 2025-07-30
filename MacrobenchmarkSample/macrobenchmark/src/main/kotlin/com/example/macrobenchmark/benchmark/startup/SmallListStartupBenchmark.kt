@@ -21,6 +21,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.filters.LargeTest
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -49,10 +50,14 @@ class SmallListStartupBenchmark(
             pressHome()
         }
     ) {
-        val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
-        intent.putExtra("ITEM_COUNT", LIST_ITEMS)
-
-        startActivityAndWait(intent)
+        uiAutomator {
+            startIntent(
+                Intent("$packageName.RECYCLER_VIEW_ACTIVITY").putExtra(
+                    "ITEM_COUNT",
+                    LIST_ITEMS
+                )
+            )
+        }
     }
 
     @Test
@@ -66,10 +71,12 @@ class SmallListStartupBenchmark(
             pressHome()
         }
     ) {
-        val intent = Intent("$packageName.COMPOSE_ACTIVITY")
-        intent.putExtra("ITEM_COUNT", LIST_ITEMS)
-
-        startActivityAndWait(intent)
+        uiAutomator {
+            startIntent(
+                Intent("$packageName.COMPOSE_ACTIVITY")
+                    .putExtra("ITEM_COUNT", LIST_ITEMS)
+            )
+        }
     }
 
     companion object {
