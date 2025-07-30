@@ -23,16 +23,14 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.textAsString
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import junit.framework.TestCase.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeUnit
 
 
 @LargeTest
@@ -60,37 +58,24 @@ class NonExportedActivityBenchmark {
             setupBlock = setupBenchmark()
         ) {
             // [START_EXCLUDE]
-            val recycler = device.findObject(By.res(packageName, "recycler"))
-
-            // Set gesture margin to avoid triggering gesture navigation
-            // with input events from automation.
-            recycler.setGestureMargin(device.displayWidth / 5)
-
-            // Fling the recycler several times
-            repeat(3) { recycler.fling(Direction.DOWN) }
+            uiAutomator {
+                onElement { className == "androidx.recyclerview.widget.RecyclerView" }.run {
+                    repeat(3) { fling(Direction.DOWN)}
+                }
+            }
             // [END_EXCLUDE]
         }
     }
 
     private fun setupBenchmark(): MacrobenchmarkScope.() -> Unit = {
-        // Before starting to measure, navigate to the UI to be measured
-        startActivityAndWait()
-
-        // click a button to launch the target activity.
-        // While we use button text  here to find the button, you could also use
-        // accessibility info or resourceId.
-        val selector = By.text("RecyclerView")
-        if (!device.wait(Until.hasObject(selector), 5_500)) {
-            fail("Could not find resource in time")
+        uiAutomator {
+            // Before starting to measure, navigate to the UI to be measured
+            startApp(TARGET_PACKAGE)
+            // click a button to launch the target activity.
+            onElement { textAsString() == "RecyclerView" }.click()
+            // wait until the activity is shown
+            waitForStableInActiveWindow()
         }
-        val launchRecyclerActivity = device.findObject(selector)
-        launchRecyclerActivity.click()
-
-        // wait until the activity is shown
-        device.wait(
-            Until.hasObject(By.clazz("$packageName.NonExportedRecyclerActivity")),
-            TimeUnit.SECONDS.toMillis(10)
-        )
     }
     // [END macrobenchmark_navigate_within_app]
 
