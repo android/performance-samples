@@ -25,10 +25,12 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiAutomatorTestScope
+import androidx.test.uiautomator.textAsString
+import androidx.test.uiautomator.uiAutomator
+import androidx.test.uiautomator.watcher.PermissionDialog
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import com.example.macrobenchmark.benchmark.permissions.allowNotifications
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,33 +53,39 @@ class LoginBenchmark {
     @Test
     fun loginInSetupBlock() {
         benchmarkLoginActivity(setupBlock = {
-            startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
-            login()
+            uiAutomator {
+                startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
+                login()
+            }
         })
     }
 
     @Test
     fun loginWithUiAutomator() {
         benchmarkLoginActivity {
-            login()
+            uiAutomator { login() }
         }
     }
 
     @Test
     fun loginInAfterPermissionsGranted() {
         benchmarkLoginActivity(setupBlock = {
-            allowNotifications()
+            uiAutomator {
+                watchFor(PermissionDialog) {
+                    clickAllow()
+                }
+                startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
+                login()
+            }
 
-            startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
-            login()
+
         })
     }
 
-    private fun MacrobenchmarkScope.login() {
-        device.findObject(By.res("userName")).text = "user"
-        device.findObject(By.res("password")).text = "password"
-        device.findObject(By.res("login")).click()
-        device.waitForIdle()
+    private fun UiAutomatorTestScope.login() {
+        onElement { viewIdResourceName == "userName" }.text = "user"
+        onElement { viewIdResourceName == "password" }.text = "password"
+        onElement { textAsString() == "Login" }.click()
     }
 
     private fun benchmarkLoginActivity(
@@ -93,11 +101,11 @@ class LoginBenchmark {
             iterations = DEFAULT_ITERATIONS,
             setupBlock = setupBlock,
         ) {
-            startActivityAndWait(
-                Intent()
+            uiAutomator {
+                startIntent(Intent()
                     .putExtras(extras)
-                    .setAction("$packageName.LOGIN_ACTIVITY")
-            )
+                    .setAction("$packageName.LOGIN_ACTIVITY"))
+            }
             measureBlock()
         }
     }
