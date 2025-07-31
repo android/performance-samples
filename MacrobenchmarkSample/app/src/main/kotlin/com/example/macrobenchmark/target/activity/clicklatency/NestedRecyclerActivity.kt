@@ -19,6 +19,9 @@ package com.example.macrobenchmark.target.activity.clicklatency
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -54,6 +57,20 @@ class NestedRecyclerActivity : AppCompatActivity() {
                     adapter.submitList(it)
                 }
             }
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.recycler) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
         }
     }
 }
