@@ -21,6 +21,9 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.example.macrobenchmark.target.R
 import com.example.macrobenchmark.target.databinding.ActivityScrollViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
@@ -36,6 +39,21 @@ class ScrollViewActivity : AppCompatActivity() {
         title = "ScrollView Sample"
         val binding = ActivityScrollViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.scrollcontent) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
+
         val itemCount = intent.getIntExtra(RecyclerViewActivity.EXTRA_ITEM_COUNT, 1000)
 
         val items = List(itemCount) {

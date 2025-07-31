@@ -26,10 +26,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -57,7 +58,7 @@ private const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalComposeUiApi::class)
+    @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -132,7 +133,7 @@ class MainActivity : ComponentActivity() {
                 .padding(8.dp)
                 .testTag(testTag),
             onClick = onClick,
-            border = BorderStroke(1.dp, MaterialTheme.colors.primary)
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
         ) {
             Text(name)
         }

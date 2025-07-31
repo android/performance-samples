@@ -24,6 +24,9 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.example.macrobenchmark.target.databinding.ActivityListViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.util.ClickTrace
@@ -71,6 +74,20 @@ class ListViewActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setMessage("Item clicked")
                 .show()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.listview) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
         }
 
     }

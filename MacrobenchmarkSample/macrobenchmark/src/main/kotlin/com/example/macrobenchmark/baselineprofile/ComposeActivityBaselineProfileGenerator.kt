@@ -19,10 +19,9 @@ package com.example.macrobenchmark.baselineprofile
 import android.content.Intent
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import com.example.macrobenchmark.benchmark.util.findOrFail
-import com.example.macrobenchmark.benchmark.util.waitAndFind
+import androidx.test.uiautomator.uiAutomator
+import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -42,16 +41,13 @@ class ComposeActivityBaselineProfileGenerator {
             maxIterations = 15,
             stableIterations = 3
         ) {
-            // Start into the Compose Activity
-            startActivityAndWait(Intent("$TARGET_PACKAGE.COMPOSE_ACTIVITY"))
-
-            // Scrolling through the Compose journey
-            device.waitAndFind(By.res("myLazyColumn")).also {
-                it.setGestureMargin(device.displayWidth / 10)
-                it.fling(Direction.DOWN)
+            uiAutomator {
+                // Start into the Compose Activity
+                startIntent(Intent("$TARGET_PACKAGE.COMPOSE_ACTIVITY"))
+                // Scrolling through the Compose journey
+                    onElement { viewIdResourceName == "myLazyColumn" }.fling(Direction.DOWN)
+                onElement { viewIdResourceName == "myLazyColumn" }.fling(Direction.UP)
             }
-
-            device.findOrFail(By.res("myLazyColumn")).fling(Direction.UP)
         }
     }
 }

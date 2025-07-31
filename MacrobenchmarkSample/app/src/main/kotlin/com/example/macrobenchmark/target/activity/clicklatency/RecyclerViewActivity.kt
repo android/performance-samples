@@ -18,6 +18,9 @@ package com.example.macrobenchmark.target.activity.clicklatency
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.macrobenchmark.target.databinding.ActivityRecyclerViewBinding
 import com.example.macrobenchmark.target.recyclerview.Entry
@@ -29,6 +32,20 @@ open class RecyclerViewActivity : AppCompatActivity() {
         title = "RecyclerView Sample"
         val binding = ActivityRecyclerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.recycler) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
         // This argument allows the Macrobenchmark tests control the content being tested.
         // In your app, you could use this approach to navigate to a consistent UI.
