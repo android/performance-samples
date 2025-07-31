@@ -21,7 +21,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,11 +29,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,9 +44,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tracing.trace
@@ -68,49 +66,35 @@ class ComposeActivity : ComponentActivity() {
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun BenchmarkComposeList(data: List<Entry>) {
         MaterialTheme {
-            Box(
-                modifier = Modifier.semantics {
-                    // Allows to use testTag() for UiAutomator's resource-id.
-                    // It can be enabled high in the compose hierarchy,
-                    // so that it's enabled for the whole subtree
-                    testTagsAsResourceId = true
-                }
-            ) {
-                // Thanks to [SemanticsPropertyReceiver.testTagsAsResourceId],
-                // [Modifier.testTag]s will be propagated to resource-id
-                // and can be accessed from benchmarks.
-                var value by remember { mutableStateOf("Enter text here") }
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    TextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .testTag("input"),
-                        value = value,
-                        onValueChange = { value = it },
-                        placeholder = { Text("Enter text here") }
-                    )
+            var value by remember { mutableStateOf("Enter text here") }
+            Column(modifier = Modifier.fillMaxWidth()) {
+                TopAppBar(title = { Text("Compose Sample") })
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    value = value,
+                    onValueChange = { value = it },
+                    placeholder = { Text("Enter text here") }
+                )
 
-                    LazyColumn(
-                        modifier = Modifier
-                            .testTag("myLazyColumn")
-                    ) {
-                        items(data, key = { it.contents }) { item ->
-                            EntryRow(
-                                entry = item,
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .clickable {
-                                        ClickTrace.onClickPerformed()
-                                        AlertDialog
-                                            .Builder(this@ComposeActivity)
-                                            .setMessage("Item clicked")
-                                            .show()
-                                    }
-                            )
-                        }
+                LazyColumn {
+                    items(data, key = { it.contents }) { item ->
+                        EntryRow(
+                            entry = item,
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .clickable {
+                                    ClickTrace.onClickPerformed()
+                                    AlertDialog
+                                        .Builder(this@ComposeActivity)
+                                        .setMessage("Item clicked")
+                                        .show()
+                                }
+                        )
                     }
                 }
             }

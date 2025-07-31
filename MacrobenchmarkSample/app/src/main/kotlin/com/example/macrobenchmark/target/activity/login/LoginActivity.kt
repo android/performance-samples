@@ -26,13 +26,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,10 +70,13 @@ class LoginActivity : ComponentActivity() {
             }
         }
         setContent {
-            LoginScreen()
+            MaterialTheme {
+                LoginScreen()
+            }
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun LoginScreen() {
         var userName by remember {
@@ -82,12 +87,14 @@ class LoginActivity : ComponentActivity() {
         }
         MaterialTheme {
             Box(
-                modifier = Modifier.semantics {
-                    // Allows to use testTag() for UiAutomator's resource-id.
-                    // It can be enabled high in the compose hierarchy,
-                    // so that it's enabled for the whole subtree
-                    testTagsAsResourceId = true
-                }
+                modifier = Modifier
+                    .semantics {
+                        // Allows to use testTag() for UiAutomator's resource-id.
+                        // It can be enabled high in the compose hierarchy,
+                        // so that it's enabled for the whole subtree
+                        testTagsAsResourceId = true
+                    }
+                    .safeDrawingPadding()
             ) {
 
                 Column(
