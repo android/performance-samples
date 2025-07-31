@@ -1,7 +1,7 @@
 [versions]
 agp = "8.11.1"
 appcompat = "1.7.1"
-benchmark = "1.3.4"
+benchmark = "1.4.0"
 cardView = "1.0.0"
 constraintLayout = "2.2.1"
 core = "1.16.0"
@@ -9,11 +9,11 @@ kotlin = "2.2.0"
 material = "1.12.0"
 recyclerView = "1.4.0"
 
-androidxTest = "1.6.2"
+androidxTest = "1.7.0"
 androidxTestRules = "1.6.1"
-espressoCore = "3.6.1"
+espressoCore = "3.7.0"
 jUnit = "4.13.2"
-testExt = "1.2.1"
+testExt = "1.3.0"
 
 [libraries]
 
