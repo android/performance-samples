@@ -23,7 +23,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.uiautomator.By
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -48,14 +48,18 @@ class TextInputFrameTimingBenchmark {
             iterations = DEFAULT_ITERATIONS,
             setupBlock = {
                 // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent("$packageName.COMPOSE_ACTIVITY")
-                startActivityAndWait(intent)
+                uiAutomator {
+                    startIntent(Intent("$packageName.COMPOSE_ACTIVITY"))
+                }
             }
         ) {
-            val input = device.findObject(By.res("input"))
-            repeat(3) {
-                input.text = ""
-                input.text = "Benchmark input $it"
+            uiAutomator {
+                with(onView { viewIdResourceName == "input" }) {
+                    repeat(3) {
+                        text = ""
+                        text = "Benchmark input $it"
+                    }
+                }
             }
         }
     }
