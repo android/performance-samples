@@ -24,13 +24,10 @@ import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SdkSuppress
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import junit.framework.TestCase
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -43,7 +40,6 @@ class ScrollBenchmark {
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    @SdkSuppress(minSdkVersion = 24)
     fun noCompilation() = scroll(CompilationMode.None())
 
     @Test
@@ -66,25 +62,21 @@ class ScrollBenchmark {
             iterations = DEFAULT_ITERATIONS,
             setupBlock = {
                 if (firstStart) {
-                    val intent = Intent("$packageName.SCROLL_VIEW_ACTIVITY")
-                    startActivityAndWait(intent)
+                    uiAutomator {
+                        startIntent(Intent("$packageName.SCROLL_VIEW_ACTIVITY"))
+                    }
                     firstStart = false
                 }
             }
         ) {
-            device.wait(Until.hasObject(By.scrollable(true)), 5_000)
-
-            val scrollableObject = device.findObject(By.scrollable(true))
-            if (scrollableObject == null) {
-                TestCase.fail("No scrollable view found in hierarchy")
-            }
-            scrollableObject.setGestureMargin(device.displayWidth / 10)
-            scrollableObject?.apply {
-                repeat(2) {
-                    fling(Direction.DOWN)
-                }
-                repeat(2) {
-                    fling(Direction.UP)
+            uiAutomator {
+                onElement { isScrollable }.run {
+                    repeat(2) {
+                        fling(Direction.DOWN)
+                    }
+                    repeat(2) {
+                        fling(Direction.UP)
+                    }
                 }
             }
         }

@@ -95,7 +95,7 @@ class ParentAdapter(
     override fun onViewRecycled(holder: BindingViewHolder<ItemParentBinding>) {
         trace("ParentAdapter.onViewRecycled") {
             // save the state of nested recycler, so we can show the same scrolled position
-            nestedStates[holder.adapterPosition] =
+            nestedStates[holder.absoluteAdapterPosition] =
                 holder.binding.rowRecycler.layoutManager?.onSaveInstanceState()
         }
         super.onViewRecycled(holder)

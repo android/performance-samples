@@ -17,7 +17,6 @@
 package com.example.macrobenchmark.benchmark.frames
 
 import android.content.Intent
-import android.graphics.Point
 import androidx.benchmark.macro.CompilationMode
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
@@ -26,8 +25,8 @@ import androidx.benchmark.macro.TraceSectionMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
@@ -54,18 +53,18 @@ class FrameTimingBenchmark {
             iterations = DEFAULT_ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
-                // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent("$packageName.RECYCLER_VIEW_ACTIVITY")
-                startActivityAndWait(intent)
+                uiAutomator {
+                    // Before starting to measure, navigate to the UI to be measured
+                    startIntent(Intent("$packageName.RECYCLER_VIEW_ACTIVITY"))
+                }
             }
         ) {
-            val recycler = device.findObject(By.res(packageName, "recycler"))
-            // Set gesture margin to avoid triggering gesture navigation
-            // with input events from automation.
-            recycler.setGestureMargin(device.displayWidth / 5)
+            uiAutomator {
+                val recycler = onElement { className == "androidx.recyclerview.widget.RecyclerView" }
+                // Scroll down several times
+                repeat(3) { recycler.fling(Direction.DOWN) }
+            }
 
-            // Scroll down several times
-            repeat(3) { recycler.fling(Direction.DOWN) }
         }
     }
     // [END macrobenchmark_control_your_app]
@@ -96,27 +95,15 @@ class FrameTimingBenchmark {
             iterations = DEFAULT_ITERATIONS,
             // [END_EXCLUDE]
             setupBlock = {
-                // Before starting to measure, navigate to the UI to be measured
-                val intent = Intent("$packageName.COMPOSE_ACTIVITY")
-                startActivityAndWait(intent)
+                uiAutomator {
+                    // Before starting to measure, navigate to the UI to be measured
+                    startIntent(Intent("$packageName.COMPOSE_ACTIVITY"))
+                }
             }
         ) {
-            /**
-             * Compose does not have view IDs so we cannot directly access composables from UiAutomator.
-             * To access a composable we need to set:
-             * 1) Modifier.semantics { testTagsAsResourceId = true } once, high in the compose hierarchy
-             * 2) Add Modifier.testTag("someIdentifier") to all of the composables you want to access
-             *
-             * Once done that, we can access the composable using By.res("someIdentifier")
-             */
-            val column = device.findObject(By.res("myLazyColumn"))
-
-            // Set gesture margin to avoid triggering gesture navigation
-            // with input events from automation.
-            column.setGestureMargin(device.displayWidth / 5)
-
-            // Scroll down several times
-            repeat(1) { column.drag(Point(column.visibleCenter.x, column.visibleBounds.top)) }
+            uiAutomator {
+                onElement { isScrollable }.fling(Direction.DOWN)
+            }
         }
     }
 }

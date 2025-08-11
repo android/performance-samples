@@ -19,7 +19,9 @@ package com.example.macrobenchmark.baselineprofile
 import android.content.Intent
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.uiautomator.By
+import androidx.test.uiautomator.textAsString
+import androidx.test.uiautomator.uiAutomator
+import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,12 +39,13 @@ class LoginBaselineProfileGenerator {
             maxIterations = 15,
             stableIterations = 3
         ) {
-            device.clearData(this)
-            startActivityAndWait(Intent("$packageName.LOGIN_ACTIVITY"))
-            device.findObject(By.res("userName")).text = "user"
-            device.findObject(By.res("password")).text = "password"
-            device.findObject(By.res("login")).click()
-            device.waitForIdle()
+            uiAutomator {
+                clearAppData()
+                startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
+                onElement { textAsString() == "User: " }.text = "user"
+                onElement { textAsString() == "Password: " }.text = "password"
+                onElement { textAsString() == "Login" }.click()
+            }
         }
     }
 }

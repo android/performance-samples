@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Macrobenchmarktarget">
         <profileable
             android:shell="true"
-            tools:targetApi="29,q" />
+            tools:targetApi="29" />
         <!-- [END macrobenchmark_setup_profileable] -->
         <!--
         Activities need to be exported so the Macrobenchmarks can discover them
