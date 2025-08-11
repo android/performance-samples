@@ -47,46 +47,58 @@ class LoginBenchmark {
             putString("user", "benchUser")
             putString("password", "benchPassword")
         }
-        benchmarkLoginActivity(extras = extras)
+        benchmarkLoginActivity(
+            extras = extras,
+            measureBlock = {
+                uiAutomator {
+                    clickOnLogin()
+                }
+            }
+        )
     }
 
     @Test
     fun loginInSetupBlock() {
-        benchmarkLoginActivity(setupBlock = {
+        benchmarkLoginActivity(measureBlock = {
             uiAutomator {
-                startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
-                login()
+                inputLoginDetails()
+                clickOnLogin()
             }
         })
     }
 
     @Test
     fun loginWithUiAutomator() {
-        benchmarkLoginActivity {
-            uiAutomator { login() }
-        }
+        benchmarkLoginActivity(
+            measureBlock = {
+                uiAutomator {
+                    inputLoginDetails()
+                    clickOnLogin()
+                }
+            }
+        )
     }
 
     @Test
     fun loginInAfterPermissionsGranted() {
-        benchmarkLoginActivity(setupBlock = {
+        benchmarkLoginActivity(measureBlock = {
             uiAutomator {
                 watchFor(PermissionDialog) {
                     clickAllow()
                 }
-                startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
-                login()
+                inputLoginDetails()
+                clickOnLogin()
             }
-
-
         })
     }
 
-    private fun UiAutomatorTestScope.login() {
+    private fun UiAutomatorTestScope.inputLoginDetails() {
         onElement { viewIdResourceName == "userName" }.text = "user"
         onElement { viewIdResourceName == "password" }.text = "password"
-        onElement { textAsString() == "Login" }.click()
     }
+
+    private fun UiAutomatorTestScope.clickOnLogin() =
+        onElement { textAsString() == "Login" }.click()
 
     private fun benchmarkLoginActivity(
         extras: Bundle = Bundle(),
@@ -102,9 +114,11 @@ class LoginBenchmark {
             setupBlock = setupBlock,
         ) {
             uiAutomator {
-                startIntent(Intent()
-                    .putExtras(extras)
-                    .setAction("$packageName.LOGIN_ACTIVITY"))
+                startIntent(
+                    Intent()
+                        .putExtras(extras)
+                        .setAction("$packageName.LOGIN_ACTIVITY")
+                )
             }
             measureBlock()
         }

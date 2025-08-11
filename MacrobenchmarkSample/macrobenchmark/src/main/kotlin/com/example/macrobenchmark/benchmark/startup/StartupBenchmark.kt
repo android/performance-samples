@@ -22,6 +22,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.uiautomator.textAsString
 import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
@@ -89,6 +90,7 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
     ) {
         uiAutomator {
             startApp(TARGET_PACKAGE)
+            onElement { textAsString() == "Fully Drawn" && isVisibleToUser }
         }
     }
 }

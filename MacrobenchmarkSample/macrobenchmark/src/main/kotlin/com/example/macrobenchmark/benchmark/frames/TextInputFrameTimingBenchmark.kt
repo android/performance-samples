@@ -23,6 +23,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.uiautomator.textAsString
 import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.DEFAULT_ITERATIONS
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
@@ -37,7 +38,7 @@ class TextInputFrameTimingBenchmark {
     val benchmarkRule = MacrobenchmarkRule()
 
     @Test
-    fun inputText() {
+    fun reinputText() {
         benchmarkRule.measureRepeated(
             packageName = TARGET_PACKAGE,
             metrics = listOf(FrameTimingMetric()),
@@ -54,7 +55,7 @@ class TextInputFrameTimingBenchmark {
             }
         ) {
             uiAutomator {
-                onElement { isEditable }.text = "Benchmark input"
+                onElement { textAsString() == "Enter text here" }.text = "Benchmark input"
             }
         }
     }

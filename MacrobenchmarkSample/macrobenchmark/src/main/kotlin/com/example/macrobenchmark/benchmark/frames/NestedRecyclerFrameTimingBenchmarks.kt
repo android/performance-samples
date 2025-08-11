@@ -18,7 +18,6 @@ package com.example.macrobenchmark.benchmark.frames
 
 import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
-import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -62,7 +61,7 @@ class NestedRecyclerFrameTimingBenchmarks {
         ) { measureScrollingNestedRecycler() }
     }
 
-    private fun MacrobenchmarkScope.navigateToNestedRvScreen(useRecyclerViewPool: Boolean) {
+    private fun navigateToNestedRvScreen(useRecyclerViewPool: Boolean) {
         uiAutomator {
             startApp(TARGET_PACKAGE)
             onElement { textAsString() == if (useRecyclerViewPool) "Nested RecyclerView with Pools" else "Nested RecyclerView" }.click()
@@ -70,7 +69,7 @@ class NestedRecyclerFrameTimingBenchmarks {
         }
     }
 
-    private fun MacrobenchmarkScope.measureScrollingNestedRecycler() {
+    private fun measureScrollingNestedRecycler() {
         uiAutomator {
             onElement { className == "androidx.recyclerview.widget.RecyclerView" }.run {
                 repeat(3) { index ->
