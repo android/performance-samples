@@ -16,7 +16,6 @@
 
 package com.example.macrobenchmark.benchmark.frames
 
-import androidx.benchmark.macro.ExperimentalMetricApi
 import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -32,7 +31,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@ExperimentalMetricApi
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class NestedRecyclerFrameTimingBenchmarks {

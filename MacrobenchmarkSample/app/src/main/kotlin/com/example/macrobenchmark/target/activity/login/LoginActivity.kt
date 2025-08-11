@@ -55,7 +55,6 @@ import com.example.macrobenchmark.target.activity.MainActivity
 import com.example.macrobenchmark.target.util.SampleViewModel
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalComposeUiApi::class)
 class LoginActivity : ComponentActivity() {
 
     private val sampleViewModel by viewModels<SampleViewModel>()

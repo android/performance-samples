@@ -50,7 +50,6 @@ import androidx.tracing.trace
 import com.example.macrobenchmark.target.recyclerview.Entry
 import com.example.macrobenchmark.target.util.ClickTrace
 
-@OptIn(ExperimentalComposeUiApi::class)
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

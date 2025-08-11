@@ -47,7 +47,7 @@ class FullyDrawnStartupBenchmark {
             startIntent(Intent("$TARGET_PACKAGE.FULLY_DRAWN_STARTUP_ACTIVITY"))
 
             // Waits for an element that corresponds to fully drawn state
-            onElement { textAsString() == "Fully Drawn" && isVisibleToUser }
+            onElement { textAsString() == "Fully Drawn" }
         }
     }
 }
