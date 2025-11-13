@@ -39,10 +39,6 @@ class SampleStartupBenchmark {
         packageName = TARGET_PACKAGE,
         metrics = listOf(StartupTimingMetric()),
         iterations = DEFAULT_ITERATIONS,
-        setupBlock = {
-            // Press home button before each run to ensure the starting activity isn't visible.
-            pressHome()
-        }
     ) {
         // starts default launch activity
         uiAutomator { startApp(TARGET_PACKAGE) }

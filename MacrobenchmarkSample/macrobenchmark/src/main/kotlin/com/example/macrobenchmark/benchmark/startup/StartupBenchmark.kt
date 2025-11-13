@@ -83,9 +83,6 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
         compilationMode = compilationMode,
         iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
-        setupBlock = {
-            pressHome()
-        }
     ) {
         uiAutomator {
             startApp(TARGET_PACKAGE)
