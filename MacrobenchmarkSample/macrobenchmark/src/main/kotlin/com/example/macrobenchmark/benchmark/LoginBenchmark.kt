@@ -77,8 +77,6 @@ class LoginBenchmark {
                 startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
                 login()
             }
-
-
         })
     }
 

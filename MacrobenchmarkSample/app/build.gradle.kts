@@ -41,12 +41,12 @@ android {
 
     // [START macrobenchmark_setup_app_build_type]
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "keep-rules.txt"
             )
             // In real app, this would use its own release keystore
             signingConfig = signingConfigs.getByName("debug")
@@ -55,14 +55,8 @@ android {
     // [END macrobenchmark_setup_app_build_type]
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-opt-in=kotlin.RequiresOptIn"
-        )
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

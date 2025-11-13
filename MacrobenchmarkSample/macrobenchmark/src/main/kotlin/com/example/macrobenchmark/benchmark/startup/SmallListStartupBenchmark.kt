@@ -45,10 +45,6 @@ class SmallListStartupBenchmark(
         metrics = listOf(StartupTimingMetric()),
         iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
-        setupBlock = {
-            // Press home button before each run to ensure the starting activity isn't visible.
-            pressHome()
-        }
     ) {
         uiAutomator {
             startIntent(
@@ -66,10 +62,6 @@ class SmallListStartupBenchmark(
         metrics = listOf(StartupTimingMetric()),
         iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
-        setupBlock = {
-            // Press home button before each run to ensure the starting activity isn't visible.
-            pressHome()
-        }
     ) {
         uiAutomator {
             startIntent(
