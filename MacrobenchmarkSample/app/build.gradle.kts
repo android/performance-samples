@@ -50,13 +50,14 @@ android {
             )
             // In real app, this would use its own release keystore
             signingConfig = signingConfigs.getByName("debug")
+            baselineProfile.automaticGenerationDuringBuild = true
         }
     }
     // [END macrobenchmark_setup_app_build_type]
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
