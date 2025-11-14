@@ -55,10 +55,13 @@ jobs:
       - name: Build Macrobenchmark Sample
         run: >
           ./gradlew assemble \
+            -x :macrobenchmark:pixel6Api31Setup \
             -x :macrobenchmark:pixel6Api31NonMinifiedReleaseAndroidTest \
             -x :macrobenchmark:collectNonMinifiedReleaseBaselineProfile \
-            -Pandroidx.benchmark.enabledRules=BaselineProfile \
+            -Pandroid.testInstrumentationRunnerArguments.androidx.benchmark.enabledRules="none" \
             -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" \
             -Pandroid.experimental.testOptions.managedDevices.setupTimeoutMinutes=180 \
             -Pandroid.experimental.androidTest.numManagedDeviceShards=1 \
-            -Pandroid.experimental.testOptions.managedDevices.maxConcurrentDevices=1
+            -Pandroid.experimental.testOptions.managedDevices.maxConcurrentDevices=1 \
+            -Pandroid.experimental.testOptions.managedDevices.emulator.showKernelLogging=true
+

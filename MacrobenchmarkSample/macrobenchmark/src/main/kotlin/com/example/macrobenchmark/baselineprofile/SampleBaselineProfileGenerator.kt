@@ -16,20 +16,17 @@
 
 package com.example.macrobenchmark.baselineprofile
 
-import android.content.Intent
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.textAsString
 import androidx.test.uiautomator.uiAutomator
 import com.example.macrobenchmark.benchmark.util.TARGET_PACKAGE
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@Ignore // TODO flinging not working, ignore for now to test the pipeline
 @RunWith(AndroidJUnit4ClassRunner::class)
-class RecyclerViewActivityBaselineProfileGenerator {
+class SampleBaselineProfileGenerator {
 
     @get:Rule
     val rule = BaselineProfileRule()
@@ -42,12 +39,20 @@ class RecyclerViewActivityBaselineProfileGenerator {
             stableIterations = 3
         ) {
             uiAutomator {
-                // Start into the RecyclerViewActivity
-                startIntent(Intent("$TARGET_PACKAGE.RECYCLER_VIEW_ACTIVITY"))
-
-                // Scrolling RecyclerView journey
-                onElement { viewIdResourceName == "recycler" }.fling(Direction.DOWN)
-                onElement { viewIdResourceName == "recycler" }.fling(Direction.UP)
+                startApp(TARGET_PACKAGE)
+                listOf(
+                    "Login",
+                    "ListView",
+                    "Compose",
+                    "ScrollView",
+                    "Fully Drawn",
+                    "RecyclerView",
+                    "Nested RecyclerView",
+                    "Nested RecyclerView with Pools"
+                ).forEach {
+                    onElement { textAsString() == it }.click()
+                    pressBack()
+                }
             }
         }
     }
