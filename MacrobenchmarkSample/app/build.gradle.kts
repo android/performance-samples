@@ -46,7 +46,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "keep-rules.txt"
+                "keep-rules.pro"
             )
             // In real app, this would use its own release keystore
             signingConfig = signingConfigs.getByName("debug")
