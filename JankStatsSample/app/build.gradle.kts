@@ -18,20 +18,20 @@ plugins {
     id("com.android.application")
     alias(libs.plugins.kotlin)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     buildFeatures {
-        viewBinding = true
         compose = true
     }
 
     defaultConfig {
         applicationId = "com.example.jankstats"
-        minSdk = 21
-        targetSdk = 35
+        minSdk = 23
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -62,13 +62,16 @@ dependencies {
     implementation(composeBom)
     implementation(libs.activity)
     implementation(libs.appcompat)
+    implementation(libs.compose.activity)
+    implementation("androidx.compose.material:material-icons-core")
     implementation(libs.compose.material)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.constraintlayout)
     implementation(libs.jankstats)
     implementation(libs.material)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.tracing)
 }
