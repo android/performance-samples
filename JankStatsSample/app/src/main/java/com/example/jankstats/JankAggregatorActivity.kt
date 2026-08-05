@@ -23,14 +23,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalView
 import androidx.lifecycle.compose.LifecycleResumeEffect
-import androidx.metrics.performance.PerformanceMetricsState
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
@@ -87,7 +84,6 @@ class JankAggregatorActivity : ComponentActivity() {
             // ...
             // metrics state holder can be retrieved regardless of JankStats initialization
             val metricsStateHolder = rememberMetricsStateHolder()
-            // ...
             // ...
             // add activity name as state
             metricsStateHolder.state?.putState("Activity", javaClass.simpleName)

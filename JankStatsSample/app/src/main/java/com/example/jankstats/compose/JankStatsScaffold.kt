@@ -17,16 +17,15 @@
 package com.example.jankstats.compose
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.NavKey
@@ -34,6 +33,7 @@ import com.example.jankstats.R
 import com.example.jankstats.navigation.ComposeListRoute
 import com.example.jankstats.navigation.MessageListRoute
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JankStatsScaffold(
     title: String,
@@ -47,8 +47,8 @@ fun JankStatsScaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = title) },
-                navigationIcon = if (canNavigateUp) {
-                    {
+                navigationIcon = {
+                    if (canNavigateUp) {
                         IconButton(onClick = onNavigateUp) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_arrow_back),
@@ -56,12 +56,12 @@ fun JankStatsScaffold(
                             )
                         }
                     }
-                } else null
+                }
             )
         },
         bottomBar = {
-            BottomNavigation {
-                BottomNavigationItem(
+            NavigationBar {
+                NavigationBarItem(
                     selected = currentTopLevelRoute == MessageListRoute,
                     onClick = { onBottomTabSelected(MessageListRoute) },
                     icon = {
@@ -72,7 +72,7 @@ fun JankStatsScaffold(
                     },
                     label = { Text(text = stringResource(id = R.string.views)) }
                 )
-                BottomNavigationItem(
+                NavigationBarItem(
                     selected = currentTopLevelRoute == ComposeListRoute,
                     onClick = { onBottomTabSelected(ComposeListRoute) },
                     icon = {
@@ -83,7 +83,7 @@ fun JankStatsScaffold(
                     },
                     label = { Text(text = stringResource(id = R.string.compose)) }
                 )
-                BottomNavigationItem(
+                NavigationBarItem(
                     selected = false,
                     onClick = { /* No-op / Not implemented */ },
                     icon = {

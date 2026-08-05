@@ -14,18 +14,15 @@
 
 [versions]
 
-agp = "8.11.1"
+agp = "8.11.2"
 appcompat = "1.7.1"
-activity = "1.10.1"
-composeBom = "2025.07.00"
-coroutines = "1.10.2"
-constraint_layout = "2.2.1"
-core = "1.9.0"
-jankstats = "1.0.0-beta02"
-kotlin = "2.2.0"
-kotlinxSerialization = "1.8.0"
-material = "1.12.0"
-nav3 = "1.0.0"
+activity = "1.13.0"
+composeBom = "2026.06.01"
+jankstats = "1.0.0"
+kotlin = "2.4.10"
+kotlinxSerialization = "1.11.0"
+material = "1.14.0"
+nav3 = "1.1.5"
 tracing = "1.3.0"
 
 [libraries]
@@ -37,12 +34,11 @@ compose-activity = { group = "androidx.activity", name = "activity-compose" }
 compose-material = { group = "androidx.compose.material", name = "material" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling"}
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraint_layout" }
 jankstats = { group = "androidx.metrics", name = "metrics-performance", version.ref = "jankstats" }
-kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material"}
+material-icons-core = { module = "androidx.compose.material:material-icons-core" }
+material3 = { group = "androidx.compose.material3", name = "material3" }
 navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "nav3" }
 navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "nav3" }
 tracing = { group = "androidx.tracing", name = "tracing-ktx", version.ref = "tracing"}
@@ -53,4 +49,3 @@ application = { id = "com.android.application", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-test = { id = "com.android.test", version.ref = "agp" }

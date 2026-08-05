@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.metrics.performance.JankStats
-import androidx.metrics.performance.PerformanceMetricsState
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
@@ -77,7 +76,7 @@ class JankLoggingActivity : ComponentActivity() {
             LifecycleResumeEffect(jankStats) {
                 jankStats.isTrackingEnabled = true
                 onPauseOrDispose {
-                    Log.e("Activity Paused,","Tracking")
+                    Log.v("Activity Paused,","Tracking jank stats is disabled")
                     jankStats.isTrackingEnabled = false
                 }
             }

@@ -40,17 +40,16 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"
     }
@@ -63,11 +62,10 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.appcompat)
     implementation(libs.compose.activity)
-    implementation("androidx.compose.material:material-icons-core")
-    implementation(libs.compose.material)
+    implementation(libs.material.icons.core)
+    implementation(libs.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
-    implementation(libs.constraintlayout)
     implementation(libs.jankstats)
     implementation(libs.material)
     implementation(libs.navigation3.runtime)
