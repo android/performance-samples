@@ -18,33 +18,38 @@ package com.example.jankstats
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.metrics.performance.JankStats
-import androidx.metrics.performance.PerformanceMetricsState
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.jankstats.databinding.ActivityJankLoggingBinding
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
+import com.example.jankstats.compose.JankStatsScaffold
+import com.example.jankstats.compose.JankStatsTheme
+import com.example.jankstats.compose.MessageContentScreen
+import com.example.jankstats.compose.MessageList
+import com.example.jankstats.compose.rememberMetricsStateHolder
+import com.example.jankstats.navigation.ComposeListRoute
+import com.example.jankstats.navigation.MessageContentRoute
+import com.example.jankstats.navigation.MessageListRoute
+import com.example.jankstats.navigation.Navigator
+import com.example.jankstats.navigation.rememberNavigationState
+import com.example.jankstats.navigation.toEntries
 
 /**
  * This activity shows the basic usage of JankStats, from creating and enabling it to track
  * a view hierarchy, to setting application state on JankStats, to receiving and logging per-frame
  * callbacks with jank data.
  */
-// [START activity_init]
-class JankLoggingActivity : AppCompatActivity() {
+class JankLoggingActivity : ComponentActivity() {
 
     private lateinit var jankStats: JankStats
 
-    // [START_EXCLUDE silent]
-    private lateinit var binding: ActivityJankLoggingBinding
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-
-    // [START jank_frame_listener]
     private val jankFrameListener = JankStats.OnFrameListener { frameData ->
         // A real app could do something more interesting, like writing the info to local storage and later on report it.
         Log.v("JankStatsSample", frameData.toString())
@@ -54,65 +59,81 @@ class JankLoggingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // [START_EXCLUDE]
-        binding = ActivityJankLoggingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupUi()
-        // [END_EXCLUDE]
-        // metrics state holder can be retrieved regardless of JankStats initialization
-        val metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(binding.root)
+        enableEdgeToEdge()
 
-        // initialize JankStats for current window
-        jankStats = JankStats.createAndTrack(window, jankFrameListener)
+        setContent {
+            jankStats = remember(window, jankFrameListener) {
+                JankStats.createAndTrack(window, jankFrameListener)
+            }
+            // ...
+            // metrics state holder can be retrieved regardless of JankStats initialization
+            val metricsStateHolder = rememberMetricsStateHolder()
+            // ...
+            // ...
+            // add activity name as state
+            metricsStateHolder.state?.putState("Activity", javaClass.simpleName)
 
-        // add activity name as state
-        metricsStateHolder.state?.putState("Activity", javaClass.simpleName)
-        // [START_EXCLUDE]
-        setupNavigationState()
-        // [END_EXCLUDE]
-    }
-    // [END activity_init]
+            LifecycleResumeEffect(jankStats) {
+                jankStats.isTrackingEnabled = true
+                onPauseOrDispose {
+                    Log.v("Activity Paused,","Tracking jank stats is disabled")
+                    jankStats.isTrackingEnabled = false
+                }
+            }
 
-    // [START tracking_enabled]
-    override fun onResume() {
-        super.onResume()
-        jankStats.isTrackingEnabled = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        jankStats.isTrackingEnabled = false
-    }
-    // [END tracking_enabled]
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    private fun setupUi() {
-        setSupportActionBar(binding.toolbar)
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navigation_container) as NavHostFragment
-        navController = navHostFragment.navController
-
-        binding.bottomNavigation.setupWithNavController(navController)
-
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-    }
-
-    private fun setupNavigationState() {
-        // [START state_navigation]
-        val metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(binding.root)
-        // add current navigation information into JankStats state
-        navController.addOnDestinationChangedListener { _, destination, arguments ->
-            metricsStateHolder.state?.putState(
-                "Navigation",
-                "Args(${arguments.toString()}), $destination"
+            val topLevelRoutes = remember { setOf<NavKey>(MessageListRoute, ComposeListRoute) }
+            val navigationState = rememberNavigationState(
+                startRoute = MessageListRoute,
+                topLevelRoutes = topLevelRoutes
             )
+            val navigator = remember(navigationState) { Navigator(navigationState) }
+
+            val currentStack = navigationState.backStacks[navigationState.topLevelRoute]
+            val activeKey = currentStack?.lastOrNull() ?: navigationState.topLevelRoute
+            val canNavigateUp = currentStack != null && currentStack.size > 1
+
+            val title = when (activeKey) {
+                is MessageListRoute -> "Message List"
+                is ComposeListRoute -> "Compose List"
+                is MessageContentRoute -> "Message Content"
+                else -> "JankStats Sample"
+            }
+
+            val entryProvider = remember(navigator) {
+                entryProvider {
+                    entry<MessageListRoute> {
+                        MessageList(onItemClick = { headerText ->
+                            navigator.navigate(MessageContentRoute(headerText))
+                        })
+                    }
+                    entry<ComposeListRoute> {
+                        MessageList(onItemClick = { headerText ->
+                            navigator.navigate(MessageContentRoute(headerText))
+                        })
+                    }
+                    entry<MessageContentRoute> { route ->
+                        MessageContentScreen(title = route.title)
+                    }
+                }
+            }
+
+            JankStatsTheme {
+                JankStatsScaffold(
+                    title = title,
+                    canNavigateUp = canNavigateUp,
+                    currentTopLevelRoute = navigationState.topLevelRoute,
+                    onNavigateUp = { navigator.goBack() },
+                    onBottomTabSelected = { navKey ->
+                        navigator.navigate(navKey)
+                    }
+                ) { innerPadding ->
+                    NavDisplay(
+                        entries = navigationState.toEntries(entryProvider),
+                        onBack = { navigator.goBack() },
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
         }
-        // [END state_navigation]
     }
 }

@@ -17,16 +17,16 @@
 <resources>
     <string name="app_name">JankStats</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <!-- Strings used for screens for navigation -->
+    <string name="first_screen_label">First Screen</string>
+    <string name="second_screen_label">Second Screen</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_first_screen">Hello first screen</string>
+    <string name="hello_second_screen">Hello second screen. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_screen">Hello blank screen</string>
 
     <string name="views">Views</string>
     <string name="compose">Compose</string>

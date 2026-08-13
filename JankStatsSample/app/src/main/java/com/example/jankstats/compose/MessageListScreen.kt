@@ -16,59 +16,33 @@
 
 package com.example.jankstats.compose
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import com.example.jankstats.R
 import com.example.jankstats.tools.simulateJank
 
-/**
- * Showcase how to work with JankStats from Compose.
- * This Fragment will intentionally cause poor UI performance which can be monitored by JankStats.
- */
-class ComposeListFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        return ComposeView(requireContext()).apply {
-            setViewCompositionStrategy(
-                ViewCompositionStrategy.DisposeOnLifecycleDestroyed(viewLifecycleOwner)
-            )
-
-            setContent {
-                MaterialTheme {
-                    MessageList(onItemClick = {
-                        findNavController().navigate(R.id.action_composeList_to_messageContent)
-                    })
-                }
-            }
-        }
-    }
-}
-
 @Composable
-fun MessageList(onItemClick: () -> Unit) {
+fun MessageList(
+    onItemClick: (String) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(0.dp)
+) {
     val listState = rememberLazyListState()
     // [START compose_jank_metrics]
     val metricsStateHolder = rememberMetricsStateHolder()
@@ -85,25 +59,27 @@ fun MessageList(onItemClick: () -> Unit) {
     }
     // [END compose_jank_metrics]
 
-
-    LazyColumn(state = listState) {
+    LazyColumn(
+        state = listState,
+        contentPadding = contentPadding
+    ) {
         items(100) { index ->
             MessageItem(index, onItemClick)
         }
     }
 }
 
-
 @Composable
-fun MessageItem(item: Int, onItemClick: () -> Unit) {
+fun MessageItem(item: Int, onItemClick: (String) -> Unit) {
+    val headerText = "Message #$item"
     Row(
         Modifier
             .fillMaxWidth()
-            .clickable(onClick = onItemClick)
+            .clickable(onClick = { onItemClick(headerText) })
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text("Message #$item", Modifier.padding(end = 16.dp))
+        Text(headerText, Modifier.padding(end = 16.dp))
         JankyComposable()
     }
 }
@@ -123,5 +99,7 @@ fun JankyComposable() {
 @Preview(widthDp = 500)
 @Composable
 fun MessageListPreview() {
-    MessageList(onItemClick = {})
+    JankStatsTheme {
+        MessageList(onItemClick = {})
+    }
 }

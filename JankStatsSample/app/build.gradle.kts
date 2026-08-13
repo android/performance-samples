@@ -18,20 +18,20 @@ plugins {
     id("com.android.application")
     alias(libs.plugins.kotlin)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     buildFeatures {
-        viewBinding = true
         compose = true
     }
 
     defaultConfig {
         applicationId = "com.example.jankstats"
-        minSdk = 21
-        targetSdk = 35
+        minSdk = 23
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -40,17 +40,16 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"
     }
@@ -62,13 +61,15 @@ dependencies {
     implementation(composeBom)
     implementation(libs.activity)
     implementation(libs.appcompat)
-    implementation(libs.compose.material)
+    implementation(libs.compose.activity)
+    implementation(libs.material.icons.core)
+    implementation(libs.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
-    implementation(libs.constraintlayout)
     implementation(libs.jankstats)
     implementation(libs.material)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.tracing)
 }

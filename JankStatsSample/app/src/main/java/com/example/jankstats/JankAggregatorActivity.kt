@@ -18,14 +18,30 @@ package com.example.jankstats
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.metrics.performance.PerformanceMetricsState
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.jankstats.databinding.ActivityJankLoggingBinding
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
+import com.example.jankstats.compose.JankStatsScaffold
+import com.example.jankstats.compose.JankStatsTheme
+import com.example.jankstats.compose.MessageContentScreen
+import com.example.jankstats.compose.MessageList
+import com.example.jankstats.compose.rememberMetricsStateHolder
+import com.example.jankstats.navigation.ComposeListRoute
+import com.example.jankstats.navigation.MessageContentRoute
+import com.example.jankstats.navigation.MessageListRoute
+import com.example.jankstats.navigation.Navigator
+import com.example.jankstats.navigation.rememberNavigationState
+import com.example.jankstats.navigation.toEntries
 
 /**
  * This activity shows how to use JankStatsAggregator, a class in this test directory layered
@@ -35,14 +51,9 @@ import com.example.jankstats.databinding.ActivityJankLoggingBinding
  * or if JankStatsAggregator issues the report itself.
  */
 // [START aggregator_activity_init]
-class JankAggregatorActivity : AppCompatActivity() {
+class JankAggregatorActivity : ComponentActivity() {
 
     private lateinit var jankStatsAggregator: JankStatsAggregator
-
-    // [START_EXCLUDE silent]
-    private lateinit var binding: ActivityJankLoggingBinding
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     // [START jank_aggregator_listener]
     private val jankReportListener =
@@ -65,48 +76,90 @@ class JankAggregatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // [START_EXCLUDE]
-        binding = ActivityJankLoggingBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupUi()
-        // [END_EXCLUDE]
-        // Metrics state holder can be retrieved regardless of JankStats initialization.
-        val metricsStateHolder = PerformanceMetricsState.getHolderForHierarchy(binding.root)
+        enableEdgeToEdge()
+        setContent {
+            jankStatsAggregator = remember {
+                JankStatsAggregator(window, jankReportListener)
+            }
+            // ...
+            // metrics state holder can be retrieved regardless of JankStats initialization
+            val metricsStateHolder = rememberMetricsStateHolder()
+            // ...
+            // add activity name as state
+            metricsStateHolder.state?.putState("Activity", javaClass.simpleName)
 
-        // Initialize JankStats with an aggregator for the current window.
-        jankStatsAggregator = JankStatsAggregator(window, jankReportListener)
+            LifecycleResumeEffect(jankStatsAggregator) {
+                jankStatsAggregator.jankStats.isTrackingEnabled = true
+                onPauseOrDispose {
+                    jankStatsAggregator.issueJankReport("Activity paused")
+                    jankStatsAggregator.jankStats.isTrackingEnabled = false
+                }
+            }
 
-        // Add the Activity name as state.
-        metricsStateHolder.state?.putState("Activity", javaClass.simpleName)
-    }
-    // [END aggregator_activity_init]
+            val listState = rememberLazyListState()
+            LaunchedEffect(metricsStateHolder, listState) {
+                snapshotFlow { listState.isScrollInProgress }.collect { isScrolling ->
+                    if (isScrolling) {
+                        metricsStateHolder.state?.putState("LazyList", "Scrolling")
+                    } else {
+                        metricsStateHolder.state?.removeState("LazyList")
+                    }
+                }
+            }
 
-    // [START aggregator_tracking_enabled]
-    override fun onResume() {
-        super.onResume()
-        jankStatsAggregator.jankStats.isTrackingEnabled = true
-    }
+            val topLevelRoutes = remember { setOf<NavKey>(MessageListRoute, ComposeListRoute) }
+            val navigationState = rememberNavigationState(
+                startRoute = MessageListRoute,
+                topLevelRoutes = topLevelRoutes
+            )
+            val navigator = remember(navigationState) { Navigator(navigationState) }
 
-    override fun onPause() {
-        super.onPause()
-        // Before disabling tracking, issue the report with (optionally) specified reason.
-        jankStatsAggregator.issueJankReport("Activity paused")
-        jankStatsAggregator.jankStats.isTrackingEnabled = false
-    }
-    // [END aggregator_tracking_enabled]
+            val currentStack = navigationState.backStacks[navigationState.topLevelRoute]
+            val activeKey = currentStack?.lastOrNull() ?: navigationState.topLevelRoute
+            val canNavigateUp = currentStack != null && currentStack.size > 1
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
+            val title = when (activeKey) {
+                is MessageListRoute -> "Message List"
+                is ComposeListRoute -> "Compose List"
+                is MessageContentRoute -> "Message Content"
+                else -> "JankStats Sample"
+            }
 
-    private fun setupUi() {
-        setSupportActionBar(binding.toolbar)
+            val entryProvider = remember(navigator) {
+                entryProvider {
+                    entry<MessageListRoute> {
+                        MessageList(onItemClick = { headerText ->
+                            navigator.navigate(MessageContentRoute(headerText))
+                        })
+                    }
+                    entry<ComposeListRoute> {
+                        MessageList(onItemClick = { headerText ->
+                            navigator.navigate(MessageContentRoute(headerText))
+                        })
+                    }
+                    entry<MessageContentRoute> { route ->
+                        MessageContentScreen(title = route.title)
+                    }
+                }
+            }
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navigation_container) as NavHostFragment
-        navController = navHostFragment.navController
-
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+            JankStatsTheme {
+                JankStatsScaffold(
+                    title = title,
+                    canNavigateUp = canNavigateUp,
+                    currentTopLevelRoute = navigationState.topLevelRoute,
+                    onNavigateUp = { navigator.goBack() },
+                    onBottomTabSelected = { navKey ->
+                        navigator.navigate(navKey)
+                    }
+                ) { innerPadding ->
+                    NavDisplay(
+                        entries = navigationState.toEntries(entryProvider),
+                        onBack = { navigator.goBack() },
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
     }
 }
