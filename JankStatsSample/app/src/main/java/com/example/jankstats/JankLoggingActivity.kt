@@ -62,7 +62,7 @@ class JankLoggingActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            jankStats = remember {
+            jankStats = remember(window, jankFrameListener) {
                 JankStats.createAndTrack(window, jankFrameListener)
             }
             // ...

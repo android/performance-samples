@@ -14,7 +14,7 @@
 
 [versions]
 
-agp = "8.11.2"
+agp = "8.13.2"
 appcompat = "1.7.1"
 activity = "1.13.0"
 composeBom = "2026.06.01"
