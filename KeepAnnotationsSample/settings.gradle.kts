@@ -10,7 +10,7 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven {
-            url = uri("https://androidx.dev/snapshots/builds/16303799/artifacts/repository")
+            url = uri("https://androidx.dev/snapshots/builds/16312043/artifacts/repository")
         }
     }
 }
@@ -23,7 +23,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            url = uri("https://androidx.dev/snapshots/builds/16303799/artifacts/repository")
+            url = uri("https://androidx.dev/snapshots/builds/16312043/artifacts/repository")
             content {
                 includeGroupByRegex("androidx\\.annotation.*")
             }
@@ -34,3 +34,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Example"
 include(":app")
+include(":library")
+include(":java-library")
