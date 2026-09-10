@@ -11,11 +11,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-val outputJar = project.tasks.named<org.gradle.jvm.tasks.Jar>("jar").flatMap { task ->
-    task.archiveFile
+val jarTask = project.tasks.named<org.gradle.jvm.tasks.Jar>("jar")
+val outputJar = jarTask.flatMap { it.archiveFile }
+val outputFile = jarTask.flatMap { it.archiveFileName }.map { fileName ->
+    "keep${fileName.uppercaseFirstChar()}"
 }
-
-val outputFile = outputJar.map { file -> "keep${file.asFile.name.uppercaseFirstChar()}" }
 
 // Register the JAR transform for extracting keep rules.
 val artifactTask = annotationKeep.registerJavaArchiveTransform(
@@ -27,7 +27,7 @@ val artifactTask = annotationKeep.registerJavaArchiveTransform(
 // Register the new artifact.
 project.configurations.configureEach {
     if (name == "apiElements" || name == "runtimeElements") {
-        outgoing.artifact(artifactTask)
+        outgoing.artifact(artifactTask.flatMap { it.outputJar })
     }
 }
 

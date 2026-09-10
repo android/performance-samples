@@ -1,5 +1,5 @@
 [versions]
-agp = "9.5.0-alpha04"
+agp = "9.5.0-alpha05"
 annotationKeep = "1.0.0-SNAPSHOT"
 coreKtx = "1.19.0"
 junit = "4.13.2"
@@ -9,8 +9,8 @@ lifecycleRuntimeKtx = "2.11.0"
 activityCompose = "1.13.0"
 kotlin = "2.4.20"
 composeBom = "2026.08.00"
-appcompat = "1.6.1"
-material = "1.10.0"
+appcompat = "1.8.0"
+material = "1.14.0"
 jetbrainsKotlinJvm = "2.4.20"
 
 [libraries]
