@@ -6,7 +6,7 @@ This examples shows the use of the `androidx.annotation.keep` Gradle plugin.
 
 ## Testing
 
-### Android apps and Library Modules
+### Android AAR Modules (Android Libraries, KMP AAR Modules)
 
 ```bash
 
@@ -14,7 +14,7 @@ This examples shows the use of the `androidx.annotation.keep` Gradle plugin.
 
 ./gradlew <variantName>ExtractKeepRules
 
-// For Android Library Modules
+// For Android AAR Modules
 
 ./gradlew <variantName>KeepRulesTransformAar
 ```
