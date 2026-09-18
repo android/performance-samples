@@ -1,5 +1,5 @@
 [versions]
-agp = "9.5.0-alpha05"
+agp = "9.5.0-alpha06"
 annotationKeep = "1.0.0-SNAPSHOT"
 coreKtx = "1.19.0"
 junit = "4.13.2"
@@ -8,14 +8,14 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.11.0"
 activityCompose = "1.13.0"
 kotlin = "2.4.20"
-composeBom = "2026.08.00"
+composeBom = "2026.09.00"
 appcompat = "1.8.0"
 material = "1.14.0"
 jetbrainsKotlinJvm = "2.4.20"
 kotlinStdlib = "2.4.20"
 kotlinTest = "2.4.20"
-runner = "1.5.2"
-core = "1.5.0"
+runner = "1.7.0"
+core = "1.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
