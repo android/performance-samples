@@ -1,0 +1,95 @@
+# Add project specific R8 rules here.
+# AGP will combine all keep rule files in src/main/keepRules to pass to R8
+#
+# For more details, see
+#   https://d.android.com/r/tools/r8/keep-rules
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# --- Keep rule examples for libraries using reflection ---
+
+# Retrofit
+# Preserve generic type information for Call/Observable return types
+-keepattributes Signature
+# If an interface has a Retrofit HTTP annotation, keep its return type (class <3>)
+-if interface * {
+    @retrofit2.http.* public *** *(...);
+}
+-keep,allowoptimization,allowshrinking,allowobfuscation class <3>
+
+# Coroutines
+# Keep the signature attribute globally
+-keepattributes Signature
+# Explicitly keep the Continuation class so its signature is not stripped
+-keep class kotlin.coroutines.Continuation
+# --- Keep rule examples for specific reflective access ---
+
+# Optional module loaded via reflection (e.g. VideoEventTracker)
+# Keeps the class and its constructor so it can be instantiated via reflection
+-keep class org.example.VideoEventTracker {
+    <init>();
+}
+
+# Reflection to access private members
+# Keeps the specific private field from being removed or obfuscated
+-keepclassmembers class org.example.LibraryClass {
+    private java.lang.String secretMessage;
+}
+
+# --- Keep rule examples added from documentation ---
+
+# Allow any implementation of StartupTask to be removed if unused.
+-keep,allowobfuscation,allowshrinking class * implements org.example.StartupTask
+# Keep the default constructor, which is called via reflection.
+-keepclassmembers class * implements org.example.StartupTask {
+    <init>();
+}
+
+# Retain annotation metadata for runtime reflection.
+-keepattributes RuntimeVisibleAnnotations
+# Keep the annotation interface itself.
+-keep @interface org.example.OnEvent
+# Keep the methods annotated with OnEvent
+-keepclassmembers class * {
+    @org.example.OnEvent <methods>;
+}
+
+# Keep the annotation interface itself.
+-keep @interface org.example.ReflectiveExecutor
+# Keep the execute method in the classes which are being used
+-keepclassmembers @org.example.ReflectiveExecutor class * {
+   public void execute();
+}
+
+
+-keepclassmembers,includedescriptorclasses class org.example.jni.JniBridge {
+    public void onNativeEvent(org.example.jni.NativeData);
+}
+
+-keep class org.example.jni.NativeData{
+      <init>(int, java.lang.String);
+}
+
+
+# Preserve annotated members inside classes and protect their signature types
+#-keepclassmembers,includedescriptorclasses class * {
+#    @com.google.android.apps.common.proguard.UsedByNative <methods>;
+#}
+
+# Keep rules for Java Serialization
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}

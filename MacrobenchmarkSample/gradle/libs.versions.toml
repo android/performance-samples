@@ -1,8 +1,8 @@
 [versions]
-agp = "8.13.1"
+agp = "9.4.1"
 activity = "1.11.0"
 appcompat = "1.7.1"
-benchmark = "1.4.1"
+benchmark = "1.6.0-SNAPSHOT"
 composeBom = "2025.11.00"
 constraintLayout = "2.2.1"
 core = "1.17.0"
@@ -15,7 +15,7 @@ jUnit = "1.3.0"
 kotlin = "2.2.21"
 lifecycle = "2.9.4"
 material = "1.13.0"
-profileInstaller = "1.4.1"
+profileInstaller = "1.5.0-SNAPSHOT"
 runtimeTracing = "1.9.4"
 tracing = "1.3.0"
 tracingPerfetto = "1.0.0"
@@ -52,7 +52,7 @@ viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", ve
 [plugins]
 
 application = { id = "com.android.application", version.ref = "agp" }
-baselineprofile = { id = "androidx.baselineprofile", version.ref = "benchmark" }
+baselineprofile = { id = "androidx.baselineprofile", version = "1.5.0" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 library = { id = "com.android.library", version.ref = "agp" }
 test = { id = "com.android.test", version.ref = "agp" }

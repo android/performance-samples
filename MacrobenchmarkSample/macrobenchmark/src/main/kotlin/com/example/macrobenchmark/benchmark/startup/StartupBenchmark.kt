@@ -84,8 +84,11 @@ abstract class AbstractStartupBenchmark(private val startupMode: StartupMode) {
         iterations = DEFAULT_ITERATIONS,
         startupMode = startupMode,
     ) {
-        uiAutomator {
-            startApp(TARGET_PACKAGE)
-        }
+        startActivityAndWait()
     }
 }
+/**
+ * Run this benchmark from Studio to see memory measurements, and captured system traces
+ * for investigating your app's memory usage during startup.
+ */
+

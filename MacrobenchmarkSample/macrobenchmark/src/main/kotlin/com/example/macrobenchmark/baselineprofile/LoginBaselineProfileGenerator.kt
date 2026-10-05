@@ -40,7 +40,7 @@ class LoginBaselineProfileGenerator {
             stableIterations = 3
         ) {
             uiAutomator {
-                startIntent(Intent("$packageName.LOGIN_ACTIVITY"))
+                startActivityIntent(Intent("$packageName.LOGIN_ACTIVITY"))
                 onElement { isEditable and !isPassword }.text = "user"
                 onElement { isEditable && isPassword }.text = "password"
                 onElement { textAsString() == "Login" }.click()

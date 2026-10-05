@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
  * Copyright 2021 The Android Open Source Project
  *
@@ -17,7 +19,6 @@
 plugins {
     alias(libs.plugins.application)
     alias(libs.plugins.compose)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.baselineprofile)
 }
 
@@ -50,7 +51,6 @@ android {
             )
             // In real app, this would use its own release keystore
             signingConfig = signingConfigs.getByName("debug")
-            baselineProfile.automaticGenerationDuringBuild = true
         }
     }
     // [END macrobenchmark_setup_app_build_type]
@@ -59,6 +59,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
+baselineProfile {
+    automaticGenerationDuringBuild = true
 }
 
 dependencies {
