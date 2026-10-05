@@ -33,7 +33,7 @@ Java_org_example_jni_NativeLib_greet(JNIEnv* env, jobject /* this */, jstring na
 // =============================================================================================
 // R8 does not analyze C/C++ code, so every class, constructor and method that is looked up by
 // name below is invisible to it. Each of them must be protected by a keep rule (here via
-// @UsedByNative), otherwise the lookup fails after R8 runs. When a lookup fails, JNI returns
+// explicit rules in rules.keep), otherwise the lookup fails after R8 runs. When a lookup fails, JNI returns
 // null and leaves a Java exception pending (NoClassDefFoundError / NoSuchMethodError); we
 // return early so that exception is rethrown in Kotlin when the native method returns.
 static void triggerUpcall(JNIEnv* env, jobject bridgeObj) {

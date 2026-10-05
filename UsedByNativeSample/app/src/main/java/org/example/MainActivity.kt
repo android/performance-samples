@@ -43,12 +43,12 @@ class MainActivity : ComponentActivity() {
         try {
             // JNI downcall (jni/DowncallExample.kt): Kotlin -> C++. The arguments go down to C++
             // and the results come back as return values.
-            val nativeLib = NativeLib()
-            val sum = nativeLib.add(2, 3)
-            val greeting = nativeLib.greet("R8")
-            Log.e("NativeLib", "Downcall results: add(2, 3) = $sum, greet(\"R8\") = $greeting")
-            nativeResults += "Downcall: add(2, 3) = $sum"
-            nativeResults += "Downcall: greet(\"R8\") = $greeting"
+//            val nativeLib = NativeLib()
+//            val sum = nativeLib.add(2, 3)
+//            val greeting = nativeLib.greet("R8")
+//            Log.e("NativeLib", "Downcall results: add(2, 3) = $sum, greet(\"R8\") = $greeting")
+//            nativeResults += "Downcall: add(2, 3) = $sum"
+//            nativeResults += "Downcall: greet(\"R8\") = $greeting"
 
             // JNI upcall (jni/UpcallExample.kt): C++ -> Kotlin. The triggerUpcall() downcall makes
             // C++ construct a NativeData and pass it to JniBridge.onNativeEvent().

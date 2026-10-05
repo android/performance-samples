@@ -67,19 +67,19 @@
 }
 
 
-# Preserve (and don't rename) any class that has a constructor annotated with @UsedByNative, plus
-# that constructor. Native code finds such classes by name (FindClass) and constructs them
-# (NewObject), so the class must be kept even if no Kotlin/Java code references it.
--keepclasseswithmembers class * {
-    @com.google.android.apps.common.proguard.UsedByNative <init>(...);
+-keepclassmembers,includedescriptorclasses class org.example.jni.JniBridge {
+    public void onNativeEvent(org.example.jni.NativeData);
 }
 
-# Preserve annotated members inside classes and protect their signature types
--keepclassmembers,includedescriptorclasses class * {
-    @com.google.android.apps.common.proguard.UsedByNative <init>(...);
-    @com.google.android.apps.common.proguard.UsedByNative <fields>;
-    @com.google.android.apps.common.proguard.UsedByNative <methods>;
+-keep class org.example.jni.NativeData{
+      <init>(int, java.lang.String);
 }
+
+
+# Preserve annotated members inside classes and protect their signature types
+#-keepclassmembers,includedescriptorclasses class * {
+#    @com.google.android.apps.common.proguard.UsedByNative <methods>;
+#}
 
 # Keep rules for Java Serialization
 -keepclassmembers class * implements java.io.Serializable {

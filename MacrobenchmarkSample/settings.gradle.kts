@@ -22,6 +22,8 @@ include(":macrobenchmark")
 pluginManagement {
     repositories {
         google()
+        maven("https://androidx.dev/snapshots/builds/LATEST/artifacts/repository")
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -29,6 +31,8 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google()
+        maven("https://androidx.dev/snapshots/builds/LATEST/artifacts/repository")
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
     }

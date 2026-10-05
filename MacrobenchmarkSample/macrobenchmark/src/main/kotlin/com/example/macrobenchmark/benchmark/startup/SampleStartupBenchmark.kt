@@ -16,6 +16,7 @@
 
 package com.example.macrobenchmark.benchmark.startup
 
+import androidx.benchmark.macro.ArtMetric
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,7 +38,7 @@ class SampleStartupBenchmark {
     @Test
     fun startup() = benchmarkRule.measureRepeated(
         packageName = TARGET_PACKAGE,
-        metrics = listOf(StartupTimingMetric()),
+        metrics = listOf(StartupTimingMetric(), ArtMetric()),
         iterations = DEFAULT_ITERATIONS,
     ) {
         // starts default launch activity

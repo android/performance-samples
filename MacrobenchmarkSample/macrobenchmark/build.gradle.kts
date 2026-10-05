@@ -15,11 +15,10 @@
  */
 
 import com.android.build.api.dsl.ManagedVirtualDevice
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("kotlin-android")
     alias(libs.plugins.test)
-    alias(libs.plugins.kotlin)
     alias(libs.plugins.baselineprofile)
 }
 
@@ -58,6 +57,12 @@ android {
     experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 // [END macrobenchmark_setup_android]
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
 
 baselineProfile {
 
