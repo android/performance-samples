@@ -49,15 +49,34 @@ class MainActivity : ComponentActivity() {
 //            Log.e("NativeLib", "Downcall results: add(2, 3) = $sum, greet(\"R8\") = $greeting")
 //            nativeResults += "Downcall: add(2, 3) = $sum"
 //            nativeResults += "Downcall: greet(\"R8\") = $greeting"
-
+//
             // JNI upcall (jni/UpcallExample.kt): C++ -> Kotlin. The triggerUpcall() downcall makes
             // C++ construct a NativeData and pass it to JniBridge.onNativeEvent().
             JniBridge { data -> nativeResults += "Upcall: onNativeEvent($data)" }.triggerUpcall()
 
+//            // 1. Reflection to Construct Example
+            AnalyticsManager.initialize()
+//
+//            // 2. Reflection to Access Private Field Example
+//            accessSecretMessage(LibraryClass())
+//
+//            // 3. Interface Implementation Reflection Example
+//            TaskRunner.execute(PreCacheTask::class.java)
 
+              // 4. Class name of the task class
+//            TaskRunner2.execute("org.example.PreCacheTask")
+//
+//            // 4. Annotation on Class Reflection Example
+//            ReflectiveTaskRunner().process(ImportantBackgroundTask())
 
-            // Test Serializable
-            SerializableTester.testSerialization()
+            // 5. Annotation on Method Reflection Example
+//            EventBus().dispatch(MyEventListener())
+
+//            // Test Serializable
+//            SerializableTester.testSerialization()
+//
+//            // 6. Reflection in interface companion object
+//            ResourceLocator.load()
 
             Log.e("MainActivity", "All reflection examples executed successfully.")
         } catch (e: Throwable) {

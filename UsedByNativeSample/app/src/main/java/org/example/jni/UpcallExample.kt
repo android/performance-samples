@@ -1,6 +1,7 @@
 package org.example.jni
 
 import android.util.Log
+import androidx.annotation.keep.UnconditionallyKeep
 
 /**
  * Upcall: C++ (native-lib.cpp) calls back into Kotlin.
@@ -13,13 +14,16 @@ import android.util.Log
  * be kept along with the specific constructor. The rule `-keep class org.example.jni.NativeData { <init>(int, java.lang.String); }`
  * ensures R8 doesn't remove or rename the class and its constructor.
  */
-data class NativeData(
+
+@UnconditionallyKeep
+data class NativeData @UnconditionallyKeep constructor(
     val id: Int,
     val payload: String
 )
 
 // onEvent receives the data passed up from C++ (MainActivity uses it to show the data on screen).
 class JniBridge(private val onEvent: (NativeData) -> Unit = {}) {
+    @UnconditionallyKeep
     fun onNativeEvent(data: NativeData) {
         Log.e("JniBridge", "Received event from native code: $data")
         onEvent(data)
