@@ -3,15 +3,12 @@ package org.example
 import android.util.Log
 import androidx.annotation.keep.UsesReflectionToConstruct
 
-
-
 // The library is given a direct reference to the app's task class.
 interface StartupTask {
     fun run()
 }
 
 // Reflection with class loaded by name
-//
 // The library object that loads and executes the task.
 object TaskRunner {
     @UsesReflectionToConstruct(
@@ -25,11 +22,10 @@ object TaskRunner {
     }
 }
 
-
 // The library object that loads and executes the task.
 object TaskRunner2 {
     @UsesReflectionToConstruct(
-        className = "PreCacheTask",
+        classConstant = StartupTask::class,
         parameterTypes = []
     )
     fun execute(className: String) {

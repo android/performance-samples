@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
 //            accessSecretMessage(LibraryClass())
 //
 //            // 3. Interface Implementation Reflection Example
-//            TaskRunner.execute(PreCacheTask::class.java)
+            TaskRunner.execute(PreCacheTask::class.java)
 
               // 4. Class name of the task class
 //            TaskRunner2.execute("org.example.PreCacheTask")
