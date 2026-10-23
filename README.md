@@ -30,6 +30,12 @@ This sample shows how to use the Benchmark library to benchmark code and UI from
 
 This sample shows how to set up and use the JankStats library to detect janky frames. 
 
+## [Compose recomposition tracing](RecompositionTracing)
+
+A script that records a Perfetto system trace together with Compose composition and recomposition
+tracing from your app, and merges them into a single file you can open in
+[ui.perfetto.dev](https://ui.perfetto.dev).
+
 ## Reporting Issues
 
 You can report an [Issue with a sample](https://github.com/android/performance-samples/issues) using
