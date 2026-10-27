@@ -32,7 +32,6 @@ class MyApplication : Application() {
         super.onCreate()
 
         // ...
-
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(
                 StrictMode.ThreadPolicy.Builder()
@@ -41,7 +40,6 @@ class MyApplication : Application() {
                     .build()
             )
         }
-
         // ...
     }
 }
