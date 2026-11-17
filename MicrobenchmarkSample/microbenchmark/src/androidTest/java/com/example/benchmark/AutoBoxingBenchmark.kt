@@ -36,13 +36,9 @@ class AutoBoxingBenchmark {
      */
     @Test
     fun integerArtCacheAlloc() {
-        var i = Integer(1000)
+        var i: Int? = 0
         benchmarkRule.measureRepeated {
-            if (i < 100) {
-                i = Integer(i.toInt() + 1)
-            } else {
-                i = Integer(0)
-            }
+            i = next(i)
         }
     }
 
@@ -51,13 +47,21 @@ class AutoBoxingBenchmark {
      */
     @Test
     fun integerAlloc() {
-        var i = Integer(1000)
+        var i: Int? = 1000
         benchmarkRule.measureRepeated {
-            if (i < 1100) {
-                i = Integer(i.toInt() + 1)
-            } else {
-                i = Integer(1000)
-            }
+            i = nextBig(i)
         }
     }
+
+    /**
+     * Keep this function and [nextBig] as regular (non-inline) functions and do not move their
+     * bodies into the [BenchmarkRule.measureRepeated] block.
+     * The block is compiled into a suspend lambda, and in coroutine code Kotlin boxes primitives
+     * via boxing.kt functions like [kotlin.coroutines.jvm.internal.boxInt],
+     * which call the [Integer] constructor instead of [Integer.valueOf]. Boxing done inside
+     * the block would therefore allocate on every iteration and never use the Integer cache.
+     */
+    private fun next(i: Int?): Int? = if (i!! < 100) i + 1 else 0
+
+    private fun nextBig(i: Int?): Int? = if (i!! < 1100) i + 1 else 1000
 }
