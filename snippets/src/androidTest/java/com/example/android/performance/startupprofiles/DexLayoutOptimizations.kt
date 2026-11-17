@@ -40,8 +40,8 @@ class BaselineProfileGenerator {
             includeInStartupProfile = true
         ) {
             uiAutomator {
-                // Launch directly into the NEWS_FEED using startActivityIntent
-                startIntent(
+                // Launch directly into the NEWS_FEED using startActivityIntent.
+                startActivityIntent(
                     Intent().apply {
                         setPackage(packageName)
                         setAction("com.example.app.NEWS_FEED")

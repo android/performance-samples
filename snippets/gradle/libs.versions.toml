@@ -13,25 +13,25 @@
 # limitations under the License.
 
 [versions]
-agp = "8.13.1"
-activity = "1.11.0"
-benchmark = "1.4.1"
+activity = "1.13.0"
+agp = "8.13.2"
+benchmark = "1.5.0"
 compileSdk = "36"
-composeBom = "2025.11.00"
+composeBom = "2026.06.01"
 junit = "1.3.0"
-kotlin = "2.2.21"
-lifecycle = "2.9.4"
+kotlin = "2.4.21"
+lifecycle = "2.10.0"
 minSdk = "24"
 targetSdk = "36"
 testRunner = "1.7.0"
-uiAutomator = "2.4.0-alpha06"
+uiAutomator = "2.4.1"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 androidx-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime", version.ref = "lifecycle" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }

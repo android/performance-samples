@@ -37,7 +37,7 @@ class BaselineProfileGenerator {
                 // App startup journey.
                 startApp(PACKAGE_NAME)
 
-                // Find and click elements using the new DSL
+                // Find and click elements using the new DSL.
                 onElement { textAsString() == "COMPOSE LAZYLIST" }.click()
                 onElement { viewIdResourceName == "myLazyColumn" }.also {
                     it.fling(Direction.DOWN)
