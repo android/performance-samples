@@ -49,7 +49,7 @@ class RecyclerViewBenchmark {
     
     class LazyComputedList<T>(
         override val size: Int = Int.MAX_VALUE,
-        private inline val compute: (Int) -> T
+        private val compute: (Int) -> T
     ) : AbstractList<T>() {
         override fun get(index: Int): T = compute(index)
     }
