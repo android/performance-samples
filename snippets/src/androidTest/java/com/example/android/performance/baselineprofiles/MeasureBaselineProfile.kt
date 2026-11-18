@@ -27,6 +27,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+// In an app, this class lives in a Macrobenchmark module (a com.android.test
+// module), not in androidTest.
 // [START android_performance_baselineprofiles_measure_compilation_modes]
 @RunWith(AndroidJUnit4::class)
 class ColdStartupBenchmark {

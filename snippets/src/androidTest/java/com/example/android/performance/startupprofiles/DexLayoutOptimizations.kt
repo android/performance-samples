@@ -25,6 +25,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+// In an app, this class lives in a Baseline Profile generator module (a
+// com.android.test module), not in androidTest.
 // [START android_performance_startupprofiles_generator]
 @RunWith(AndroidJUnit4::class)
 @LargeTest

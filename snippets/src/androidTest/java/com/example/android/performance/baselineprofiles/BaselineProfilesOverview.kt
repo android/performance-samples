@@ -25,6 +25,8 @@ import org.junit.Test
 
 private const val PACKAGE_NAME = "com.example.snippets"
 
+// In an app, this class lives in a Baseline Profile generator module (a
+// com.android.test module), not in androidTest.
 // [START android_performance_baselineprofiles_overview_generator]
 class BaselineProfileGenerator {
     @get:Rule
