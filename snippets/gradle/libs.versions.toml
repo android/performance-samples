@@ -14,15 +14,16 @@
 
 [versions]
 activity = "1.13.0"
-agp = "8.13.2"
+agp = "9.5.2"
 benchmark = "1.5.0"
-compileSdk = "36"
-composeBom = "2026.06.01"
+compileSdk = "37"
+compileSdkMinor = "2"
+composeBom = "2026.11.01"
 junit = "1.3.0"
 kotlin = "2.4.21"
-lifecycle = "2.10.0"
+lifecycle = "2.11.1"
 minSdk = "24"
-targetSdk = "36"
+targetSdk = "37"
 testRunner = "1.7.0"
 uiAutomator = "2.4.1"
 
@@ -39,4 +40,3 @@ androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomato
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

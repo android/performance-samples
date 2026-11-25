@@ -16,17 +16,16 @@
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-}
-
-kotlin {
-    jvmToolchain(17)
 }
 
 android {
     namespace = "com.example.android.performance"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdk {
+        version = release(libs.versions.compileSdk.get().toInt()) {
+            minorApiLevel = libs.versions.compileSdkMinor.get().toInt()
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.android.performance"
